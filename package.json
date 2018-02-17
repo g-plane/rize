@@ -1,0 +1,33 @@
+{
+  "name": "rize",
+  "version": "0.1.0",
+  "description": "High-level and fluent API provided library for puppeteer.",
+  "author": "Pig Fang <g-plane@hotmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g-plane/rize.git"
+  },
+  "bugs": {
+    "url": "https://github.com/g-plane/rize/issues/new"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "private": false,
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc -p .",
+    "test": "exit 0"
+  },
+  "engines": {
+    "node": ">=6.5.0"
+  },
+  "dependencies": {
+    "puppeteer": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^1.0.0",
+    "tslint": "^5.9.1",
+    "tslint-config-gplane": "^1.2.0",
+    "typescript": "^2.7.2"
+  }
+}

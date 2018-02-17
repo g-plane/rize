@@ -1,0 +1,15 @@
+# Output files
+!dist/
+
+# Source code
+src/
+
+# Misc
+.editorconfig
+tsconfig.json
+tslint.json
+yarn.lock
+
+# CI config
+.travis.yml
+appveyor.yml
