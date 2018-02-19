@@ -23,8 +23,8 @@
   "private": false,
   "scripts": {
     "build": "tsc -p .",
-    "test": "jest",
-    "coverage": "jest --coverage"
+    "test": "jest --verbose",
+    "coverage": "jest --verbose --coverage"
   },
   "engines": {
     "node": ">=6.4.0"
