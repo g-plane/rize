@@ -14,4 +14,8 @@ test_script:
   - yarn --version
   - yarn test
 
+cache:
+ - node_modules
+ - "%LOCALAPPDATA%/Yarn"
+
 build: off
