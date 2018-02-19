@@ -64,6 +64,10 @@ export default class Rize {
     return this
   }
 
+  withUserAgent (userAgent: string) {
+    return this
+  }
+
   execute (fn: (args?: any[]) => void) {
     return this
   }

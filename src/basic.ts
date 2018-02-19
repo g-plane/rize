@@ -17,6 +17,14 @@ export default function mixinBasic (Rize: typeof RizeInstance) {
     return this
   }
 
+  Rize.prototype.withUserAgent = function (userAgent: string) {
+    this.push(async () => {
+      await this.page.setUserAgent(userAgent)
+    })
+
+    return this
+  }
+
   Rize.prototype.execute = function (fn: (args?: any[]) => void) {
     this.push(fn)
 

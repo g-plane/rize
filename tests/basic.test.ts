@@ -24,6 +24,14 @@ test('sleep for a short time', done => {
   })
 })
 
+test('use user agent', done => {
+  const instance = new Rize()
+  instance.withUserAgent('Chrome').execute(async () => {
+    const ua = await instance.page.evaluate(() => navigator.userAgent)
+    expect(ua).toBe('Chrome')
+  }).end(done)
+})
+
 test('close page', done => {
   const instance = new Rize()
   instance.closePage().execute(() => {
