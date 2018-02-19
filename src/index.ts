@@ -64,6 +64,11 @@ export default class Rize {
     return this
   }
 
+  clear () {
+    this.queue = []
+    return this
+  }
+
   /* basic START */
 
   sleep (ms: number) {
