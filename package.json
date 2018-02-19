@@ -40,7 +40,11 @@
       "<rootDir>/tests/server",
       "<rootDir>/tests/utils"
     ],
-    "mapCoverage": true
+    "mapCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/index.ts"
+    ]
   },
   "dependencies": {
     "puppeteer": "^1.1.0"
