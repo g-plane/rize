@@ -17,6 +17,12 @@ export default function mixinBasic (Rize: typeof RizeInstance) {
     return this
   }
 
+  Rize.prototype.execute = function (fn: (args?: any[]) => void) {
+    this.push(fn)
+
+    return this
+  }
+
   Rize.prototype.closePage = function () {
     this.push(async () => {
       await this.page.close()

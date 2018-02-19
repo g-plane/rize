@@ -52,6 +52,8 @@ export default class Rize {
 
   sleep (ms: number) { return this }
 
+  execute (fn: (args?: any[]) => void) { return this }
+
   closePage () { return this }
 
   end (callback?: (args?: any[]) => void) { return }
