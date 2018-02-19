@@ -1,12 +1,10 @@
 environment:
   matrix:
-    - node_version: "9"
     - node_version: "8"
-    - node_version: "7"
     - node_version: "6.4"
 
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - ps: Install-Product node $env:node_version
   - yarn
 
 test_script:
