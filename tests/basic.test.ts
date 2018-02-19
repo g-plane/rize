@@ -1,17 +1,5 @@
 import puppeteer from 'puppeteer'
 import Rize from '../src'
-import createServer from './server'
-
-test('go to a specified url', done => {
-  const server = createServer()
-  const instance = new Rize()
-  instance.goto('http://localhost:4321/').execute(() => {
-    expect(instance.page.url()).toBe('http://localhost:4321/')
-    done()
-    instance.browser.close()
-    server.close()
-  })
-})
 
 test('sleep for a short time', done => {
   const instance = new Rize()

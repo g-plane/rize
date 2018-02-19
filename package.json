@@ -46,7 +46,6 @@
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/tests/server",
       "<rootDir>/tests/utils"
     ],
     "mapCoverage": true,

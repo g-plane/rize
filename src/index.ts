@@ -1,6 +1,7 @@
 import EventEmitter from 'events'
 import puppeteer from 'puppeteer'
 import mixinBasic from './basic'
+import mixinPage from './page'
 
 export interface RizeOptions {
   beforeLaunch? (args?: any[]): void
@@ -19,10 +20,10 @@ export default class Rize {
 
       if (process.env.TRAVIS && process.platform === 'linux') {
         options.args
-          // tslint:disable-next-line no-bitwise
-          ? !~options.args.indexOf('--no-sandbox')
+          ? // tslint:disable-next-line no-bitwise
+            !~options.args.indexOf('--no-sandbox')
             ? options.args.push('--no-sandbox')
-            : undefined   // tslint:disable-line no-unused-expression
+            : undefined // tslint:disable-line no-unused-expression
           : (options.args = ['--no-sandbox'])
       }
 
@@ -65,10 +66,6 @@ export default class Rize {
 
   /* basic START */
 
-  goto (url: string) {
-    return this
-  }
-
   sleep (ms: number) {
     return this
   }
@@ -90,6 +87,35 @@ export default class Rize {
   }
 
   /* basic END */
+
+  /* page START */
+
+  goto (url: string) {
+    return this
+  }
+
+  forward (options?: puppeteer.NavigationOptions) {
+    return this
+  }
+
+  back (options?: puppeteer.NavigationOptions) {
+    return this
+  }
+
+  refresh (options?: puppeteer.NavigationOptions) {
+    return this
+  }
+
+  screenshot (path: string, options?: puppeteer.ScreenshotOptions) {
+    return this
+  }
+
+  pdf (path: string, options?: puppeteer.PDFOptions) {
+    return this
+  }
+
+  /* page END */
 }
 
 mixinBasic(Rize)
+mixinPage(Rize)
