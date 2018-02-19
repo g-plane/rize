@@ -1,6 +1,6 @@
-import RizeInstance from './index'
+import { RizeClass } from './types'
 
-export default function mixinBasic (Rize: typeof RizeInstance) {
+export default function mixinBasic (Rize: RizeClass) {
   Rize.prototype.goto = function (url: string) {
     this.push(async () => {
       await this.page.goto(url)

@@ -2,7 +2,6 @@ import EventEmitter from 'events'
 import puppeteer from 'puppeteer'
 import mixinBasic from './basic'
 
-/* istanbul ignore next */
 export default class Rize {
   private queue: symbol[] = []
   private eventBus = new EventEmitter()
@@ -46,20 +45,7 @@ export default class Rize {
     return this
   }
 
-  /* basic START */
-
-  goto (url: string) { return this }
-
-  sleep (ms: number) { return this }
-
-  execute (fn: (args?: any[]) => void) { return this }
-
-  closePage () { return this }
-
-  end (callback?: (args?: any[]) => void) { return }
-
-  /* basic END */
-
 }
 
+// @ts-ignore
 mixinBasic(Rize)
