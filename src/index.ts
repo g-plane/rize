@@ -21,9 +21,9 @@ export default class Rize {
       if (process.env.TRAVIS && process.platform === 'linux') {
         options.args
           ? // tslint:disable-next-line no-bitwise
-            !~options.args.indexOf('--no-sandbox')
-            ? options.args.push('--no-sandbox')
-            : undefined // tslint:disable-line no-unused-expression
+            options.args.includes('--no-sandbox')
+            ? undefined // tslint:disable-line no-unused-expression
+            : options.args.push('--no-sandbox')
           : (options.args = ['--no-sandbox'])
       }
 
