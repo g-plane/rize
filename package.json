@@ -11,6 +11,14 @@
     "url": "https://github.com/g-plane/rize/issues/new"
   },
   "license": "MIT",
+  "keywords": [
+    "rize",
+    "puppeteer",
+    "test",
+    "e2e",
+    "chrome",
+    "googlechrome"
+  ],
   "main": "dist/index.js",
   "private": false,
   "scripts": {
