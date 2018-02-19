@@ -2,15 +2,23 @@ import EventEmitter from 'events'
 import puppeteer from 'puppeteer'
 import mixinBasic from './basic'
 
-/* istanbul ignore next */
 export default class Rize {
   private queue: symbol[] = []
   private eventBus = new EventEmitter()
   public browser!: puppeteer.Browser
   public page!: puppeteer.Page
 
-  constructor (options?: puppeteer.LaunchOptions) {
+  constructor (options: puppeteer.LaunchOptions = {}) {
     (async () => {
+      if (process.env.TRAVIS && process.platform === 'linux') {
+        options.args
+          // tslint:disable-next-line no-bitwise
+          ? !~options.args.indexOf('--no-sandbox')
+            ? options.args.push('--no-sandbox')
+            : undefined   // tslint:disable-line no-unused-expression
+          : (options.args = ['--no-sandbox'])
+      }
+
       this.browser = await puppeteer.launch(options)
       this.page = await this.browser.newPage()
 
@@ -48,18 +56,27 @@ export default class Rize {
 
   /* basic START */
 
-  goto (url: string) { return this }
+  goto (url: string) {
+    return this
+  }
 
-  sleep (ms: number) { return this }
+  sleep (ms: number) {
+    return this
+  }
 
-  execute (fn: (args?: any[]) => void) { return this }
+  execute (fn: (args?: any[]) => void) {
+    return this
+  }
 
-  closePage () { return this }
+  closePage () {
+    return this
+  }
 
-  end (callback?: (args?: any[]) => void) { return }
+  end (callback?: (args?: any[]) => void) {
+    return
+  }
 
   /* basic END */
-
 }
 
 mixinBasic(Rize)
