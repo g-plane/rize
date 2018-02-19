@@ -3,9 +3,20 @@ node_js:
   - 6.4
   - 7
   - 8
-  - 9
 
 cache:
   yarn: true
   directories:
     - node_modules
+
+matrix:
+  include:
+  - node_js: 9
+    script:
+      - yarn coverage
+    after_success:
+      - yarn codecov
+  - os: osx
+    node_js: 6.4
+  - os: osx
+    node_js: 8
