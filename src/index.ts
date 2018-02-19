@@ -2,14 +2,21 @@ import EventEmitter from 'events'
 import puppeteer from 'puppeteer'
 import mixinBasic from './basic'
 
+export interface RizeOptions {
+  beforeLaunch? (args?: any[]): void
+  afterLaunched? (args?: any[]): void
+}
+
 export default class Rize {
   private queue: symbol[] = []
   private eventBus = new EventEmitter()
   public browser!: puppeteer.Browser
   public page!: puppeteer.Page
 
-  constructor (options: puppeteer.LaunchOptions = {}) {
+  constructor (options: puppeteer.LaunchOptions & RizeOptions = {}) {
     (async () => {
+      options.beforeLaunch && options.beforeLaunch()
+
       if (process.env.TRAVIS && process.platform === 'linux') {
         options.args
           // tslint:disable-next-line no-bitwise
@@ -21,6 +28,8 @@ export default class Rize {
 
       this.browser = await puppeteer.launch(options)
       this.page = await this.browser.newPage()
+
+      options.afterLaunched && options.afterLaunched()
 
       const first = this.queue[0]
       if (first) {
