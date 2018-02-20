@@ -91,11 +91,11 @@ test('generate a screenshot', done => {
     }
   })
   instance
-    .screenshot('file1')
+    .saveScreenshot('file1')
     .execute(() => {
       expect(instance.page.screenshot).toBeCalledWith({ path: 'file1' })
     })
-    .screenshot('file2', { type: 'jpeg' })
+    .saveScreenshot('file2', { type: 'jpeg' })
     .execute(() => {
       expect(instance.page.screenshot as (typeof instance.page.screenshot) &
         jest.MockInstance<any>).toBeCalledWith({ path: 'file2', type: 'jpeg' })
@@ -110,11 +110,11 @@ test('generate a PDF', done => {
     }
   })
   instance
-    .pdf('file1')
+    .savePDF('file1')
     .execute(() => {
       expect(instance.page.pdf).toBeCalledWith({ path: 'file1' })
     })
-    .pdf('file2', { format: 'Letter' })
+    .savePDF('file2', { format: 'Letter' })
     .execute(() => {
       expect(instance.page.pdf as (typeof instance.page.pdf) &
         jest.MockInstance<any>).toBeCalledWith({

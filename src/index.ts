@@ -116,11 +116,11 @@ export default class Rize {
     return this
   }
 
-  screenshot (path: string, options?: puppeteer.ScreenshotOptions) {
+  saveScreenshot (path: string, options?: puppeteer.ScreenshotOptions) {
     return this
   }
 
-  pdf (path: string, options?: puppeteer.PDFOptions) {
+  savePDF (path: string, options?: puppeteer.PDFOptions) {
     return this
   }
 

@@ -34,7 +34,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.screenshot = function (
+  Rize.prototype.saveScreenshot = function (
     path: string,
     options?: puppeteer.ScreenshotOptions
   ) {
@@ -45,7 +45,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.pdf = function (
+  Rize.prototype.savePDF = function (
     path: string,
     options?: puppeteer.PDFOptions
   ) {
