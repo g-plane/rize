@@ -2,6 +2,7 @@ import EventEmitter from 'events'
 import puppeteer from 'puppeteer'
 import mixinBasic from './basic'
 import mixinPage from './page'
+import mixinAssertions from './assertions'
 
 export interface RizeOptions {
   beforeLaunch? (args?: any[]): void
@@ -51,9 +52,14 @@ export default class Rize {
     const unique = Symbol()
     this.queue.push(unique)
     this.eventBus.once(unique, async () => {
-      await fn()
-      this.eventBus.emit(this.queue[this.queue.indexOf(unique) + 1])
-      this.queue.shift()
+      try {
+        await fn()
+      } catch (error) {
+        throw error
+      } finally {
+        this.eventBus.emit(this.queue[this.queue.indexOf(unique) + 1])
+        this.queue.shift()
+      }
     })
 
     if (this.browser && this.page && this.queue.length === 1) {
@@ -119,7 +125,52 @@ export default class Rize {
   }
 
   /* page END */
+
+  /* assertions START */
+
+  assertUrlIs (expected: string) {
+    return this
+  }
+
+  assertPathIs (expected: string) {
+    return this
+  }
+
+  assertPathBeginsWith (expected: string) {
+    return this
+  }
+
+  assertTitle (title: string) {
+    return this
+  }
+
+  assertTitleContains (title: string) {
+    return this
+  }
+
+  assertQueryStringHas (key: string, value?: string) {
+    return this
+  }
+
+  assertQueryStringMissing (key: string) {
+    return this
+  }
+
+  assertCookiesHas (name: string, value?: string) {
+    return this
+  }
+
+  assertSee (text: string) {
+    return this
+  }
+
+  assertSeeIn (selector: string, text: string) {
+    return this
+  }
+
+  /* assertions END */
 }
 
 mixinBasic(Rize)
 mixinPage(Rize)
+mixinAssertions(Rize)
