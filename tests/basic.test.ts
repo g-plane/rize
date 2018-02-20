@@ -5,30 +5,37 @@ test('sleep for a short time', done => {
   const instance = new Rize()
   const mock = jest.fn()
   instance.execute(() => (instance.page.waitFor = mock))
-  instance.sleep(1).execute(() => {
-    expect(mock).toHaveBeenCalledWith(1)
-    done()
-    instance.browser.close()
-  })
+  instance
+    .sleep(1)
+    .execute(() => {
+      expect(mock).toHaveBeenCalledWith(1)
+      done()
+    })
+    .end()
 })
 
 test('use user agent', done => {
   const instance = new Rize()
-  instance.withUserAgent('Chrome').execute(async () => {
-    const ua = await instance.page.evaluate(() => navigator.userAgent)
-    expect(ua).toBe('Chrome')
-  }).end(done)
+  instance
+    .withUserAgent('Chrome')
+    .execute(async () => {
+      const ua = await instance.page.evaluate(() => navigator.userAgent)
+      expect(ua).toBe('Chrome')
+    })
+    .end(done)
 })
 
 test('close page', done => {
   const instance = new Rize()
-  instance.closePage().execute(() => {
-    expect(
-      (instance.page as puppeteer.Page & { _client })._client._connection
-    ).toBeFalsy()
-    done()
-    instance.browser.close()
-  })
+  instance
+    .closePage()
+    .execute(() => {
+      expect(
+        (instance.page as puppeteer.Page & { _client })._client._connection
+      ).toBeFalsy()
+      done()
+    })
+    .end(done)
 })
 
 test('exit browser and run callback', done => {
