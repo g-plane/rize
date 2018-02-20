@@ -12,3 +12,5 @@ Rize is a high-level and fluent API provided library which let you use puppeteer
 ## License
 
 MIT License
+
+Copyright (c) 2018-present Pig Fang
