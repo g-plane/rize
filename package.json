@@ -1,6 +1,6 @@
 {
   "name": "rize",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "High-level and fluent API provided library for puppeteer.",
   "author": "Pig Fang <g-plane@hotmail.com>",
   "repository": {
