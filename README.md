@@ -9,6 +9,34 @@
 
 Rize is a high-level and fluent API provided library which let you use puppeteer simply.
 
+## Installation
+
+You should install `puppeteer` at the same time.
+
+```shell
+yarn add --dev puppeteer rize
+```
+
+or via npm:
+
+```shell
+npm install --save-dev puppeteer rize
+```
+
+If you are in China, you may specify Chrome binary mirror.
+
+On Linux or macOS:
+
+```shell
+PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+```
+
+On Windows:
+
+```shell
+SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+```
+
 ## License
 
 MIT License
