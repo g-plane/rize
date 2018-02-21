@@ -168,6 +168,18 @@ export default class Rize {
     return this
   }
 
+  assertAttribute (selector: string, attribute: string, value: string) {
+    return this
+  }
+
+  assertHasClass (selector: string, className: string) {
+    return this
+  }
+
+  assertHasStyle (selector: string, attribute: string, value: string) {
+    return this
+  }
+
   /* assertions END */
 }
 

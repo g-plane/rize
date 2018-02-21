@@ -109,3 +109,46 @@ test('see some text in an element', done => {
     .execute(() => server.close())
     .end(done)
 })
+
+test('assert attribute of an element', done => {
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><div class="rabbit-house">rize</div></body>
+    </html>
+  `)).listen(2333)
+  const instance = new Rize()
+  instance
+    .goto('http://localhost:2333/')
+    .assertAttribute('div', 'class', 'rabbit-house')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert an element has a class', done => {
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><div class="rabbit-house">rize</div></body>
+    </html>
+  `)).listen(2333)
+  const instance = new Rize()
+  instance
+    .goto('http://localhost:2333/')
+    .assertHasClass('div', 'rabbit-house')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert style of an element', done => {
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><div style="font-size: 5px">rize</div></body>
+    </html>
+  `)).listen(2333)
+  const instance = new Rize()
+  instance
+    .goto('http://localhost:2333/')
+    .assertHasStyle('div', 'font-size', '5px')
+    .assertHasStyle('div', 'fontSize', '5px')
+    .execute(() => server.close())
+    .end(done)
+})

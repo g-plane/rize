@@ -108,10 +108,75 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
       assert.ok(element, 'Element not found.')
       const textContent: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        sel => document.querySelector(sel).textContent,
+        (sel: string) => document.querySelector(sel)!.textContent,
         selector
       )
       assert.ok(textContent.includes(text), 'Text not found.')
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertAttribute = function (
+    selector: string,
+    attribute: string,
+    value: string
+  ) {
+    this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, 'Element not found.')
+      const actual = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel: string, attr) => document.querySelector(sel)!.getAttribute(attr),
+        selector, attribute
+      )
+      assert.strictEqual(actual, value)
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertHasClass = function (
+    selector: string,
+    className: string,
+  ) {
+    this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, 'Element not found.')
+      const result: boolean = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (
+          sel: string,
+          name
+        ) => document.querySelector(sel)!.classList.contains(name),
+        selector, className
+      )
+      assert.ok(result, `Element does not has "${className}" class.`)
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertHasStyle = function (
+    selector: string,
+    attribute: string,
+    value: string
+  ) {
+    this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, 'Element not found.')
+
+      const camelAttr = attribute.replace(
+        /(\-[A-Za-z])/g,
+        m => m.toUpperCase().replace('-', '')
+      )
+
+      const actual = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, attr) => (document.querySelector(sel) as HTMLElement).style[attr],
+        selector, camelAttr
+      )
+      assert.strictEqual(actual, value)
     })
 
     return this
