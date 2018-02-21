@@ -4,6 +4,12 @@
 # Source code
 src/
 
+# Coverage
+coverage/
+
+# Test
+tests/
+
 # Misc
 .editorconfig
 tsconfig.json
