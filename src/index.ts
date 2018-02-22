@@ -45,11 +45,11 @@ export default class Rize {
    * please do not use this function directly.
    *
    * @param fn Function to be pushed to queue.
-   * @returns {this}
-   *
+   * @returns The `Rize` instance itself.
+   * @memberof Rize
    * @private
    */
-  push (fn: () => void | Promise<void>) {
+  push (fn: () => any) {
     const unique = Symbol()
     this.queue.push(unique)
     this.eventBus.once(unique, async () => {
@@ -70,8 +70,27 @@ export default class Rize {
     return this
   }
 
-  clear () {
+  /**
+   * Clear the operations queue.
+   *
+   * @returns The `Rize` instance itself.
+   * @memberof Rize
+   */
+  clearQueue () {
+    this.push(() => (this.queue = []))
+
+    return this
+  }
+
+  /**
+   * Clear the operations queue **RIGHT NOW**.
+   *
+   * @returns The `Rize` instance itself.
+   * @memberof Rize
+   */
+  clearQueueNow () {
     this.queue = []
+
     return this
   }
 
