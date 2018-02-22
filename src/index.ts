@@ -3,6 +3,7 @@ import puppeteer from 'puppeteer'
 import mixinBasic from './basic'
 import mixinPage from './page'
 import mixinAssertions from './assertions'
+import mixinActions from './actions'
 
 export interface RizeOptions {
   beforeLaunch? (args?: any[]): void
@@ -181,8 +182,57 @@ export default class Rize {
   }
 
   /* assertions END */
+
+  /* actions START */
+
+  click (selector: string) {
+    return this
+  }
+
+  doubleClick (selector: string, delay?: number) {
+    return this
+  }
+
+  rightClick (selector: string) {
+    return this
+  }
+
+  hover (selector: string) {
+    return this
+  }
+
+  type (selector: string, text: string) {
+    return this
+  }
+
+  focus (selector: string) {
+    return this
+  }
+
+  select (selector: string, values: string | string[]) {
+    return this
+  }
+
+  press (key: string, selector?: string) {
+    return this
+  }
+
+  keyDown (key: string) {
+    return this
+  }
+
+  keyUp (key: string) {
+    return this
+  }
+
+  uploadFile (selector: string, path: string) {
+    return this
+  }
+
+  /* actions END */
 }
 
 mixinBasic(Rize)
 mixinPage(Rize)
 mixinAssertions(Rize)
+mixinActions(Rize)

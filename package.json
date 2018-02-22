@@ -59,6 +59,7 @@
     "@types/puppeteer": "^1.0.0",
     "codecov": "^3.0.0",
     "jest": "^22.3.0",
+    "portfinder": "^1.0.13",
     "puppeteer": "^1.1.0",
     "ts-jest": "^22.0.4",
     "tslint": "^5.9.1",
