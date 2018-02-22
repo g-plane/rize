@@ -25,6 +25,7 @@
   "private": false,
   "scripts": {
     "build": "tsc -p .",
+    "build:docs": "typedoc --excludeExternals --excludePrivate --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs ./src/index.ts",
     "test": "jest --verbose",
     "coverage": "jest --verbose --coverage"
   },
@@ -66,6 +67,7 @@
     "ts-jest": "^22.0.4",
     "tslint": "^5.9.1",
     "tslint-config-gplane": "^1.3.0",
+    "typedoc": "^0.10.0",
     "typescript": "^2.7.2"
   },
   "peerDependencies": {

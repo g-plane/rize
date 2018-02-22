@@ -8,9 +8,9 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.doubleClick = function (selector: string, delay?: number) {
+  Rize.prototype.doubleClick = function (selector: string) {
     this.push(async () => {
-      await this.page.click(selector, { clickCount: 2, delay })
+      await this.page.click(selector, { clickCount: 2 })
     })
 
     return this

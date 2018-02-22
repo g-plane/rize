@@ -39,7 +39,7 @@ export default function mixinBasic (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.end = function (callback?: (...args) => void) {
+  Rize.prototype.end = function (callback?: (...args) => any) {
     this.push(async () => {
       await this.browser.close()
       callback && callback()

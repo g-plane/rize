@@ -10,6 +10,9 @@ coverage/
 # Test
 tests/
 
+# Documentation
+docs/
+
 # Misc
 .editorconfig
 tsconfig.json
