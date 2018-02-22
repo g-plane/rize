@@ -13,7 +13,7 @@ test('go to a specified url', done => {
       expect(instance.page.goto).toBeCalledWith('url')
     })
     .end(done)
-}, 6000)
+}, process.env.CI ? 8000 : 5000)
 
 test('go forward', done => {
   const instance = new Rize({

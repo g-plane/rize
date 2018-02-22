@@ -8,7 +8,7 @@ test('call a function before browser launch', done => {
       expect(fn).toBeCalled()
     })
     .end(done)
-}, 6000)
+}, process.env.CI ? 8000 : 5000)
 
 test('call a function after browser launched', done => {
   const fn = jest.fn()

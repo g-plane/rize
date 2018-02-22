@@ -29,7 +29,7 @@ test('click on an element', async done => {
       server.close()
     })
     .end(done)
-}, 6000)
+}, process.env.CI ? 8000 : 5000)
 
 test('double click on an element', async done => {
   const port = await getPort()

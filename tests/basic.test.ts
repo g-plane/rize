@@ -12,7 +12,7 @@ test('sleep for a short time', done => {
       done()
     })
     .end()
-}, 6000)
+}, process.env.CI ? 8000 : 5000)
 
 test('use user agent', done => {
   const instance = new Rize()
