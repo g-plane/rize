@@ -51,6 +51,49 @@ or
 npm install --save-dev @types/puppeteer
 ```
 
+## Basic Usage
+
+### Import
+
+It's recommended to use ES-style import:
+
+```javascript
+import Rize from 'rize'
+```
+
+However, if you use CommonJS-style import, you should import like this:
+
+```javascript
+const Rize = require('rize').default
+```
+
+### Getting Started
+
+Just like this:
+
+```javascript
+const rize = new Rize()
+```
+
+You can pass some options to the constructor,
+and these options are `puppeteer`'s options:
+
+```javascript
+const rize = new Rize({ headless: false })
+```
+
+All `Rize`'s APIs are chainable, so you can do something like this:
+
+```javascript
+rize
+  .goto('https://github.com/')
+  .type('input.header-search-input', 'node')
+  .press('Enter')
+  .end()  // Don't forget call `end` function to exit browser!
+```
+
+All available APIs are listed [here](https://rize-docs.netlify.com/classes/_index_.rize.html). 
+
 ## License
 
 MIT License
