@@ -6,8 +6,8 @@ import mixinAssertions from './assertions'
 import mixinActions from './actions'
 
 export interface RizeOptions {
-  beforeLaunch? (args?: any[]): void
-  afterLaunched? (args?: any[]): void
+  beforeLaunch? (...args): void
+  afterLaunched? (...args): void
 }
 
 export default class Rize {
@@ -85,7 +85,7 @@ export default class Rize {
     return this
   }
 
-  execute (fn: (args?: any[]) => void) {
+  execute (fn: (...args) => void) {
     return this
   }
 
@@ -93,7 +93,7 @@ export default class Rize {
     return this
   }
 
-  end (callback?: (args?: any[]) => void) {
+  end (callback?: (...args) => void) {
     return
   }
 
