@@ -515,7 +515,7 @@ export default class Rize {
   /**
    * Assert that query string has the given key.
    *
-   * You can pass a expected value as the second argument.
+   * You can pass an expected value as the second argument.
    * Then it will check the value of given key in query string.
    *
    * @param {string} key Expected key in query string.
@@ -562,7 +562,7 @@ export default class Rize {
   /**
    * Assert that the cookies of current page has the given name and value.
    *
-   * You can pass a expected value as the second argument.
+   * You can pass an expected value as the second argument.
    * Then it will check the value of given name in cookies.
    *
    * @param {string} name Expected cookies name.
