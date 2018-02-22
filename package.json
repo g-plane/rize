@@ -1,7 +1,7 @@
 {
   "name": "rize",
   "version": "0.1.0-alpha.1",
-  "description": "High-level and fluent API provided library for puppeteer.",
+  "description": "High-level and fluent and chainable API provided library for puppeteer.",
   "author": "Pig Fang <g-plane@hotmail.com>",
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
     "test",
     "e2e",
     "chrome",
-    "googlechrome"
+    "googlechrome",
+    "chainable",
+    "fluent"
   ],
   "main": "dist/index.js",
   "private": false,

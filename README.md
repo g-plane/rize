@@ -9,7 +9,7 @@
   <a href="https://www.npmjs.com/package/rize"><img src="https://img.shields.io/npm/dm/rize.svg?style=flat-square" alt="NPM Downloads"></a>
 </p>
 
-Rize is a high-level and fluent API provided library which let you use puppeteer simply.
+Rize is a high-level and fluent and chainable API provided library which let you use puppeteer simply.
 
 ## Installation
 
