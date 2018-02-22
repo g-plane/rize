@@ -25,6 +25,17 @@ test('use user agent', done => {
     .end(done)
 })
 
+test('execute a function', done => {
+  const instance = new Rize()
+  instance
+    .execute(function (browser, page) {
+      expect(this).toBe(instance)
+      expect(browser).toBe(this.browser)
+      expect(page).toBe(this.page)
+    })
+    .end(done)
+})
+
 test('close page', done => {
   const instance = new Rize()
   instance

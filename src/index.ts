@@ -85,7 +85,12 @@ export default class Rize {
     return this
   }
 
-  execute (fn: (...args) => void) {
+  execute (fn: (
+    this: Rize,
+    browser: puppeteer.Browser,
+    page: puppeteer.Page,
+    ...args
+  ) => void) {
     return this
   }
 

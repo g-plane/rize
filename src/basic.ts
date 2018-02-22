@@ -1,3 +1,4 @@
+import puppeteer from 'puppeteer'
 import RizeInstance from './index'
 
 export default function mixinBasic (Rize: typeof RizeInstance) {
@@ -17,8 +18,15 @@ export default function mixinBasic (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.execute = function (fn: (...args) => void) {
-    this.push(fn)
+  Rize.prototype.execute = function (
+    fn: (
+      this: RizeInstance,
+      browser: puppeteer.Browser,
+      page: puppeteer.Page,
+      ...args
+    ) => void
+  ) {
+    this.push(() => fn.call(this, this.browser, this.page))
 
     return this
   }
