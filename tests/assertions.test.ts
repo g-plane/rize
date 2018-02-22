@@ -8,7 +8,7 @@ test('assert url', done => {
   instance
     .assertUrlIs('about:blank')
     .end(done)
-})
+}, 6000)
 
 test('assert url path', done => {
   const server = http.createServer((req, res) => res.end()).listen(2333)
