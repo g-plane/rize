@@ -39,6 +39,18 @@ On Windows:
 SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
 ```
 
+For TypeScript users, you should install type declarations of `puppeteer`:
+
+```shell
+yarn add --dev @types/puppeteer
+```
+
+or 
+
+```shell
+npm install --save-dev @types/puppeteer
+```
+
 ## License
 
 MIT License
