@@ -28,6 +28,10 @@ export interface RizeOptions {
   /**
    * A lifecycle hook which you can do something after the browser launched.
    *
+   * `this` context points to the `Rize` instance.
+   * So you can visit browser and page here.
+   * (Like `this.browser` or `this.page`)
+   *
    * @param {any} args Arguments of the functions.
    * @memberof RizeOptions
    *
@@ -37,12 +41,13 @@ export interface RizeOptions {
    *
    * const rize = new Rize({
    *   afterLaunched () {
+   *     this === rize  // true
    *     console.log('The browser has launched.')
    *   }
    * })
    * ```
    */
-  afterLaunched? (...args): void
+  afterLaunched? (this: Rize, ...args): void
 }
 
 export default class Rize {
@@ -83,7 +88,7 @@ export default class Rize {
       this.browser = await puppeteer.launch(options)
       this.page = await this.browser.newPage()
 
-      options.afterLaunched && options.afterLaunched()
+      options.afterLaunched && options.afterLaunched.call(this)
 
       const first = this.queue[0]
       if (first) {

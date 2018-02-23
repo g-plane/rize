@@ -14,7 +14,10 @@ test('call a function after browser launched', done => {
   const fn = jest.fn()
   const instance = new Rize({ afterLaunched: fn })
   instance
-    .execute(() => {
+    .execute(function () {
+      expect(this).toBe(instance)
+      expect(this.browser).toBe(instance.browser)
+      expect(this.page).toBe(instance.page)
       expect(fn).toBeCalled()
     })
     .end(done)
