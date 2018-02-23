@@ -89,10 +89,29 @@ rize
   .goto('https://github.com/')
   .type('input.header-search-input', 'node')
   .press('Enter')
+  .waitForNavigation()
+  .assertSee('Node.js')
   .end()  // Don't forget call `end` function to exit browser!
 ```
 
 All available APIs are listed [here](https://rize-docs.netlify.com/classes/_index_.rize.html). 
+
+### Lifecycle Hooks
+
+`Rize` provides lifecycle hooks. You can use these hooks in `Rize` options.
+
+```javascript
+new Rize({
+  beforeLaunch () {
+    console.log('The browser is going to launch.')
+  },
+  afterLaunched () {
+    // You can visit browser and page instance here.
+    this.browser
+    this.page
+  }
+})
+```
 
 ## License
 
