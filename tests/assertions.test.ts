@@ -1,6 +1,7 @@
 import assert from 'assert'
 import http from 'http'
 import puppeteer from 'puppeteer'
+import { getPortPromise as getPort } from 'portfinder'
 import Rize from '../src'
 
 test('assert url', done => {
@@ -10,21 +11,23 @@ test('assert url', done => {
     .end(done)
 }, process.env.CI ? 8000 : 5000)
 
-test('assert url path', done => {
-  const server = http.createServer((req, res) => res.end()).listen(2333)
+test('assert url path', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end()).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/rabbit-house/rize')
+    .goto(`http://localhost:${port}/rabbit-house/rize`)
     .assertPathIs('/rabbit-house/rize')
     .execute(() => server.close())
     .end(done)
 })
 
-test('assert url path starts with a specified string', done => {
-  const server = http.createServer((req, res) => res.end()).listen(2333)
+test('assert url path starts with a specified string', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end()).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/rabbit-house/rize')
+    .goto(`http://localhost:${port}/rabbit-house/rize`)
     .assertPathBeginsWith('/rabbit-house')
     .execute(() => server.close())
     .end(done)
@@ -46,32 +49,35 @@ test('assert title contains a string', done => {
     .end(done)
 })
 
-test('assert query string has key and value', done => {
-  const server = http.createServer((req, res) => res.end()).listen(2333)
+test('assert query string has key and value', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end()).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/?key=value')
+    .goto(`http://localhost:${port}/?key=value`)
     .assertQueryStringHas('key')
     .assertQueryStringHas('key', 'value')
     .execute(() => server.close())
     .end(done)
 })
 
-test('assert query string does not have a key', done => {
-  const server = http.createServer((req, res) => res.end()).listen(2333)
+test('assert query string does not have a key', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end()).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/?key=value')
+    .goto(`http://localhost:${port}/?key=value`)
     .assertQueryStringMissing('missing')
     .execute(() => server.close())
     .end(done)
 })
 
-test('assert has cookies', done => {
-  const server = http.createServer((req, res) => res.end()).listen(2333)
+test('assert has cookies', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end()).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/?key=value')
+    .goto(`http://localhost:${port}/?key=value`)
     .execute(async () => await instance.page.setCookie({
       name: 'name',
       value: 'value'
@@ -82,71 +88,76 @@ test('assert has cookies', done => {
     .end(done)
 })
 
-test('see some text in page', done => {
+test('see some text in page', async done => {
+  const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
       <body><script>document.write(1 + 1)</script></body>
     </html>
-  `)).listen(2333)
+  `)).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/')
+    .goto(`http://localhost:${port}/`)
     .assertSee('2')
     .execute(() => server.close())
     .end(done)
 })
 
-test('see some text in an element', done => {
+test('see some text in an element', async done => {
+  const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
       <body><div>rize</div></body>
     </html>
-  `)).listen(2333)
+  `)).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/')
+    .goto(`http://localhost:${port}/`)
     .assertSeeIn('div', 'rize')
     .execute(() => server.close())
     .end(done)
 })
 
-test('assert attribute of an element', done => {
+test('assert attribute of an element', async done => {
+  const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
       <body><div class="rabbit-house">rize</div></body>
     </html>
-  `)).listen(2333)
+  `)).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/')
+    .goto(`http://localhost:${port}/`)
     .assertAttribute('div', 'class', 'rabbit-house')
     .execute(() => server.close())
     .end(done)
 })
 
-test('assert an element has a class', done => {
+test('assert an element has a class', async done => {
+  const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
       <body><div class="rabbit-house">rize</div></body>
     </html>
-  `)).listen(2333)
+  `)).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/')
+    .goto(`http://localhost:${port}/`)
     .assertHasClass('div', 'rabbit-house')
     .execute(() => server.close())
     .end(done)
 })
 
-test('assert style of an element', done => {
+test('assert style of an element', async done => {
+  const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
       <body><div style="font-size: 5px">rize</div></body>
     </html>
-  `)).listen(2333)
+  `)).listen(port)
   const instance = new Rize()
   instance
-    .goto('http://localhost:2333/')
+    .goto(`http://localhost:${port}/`)
     .assertHasStyle('div', 'font-size', '5px')
     .assertHasStyle('div', 'fontSize', '5px')
     .execute(() => server.close())
