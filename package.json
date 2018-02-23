@@ -44,9 +44,6 @@
       "json",
       "node"
     ],
-    "setupFiles": [
-      "<rootDir>/tests/utils/setup.ts"
-    ],
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
     "testPathIgnorePatterns": [
       "/node_modules/",
