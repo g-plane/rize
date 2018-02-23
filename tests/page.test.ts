@@ -165,3 +165,20 @@ test('wait for an element', async done => {
     })
     .end(done)
 })
+
+test('authentication', done => {
+  const instance = new Rize({
+    afterLaunched () {
+      this.page.authenticate = jest.fn()
+    }
+  })
+  instance
+    .withAuth('Tedeza Rize', 'Komichi Aya')
+    .execute((browser, page) => {
+      expect(page.authenticate).toBeCalledWith({
+        username: 'Tedeza Rize',
+        password: 'Komichi Aya'
+      })
+    })
+    .end(done)
+})

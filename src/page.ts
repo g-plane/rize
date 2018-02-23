@@ -73,4 +73,10 @@ export default function mixinPage (Rize: typeof RizeInstance) {
 
     return this
   }
+
+  Rize.prototype.withAuth = function (username: string, password: string) {
+    this.push(async () => await this.page.authenticate({ username, password }))
+
+    return this
+  }
 }

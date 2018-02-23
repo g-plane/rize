@@ -452,6 +452,26 @@ export default class Rize {
     return this
   }
 
+  /**
+   * Provide credentials for http authentication.
+   *
+   * @param {string} username
+   * @param {string} password
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.withAuth('yourname', 'secret')
+   * ```
+   */
+  withAuth (username: string, password: string) {
+    return this
+  }
+
   /* page END */
 
   /* assertions START */
