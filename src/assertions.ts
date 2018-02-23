@@ -136,7 +136,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertHasClass = function (
+  Rize.prototype.assertClassHas = function (
     selector: string,
     className: string,
   ) {
@@ -157,7 +157,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertHasStyle = function (
+  Rize.prototype.assertStyleHas = function (
     selector: string,
     attribute: string,
     value: string

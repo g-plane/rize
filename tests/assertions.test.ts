@@ -143,7 +143,7 @@ test('assert an element has a class', async done => {
   const instance = new Rize()
   instance
     .goto(`http://localhost:${port}/`)
-    .assertHasClass('div', 'rabbit-house')
+    .assertClassHas('div', 'rabbit-house')
     .execute(() => server.close())
     .end(done)
 })
@@ -158,8 +158,8 @@ test('assert style of an element', async done => {
   const instance = new Rize()
   instance
     .goto(`http://localhost:${port}/`)
-    .assertHasStyle('div', 'font-size', '5px')
-    .assertHasStyle('div', 'fontSize', '5px')
+    .assertStyleHas('div', 'font-size', '5px')
+    .assertStyleHas('div', 'fontSize', '5px')
     .execute(() => server.close())
     .end(done)
 })

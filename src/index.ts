@@ -743,10 +743,10 @@ export default class Rize {
    *
    * ```javascript
    * const rize = new Rize()
-   * rize.assertHasClass('div', 'rabbit-house')
+   * rize.assertClassHas('div', 'rabbit-house')
    * ```
    */
-  assertHasClass (selector: string, className: string) {
+  assertClassHas (selector: string, className: string) {
     return this
   }
 
@@ -769,11 +769,11 @@ export default class Rize {
    *
    * ```javascript
    * const rize = new Rize()
-   * rize.assertHasStyle('div', 'font-size', '5px')
-   * rize.assertHasStyle('div', 'fontSize', '5px')
+   * rize.assertStyleHas('div', 'font-size', '5px')
+   * rize.assertStyleHas('div', 'fontSize', '5px')
    * ```
    */
-  assertHasStyle (selector: string, attribute: string, value: string) {
+  assertStyleHas (selector: string, attribute: string, value: string) {
     return this
   }
 
