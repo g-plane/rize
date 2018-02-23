@@ -55,4 +55,22 @@ export default function mixinPage (Rize: typeof RizeInstance) {
 
     return this
   }
+
+  Rize.prototype.waitForNavigation = function (timeout?: number) {
+    this.push(async () => await this.page.waitForNavigation({ timeout }))
+
+    return this
+  }
+
+  Rize.prototype.waitForElement = function (
+    selector: string,
+    timeout?: number
+  ) {
+    this.push(async () => await this.page.waitForSelector(
+      selector,
+      { timeout }
+    ))
+
+    return this
+  }
 }

@@ -408,6 +408,50 @@ export default class Rize {
     return this
   }
 
+  /**
+   * Pause and wait for navigation. (including redirecting and refreshing)
+   *
+   * You can specify maximum navigation time (in milliseconds).
+   * Pass `0` to disable.
+   *
+   * @param {number} [timeout] Maximum navigation time in milliseconds.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.waitForNavigation()
+   * rize.waitForNavigation(500)  // Timeout is 500ms
+   * ```
+   */
+  waitForNavigation (timeout?: number) {
+    return this
+  }
+
+  /**
+   * Pause and wait for an element by the given selector.
+   *
+   * @param {string} selector CSS selector.
+   * @param {number} [timeout] Maximum time.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.waitForElement('div')
+   * rize.waitForElement('div', 500)  // Timeout is 500ms
+   * ```
+   */
+  waitForElement (selector: string, timeout?: number) {
+    return this
+  }
+
   /* page END */
 
   /* assertions START */

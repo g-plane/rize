@@ -1,4 +1,6 @@
 import puppeteer from 'puppeteer'
+import http from 'http'
+import { getPortPromise as getPort } from 'portfinder'
 import Rize from '../src'
 
 test('go to a specified url', done => {
@@ -121,6 +123,45 @@ test('generate a PDF', done => {
         path: 'file2',
         format: 'Letter'
       })
+    })
+    .end(done)
+})
+
+test('wait for navigation', done => {
+  const port1 = 2333
+  const port2 = 23333
+  const server1 = http.createServer((req, res) => res.end(`
+    <a href="http://localhost:${port2}"></a>
+  `)).listen(port1)
+  const server2 = http.createServer((req, res) => res.end('')).listen(port2)
+
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port1}`)
+    .execute(async (browser, page) => {
+      await page.evaluate(() => document.querySelector('a').click())
+    })
+    .waitForNavigation()
+    .execute((browser, page) => {
+      expect(page.url()).toBe(`http://localhost:${port2}/`)
+      server1.close()
+      server2.close()
+    })
+    .end(done)
+})
+
+test('wait for an element', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <div></div>
+  `)).listen(port)
+
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}`)
+    .waitForElement('div')
+    .execute(() => {
+      server.close()
     })
     .end(done)
 })
