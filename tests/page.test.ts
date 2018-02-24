@@ -17,6 +17,19 @@ test('go to a specified url', done => {
     .end(done)
 }, process.env.CI ? 8000 : 5000)
 
+test('close page', done => {
+  const instance = new Rize()
+  instance
+    .closePage()
+    .execute(() => {
+      expect(
+        (instance.page as puppeteer.Page & { _client })._client._connection
+      ).toBeFalsy()
+      done()
+    })
+    .end(done)
+})
+
 test('go forward', done => {
   const instance = new Rize({
     afterLaunched () {
@@ -112,6 +125,17 @@ test('evaluate a function', done => {
         () => document.querySelector('div').textContent
       )
       expect(text).toBe('maya')
+    })
+    .end(done)
+})
+
+test('use user agent', done => {
+  const instance = new Rize()
+  instance
+    .withUserAgent('Chrome')
+    .execute(async () => {
+      const ua = await instance.page.evaluate(() => navigator.userAgent)
+      expect(ua).toBe('Chrome')
     })
     .end(done)
 })

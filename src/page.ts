@@ -18,6 +18,14 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
+  Rize.prototype.closePage = function () {
+    this.push(async () => {
+      await this.page.close()
+    })
+
+    return this
+  }
+
   Rize.prototype.forward = function (options?: puppeteer.NavigationOptions) {
     this.push(async () => {
       await this.page.goForward(options)
@@ -46,6 +54,14 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
 
     this.push(async () => await this.page.evaluate(stringified))
+
+    return this
+  }
+
+  Rize.prototype.withUserAgent = function (userAgent: string) {
+    this.push(async () => {
+      await this.page.setUserAgent(userAgent)
+    })
 
     return this
   }

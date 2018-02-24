@@ -10,14 +10,6 @@ export default function mixinBasic (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.withUserAgent = function (userAgent: string) {
-    this.push(async () => {
-      await this.page.setUserAgent(userAgent)
-    })
-
-    return this
-  }
-
   Rize.prototype.execute = function (
     fn: (
       this: RizeInstance,
@@ -27,14 +19,6 @@ export default function mixinBasic (Rize: typeof RizeInstance) {
     ) => void
   ) {
     this.push(() => fn.call(this, this.browser, this.page))
-
-    return this
-  }
-
-  Rize.prototype.closePage = function () {
-    this.push(async () => {
-      await this.page.close()
-    })
 
     return this
   }

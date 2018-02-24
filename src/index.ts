@@ -173,27 +173,6 @@ export default class Rize {
   }
 
   /**
-   * Set the give user agent string.
-   *
-   * @param {string} userAgent The user agent string you want to use.
-   * @returns
-   * @memberof Rize
-   *
-   * @see http://useragentstring.com/
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.withUserAgent('Chrome')
-   * ```
-   */
-  withUserAgent (userAgent: string) {
-    return this
-  }
-
-  /**
    * Execute a function.
    *
    * When you use `function` keyword (not arrow function),
@@ -227,26 +206,6 @@ export default class Rize {
     page: puppeteer.Page,
     ...args
   ) => void) {
-    return this
-  }
-
-  /**
-   * Close current page, but it doesn't exit the browser.
-   *
-   * **You cannot visit the page any more!**
-   *
-   * @returns
-   * @memberof Rize
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.closePage()
-   * ```
-   */
-  closePage () {
     return this
   }
 
@@ -298,6 +257,26 @@ export default class Rize {
    * ```
    */
   goto (url: string) {
+    return this
+  }
+
+  /**
+   * Close current page, but it doesn't exit the browser.
+   *
+   * **You cannot visit the page any more!**
+   *
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.closePage()
+   * ```
+   */
+  closePage () {
     return this
   }
 
@@ -391,6 +370,27 @@ export default class Rize {
    * ```
    */
   evaluate (fn: Function | string, ...args) {
+    return this
+  }
+
+  /**
+   * Set the give user agent string.
+   *
+   * @param {string} userAgent The user agent string you want to use.
+   * @returns
+   * @memberof Rize
+   *
+   * @see http://useragentstring.com/
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.withUserAgent('Chrome')
+   * ```
+   */
+  withUserAgent (userAgent: string) {
     return this
   }
 

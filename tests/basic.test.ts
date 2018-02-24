@@ -14,17 +14,6 @@ test('sleep for a short time', done => {
     .end()
 }, process.env.CI ? 8000 : 5000)
 
-test('use user agent', done => {
-  const instance = new Rize()
-  instance
-    .withUserAgent('Chrome')
-    .execute(async () => {
-      const ua = await instance.page.evaluate(() => navigator.userAgent)
-      expect(ua).toBe('Chrome')
-    })
-    .end(done)
-})
-
 test('execute a function', done => {
   const instance = new Rize()
   instance
@@ -32,19 +21,6 @@ test('execute a function', done => {
       expect(this).toBe(instance)
       expect(browser).toBe(this.browser)
       expect(page).toBe(this.page)
-    })
-    .end(done)
-})
-
-test('close page', done => {
-  const instance = new Rize()
-  instance
-    .closePage()
-    .execute(() => {
-      expect(
-        (instance.page as puppeteer.Page & { _client })._client._connection
-      ).toBeFalsy()
-      done()
     })
     .end(done)
 })
