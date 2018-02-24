@@ -1098,6 +1098,9 @@ export default class Rize {
   /* actions END */
 }
 
+// @ts-ignore. This is for compatibility with CommonJS users.
+export = Rize
+
 mixinBasic(Rize)
 mixinPage(Rize)
 mixinAssertions(Rize)

@@ -61,10 +61,10 @@ It's recommended to use ES-style import:
 import Rize from 'rize'
 ```
 
-However, if you use CommonJS-style import, you should import like this:
+Or using CommonJS-style import, if you don't use any build tools:
 
 ```javascript
-const Rize = require('rize').default
+const Rize = require('rize')
 ```
 
 ### Getting Started
