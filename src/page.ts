@@ -1,6 +1,14 @@
 import puppeteer from 'puppeteer'
 import RizeInstance from './index'
 
+function serializeArg (arg) {
+  return arg === undefined ? 'undefined' : JSON.stringify(arg)
+}
+
+function serializeFunc (func: Function, ...rest) {
+  return `(${func})(${rest.map(serializeArg).join(',')})`
+}
+
 export default function mixinPage (Rize: typeof RizeInstance) {
   Rize.prototype.goto = function (url: string) {
     this.push(async () => {
@@ -30,6 +38,14 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     this.push(async () => {
       await this.page.reload(options)
     })
+
+    return this
+  }
+
+  Rize.prototype.evaluate = function (fn: Function | string, ...args) {
+    const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
+
+    this.push(async () => await this.page.evaluate(stringified))
 
     return this
   }
@@ -70,6 +86,20 @@ export default function mixinPage (Rize: typeof RizeInstance) {
       selector,
       { timeout }
     ))
+
+    return this
+  }
+
+  Rize.prototype.waitForEvaluation = function (
+    fn: string | Function,
+    timeout?: number,
+    ...args
+  ) {
+    const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
+
+    this.push(
+      async () => await this.page.waitForFunction(stringified, { timeout })
+    )
 
     return this
   }

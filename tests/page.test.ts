@@ -86,6 +86,36 @@ test('refresh page', done => {
     .end(done)
 })
 
+test('evaluate a function', done => {
+  const instance = new Rize()
+  instance
+    .evaluate(text => document.write(`<div>${text}</div>`), 'rize')
+    .execute(async (browser, page) => {
+      const text: string = await page.evaluate(
+        () => document.querySelector('div').textContent
+      )
+      expect(text).toBe('rize')
+    })
+    .evaluate(
+      () => (document.querySelector('div').textContent = 'syaro'),
+      undefined
+    )
+    .execute(async (browser, page) => {
+      const text: string = await page.evaluate(
+        () => document.querySelector('div').textContent
+      )
+      expect(text).toBe('syaro')
+    })
+    .evaluate('document.querySelector("div").textContent = "maya"')
+    .execute(async (browser, page) => {
+      const text: string = await page.evaluate(
+        () => document.querySelector('div').textContent
+      )
+      expect(text).toBe('maya')
+    })
+    .end(done)
+})
+
 test('generate a screenshot', done => {
   const instance = new Rize({
     afterLaunched () {
@@ -163,6 +193,14 @@ test('wait for an element', async done => {
     .execute(() => {
       server.close()
     })
+    .end(done)
+})
+
+test('wait for a function and an expression', done => {
+  const instance = new Rize()
+  instance
+    .waitForEvaluation(() => true)
+    .waitForEvaluation('true')
     .end(done)
 })
 

@@ -196,10 +196,14 @@ export default class Rize {
   /**
    * Execute a function.
    *
-   * NOTE: the function will be executed in Node environment, not in browser.
-   *
    * When you use `function` keyword (not arrow function),
    * `this` context in the function points to current `Rize` instance.
+   *
+   * NOTE that the function will be executed in Node environment,
+   * not in browser.
+   *
+   * If you want to evaluate an function in browser environment,
+   * please use `evaluate` method instead.
    *
    * @param fn The function to be execute.
    * @returns
@@ -362,6 +366,34 @@ export default class Rize {
     return this
   }
 
+  /**
+   * Evaluate a function or an expression in browser.
+   *
+   * Note that this function or expression will be evaluated
+   * in browser environment, not in Node.js environment.
+   * So you *can* visit variables in browser also
+   * you *cannot* visit variables in Node.js.
+   *
+   * If you want to execute a function in Node.js environment,
+   * please use `execute` method instead.
+   *
+   * @param {(Function | string)} fn Function or expression.
+   * @param {any} args Arguments of function.
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.evaluate(() => document.querySelector('div'))
+   * rize.evaluate(selector => document.querySelector(selector), 'div')
+   * rize.evaluate('document.querySelector("div")')
+   * ```
+   */
+  evaluate (fn: Function | string, ...args) {
+    return this
+  }
+
   /* tslint:disable max-line-length */
   /**
    * Save a screenshot of current page.
@@ -449,6 +481,46 @@ export default class Rize {
    * ```
    */
   waitForElement (selector: string, timeout?: number) {
+    return this
+  }
+
+  /**
+   * Pause and wait for evaluating an expression or a function.
+   *
+   * The function or expression you given will be evaluated
+   * in *browser* not in *Node.js* environment.
+   *
+   * **NOTE**:
+   *
+   * The function or expression will be evaluated many times and puppeteer
+   * will check the result of expression or the return value of function.
+   * If the result or return value is a falsy value,
+   * your function or expression will be evaluated again.
+   * And if the result or return value is a truthy value,
+   * your function or expression won't be evaulated any more and then go ahead.
+   *
+   * That is, your function or expression will be evaluated in a loop until
+   * the result or return value is a truthy value.
+   *
+   * @param {(Function | string)} fn Expression (passed as string) or function.
+   * @param {number} [timeout] Maximum time to wait for in milliseconds.
+   * @param {any} args Arguments of function. No need for expression.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.waitForEvaluation(() => window.innerWidth < 100)
+   * rize.waitForEvaluation('window.innerWidth < 100')
+   * rize.waitForEvaluation(() => window.innerWidth < 100, 30000)
+   * rize.waitForEvaluation('window.innerWidth < 100', 30000)
+   * rize.waitForEvaluation(width => window.innerWidth < width, 30000, 100)
+   * ```
+   */
+  waitForEvaluation (fn: string | Function, timeout?: number, ...args) {
     return this
   }
 
