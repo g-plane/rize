@@ -91,7 +91,7 @@ rize
   .press('Enter')
   .waitForNavigation()
   .assertSee('Node.js')
-  .end()  // Don't forget call `end` function to exit browser!
+  .end()  // Don't forget to call `end` function to exit browser!
 ```
 
 All available APIs are listed [here](https://rize-docs.netlify.com/classes/_index_.rize.html). 
