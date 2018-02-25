@@ -1076,6 +1076,94 @@ export default class Rize {
   }
 
   /**
+   * Move mouse to the given coordinate.
+   *
+   * @param {number} x
+   * @param {number} y
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.mouseMoveTo(1, 1)
+   * ```
+   */
+  mouseMoveTo (x: number, y: number) {
+    return this
+  }
+
+  /* tslint:disable max-line-length */
+  /**
+   * Click a mouse button at given coordinate.
+   *
+   * @see https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#mouseclickoptions
+   *
+   * @param {number} x
+   * @param {number} y
+   * @param {puppeteer.MousePressOptions} [options]
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.mouseClick(1, 1)
+   * rize.mouseClick(1, 1, { button: 'right' })
+   * rize.mouseClick(1, 1, { clickCount: 2 })
+   * rize.mouseClick(1, 1, { button: 'right', clickCount: 2 })
+   * ```
+   */
+  /* tslint:enable max-line-length */
+  mouseClick (x: number, y: number, options?: puppeteer.MousePressOptions) {
+    return this
+  }
+
+  /**
+   * Dispatches a `mousedown` event.
+   *
+   * @param {puppeteer.MouseButtons} [button='left'] Mouse button.
+   * @param {number} [clickCount=1]
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.mouseDown()
+   * rize.mouseDown('middle')
+   * rize.mouseDown('right')
+   * rize.mouseDown('left', 2)
+   * rize.mouseDown('right', 2)
+   * ```
+   */
+  mouseDown (button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
+    return this
+  }
+
+  /**
+   * Dispatches a `mouseup` event.
+   *
+   * @param {puppeteer.MouseButtons} [button='left'] Mouse button.
+   * @param {number} [clickCount=1]
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.mouseUp()
+   * rize.mouseUp('middle')
+   * rize.mouseUp('right')
+   * rize.mouseUp('left', 2)
+   * rize.mouseUp('right', 2)
+   * ```
+   */
+  mouseUp (button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
+    return this
+  }
+
+  /**
    * Send a file by the given path to an element.
    *
    * @param {string} selector CSS selector.
@@ -1092,6 +1180,68 @@ export default class Rize {
    * ```
    */
   uploadFile (selector: string, path: string) {
+    return this
+  }
+
+  /**
+   * Add a class to an element.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} className Class name.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.addClass('div', 'class-you-want-to-add')
+   * ```
+   */
+  addClass (selector: string, className: string) {
+    return this
+  }
+
+  /**
+   * Remove an existing class
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} className Existing class name.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.removeClass('div', 'class-already-existed')
+   * ```
+   */
+  removeClass (selector: string, className: string) {
+    return this
+  }
+
+  /**
+   * Toggle a class.
+   * If the given class name is existed, it will be removed.
+   * If the given class name is not existed, it will be added.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} className Class name.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.toggleClass('div', 'class-name')
+   * ```
+   */
+  toggleClass (selector: string, className: string) {
     return this
   }
 

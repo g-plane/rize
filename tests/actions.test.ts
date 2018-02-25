@@ -319,6 +319,74 @@ test('key up on an element', async done => {
     .end(done)
 })
 
+test('move mouse', done => {
+  expect.assertions(1)
+  const instance = new Rize()
+  instance
+    .execute(() => {
+      jest.spyOn(instance.page.mouse, 'move')
+    })
+    .mouseMoveTo(1, 1)
+    .execute(() => {
+      expect(instance.page.mouse.move).toBeCalledWith(1, 1)
+    })
+    .end(done)
+})
+
+test('click mouse button', done => {
+  expect.assertions(1)
+  const instance = new Rize()
+  instance
+    .execute(() => {
+      jest.spyOn(instance.page.mouse, 'click')
+    })
+    .mouseClick(1, 1, { clickCount: 1 })
+    .execute(() => {
+      expect(instance.page.mouse.click).toBeCalledWith(1, 1, { clickCount: 1 })
+    })
+    .end(done)
+})
+
+test('mouse button down', done => {
+  expect.assertions(2)
+  const instance = new Rize()
+  instance
+    .execute(() => {
+      jest.spyOn(instance.page.mouse, 'down')
+    })
+    .mouseDown()
+    .execute(() => {
+      expect(instance.page.mouse.down)
+        .toBeCalledWith({ button: 'left', clickCount: 1 })
+    })
+    .mouseDown('middle', 2)
+    .execute(() => {
+      expect(instance.page.mouse.down)
+        .toBeCalledWith({ button: 'middle', clickCount: 2 })
+    })
+    .end(done)
+})
+
+test('mouse button up', done => {
+  expect.assertions(2)
+  const instance = new Rize()
+  instance
+    .execute(() => {
+      jest.spyOn(instance.page.mouse, 'up')
+    })
+    .mouseUp()
+    .execute(() => {
+      expect(instance.page.mouse.up)
+        .toBeCalledWith({ button: 'left', clickCount: 1 })
+    })
+    .mouseUp('middle', 2)
+    .execute(() => {
+      expect(instance.page.mouse.up)
+        .toBeCalledWith({ button: 'middle', clickCount: 2 })
+    })
+    .end(done)
+})
+
 test('upload file', async done => {
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -331,6 +399,73 @@ test('upload file', async done => {
     .goto(`http://localhost:${port}/`)
     .uploadFile('input', 'file')
     .execute(async () => {
+      server.close()
+    })
+    .end(done)
+})
+
+test('add class', async done => {
+  expect.assertions(1)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .addClass('body', 'rize')
+    .execute(async (browser, page) => {
+      const exists = await page.evaluate(
+        () => document.body.classList.contains('rize')
+      )
+      expect(exists).toBe(true)
+      server.close()
+    })
+    .end(done)
+})
+
+test('remove class', async done => {
+  expect.assertions(1)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body class="rize"></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .removeClass('body', 'rize')
+    .execute(async (browser, page) => {
+      const exists = await page.evaluate(
+        () => document.body.classList.contains('rize')
+      )
+      expect(exists).toBe(false)
+      server.close()
+    })
+    .end(done)
+})
+
+test('toggle class', async done => {
+  expect.assertions(2)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .toggleClass('body', 'rize')
+    .execute(async (browser, page) => {
+      const exists = await page.evaluate(
+        () => document.body.classList.contains('rize')
+      )
+      expect(exists).toBe(true)
+    })
+    .toggleClass('body', 'rize')
+    .execute(async (browser, page) => {
+      const exists = await page.evaluate(
+        () => document.body.classList.contains('rize')
+      )
+      expect(exists).toBe(false)
       server.close()
     })
     .end(done)

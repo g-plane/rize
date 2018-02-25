@@ -81,8 +81,84 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
+  Rize.prototype.mouseMoveTo = function (x: number, y: number) {
+    this.push(async () => await this.page.mouse.move(x, y))
+
+    return this
+  }
+
+  Rize.prototype.mouseClick = function (
+    x: number,
+    y: number,
+    options?: puppeteer.MousePressOptions
+  ) {
+    this.push(async () => await this.page.mouse.click(x, y, options))
+
+    return this
+  }
+
+  Rize.prototype.mouseDown = function (
+    button: puppeteer.MouseButtons = 'left',
+    clickCount: number = 1
+  ) {
+    this.push(async () => await this.page.mouse.down({ button, clickCount }))
+
+    return this
+  }
+
+  Rize.prototype.mouseUp = function (
+    button: puppeteer.MouseButtons = 'left',
+    clickCount: number = 1
+  ) {
+    this.push(async () => await this.page.mouse.up({ button, clickCount }))
+
+    return this
+  }
+
   Rize.prototype.uploadFile = function (selector: string, path: string) {
     this.push(async () => await (await this.page.$(selector))!.uploadFile(path))
+
+    return this
+  }
+
+  Rize.prototype.addClass = function (selector: string, className: string) {
+    this.push(async () => {
+      await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, cls) => document
+          .querySelector<HTMLElement>(sel)!.classList.add(cls),
+        selector,
+        className
+      )
+    })
+
+    return this
+  }
+
+  Rize.prototype.removeClass = function (selector: string, className: string) {
+    this.push(async () => {
+      await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, cls) => document
+          .querySelector<HTMLElement>(sel)!.classList.remove(cls),
+        selector,
+        className
+      )
+    })
+
+    return this
+  }
+
+  Rize.prototype.toggleClass = function (selector: string, className: string) {
+    this.push(async () => {
+      await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, cls) => document
+          .querySelector<HTMLElement>(sel)!.classList.toggle(cls),
+        selector,
+        className
+      )
+    })
 
     return this
   }
