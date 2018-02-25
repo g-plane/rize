@@ -4,6 +4,7 @@ import { getPortPromise as getPort } from 'portfinder'
 import Rize from '../src'
 
 test('go to a specified url', done => {
+  expect.assertions(1)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'goto').mockImplementation(() => true)
@@ -18,6 +19,7 @@ test('go to a specified url', done => {
 }, process.env.CI ? 8000 : 5000)
 
 test('close page', done => {
+  expect.assertions(1)
   const instance = new Rize()
   instance
     .closePage()
@@ -31,6 +33,7 @@ test('close page', done => {
 })
 
 test('go forward', done => {
+  expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'goForward').mockImplementation(() => true)
@@ -54,6 +57,7 @@ test('go forward', done => {
 })
 
 test('go back', done => {
+  expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'goBack').mockImplementation(() => true)
@@ -77,6 +81,7 @@ test('go back', done => {
 })
 
 test('refresh page', done => {
+  expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'reload').mockImplementation(() => true)
@@ -100,6 +105,7 @@ test('refresh page', done => {
 })
 
 test('evaluate a function', done => {
+  expect.assertions(3)
   const instance = new Rize()
   instance
     .evaluate(text => document.write(`<div>${text}</div>`), 'rize')
@@ -130,6 +136,7 @@ test('evaluate a function', done => {
 })
 
 test('use user agent', done => {
+  expect.assertions(1)
   const instance = new Rize()
   instance
     .withUserAgent('Chrome')
@@ -141,6 +148,7 @@ test('use user agent', done => {
 })
 
 test('generate a screenshot', done => {
+  expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'screenshot').mockImplementation(() => true)
@@ -160,6 +168,7 @@ test('generate a screenshot', done => {
 })
 
 test('generate a PDF', done => {
+  expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'pdf').mockImplementation(() => true)
@@ -182,6 +191,7 @@ test('generate a PDF', done => {
 })
 
 test('wait for navigation', done => {
+  expect.assertions(1)
   const port1 = 2333
   const port2 = 23333
   const server1 = http.createServer((req, res) => res.end(`
@@ -229,6 +239,7 @@ test('wait for a function and an expression', done => {
 })
 
 test('authentication', done => {
+  expect.assertions(1)
   const instance = new Rize({
     afterLaunched () {
       this.page.authenticate = jest.fn()

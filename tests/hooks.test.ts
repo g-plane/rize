@@ -1,6 +1,7 @@
 import Rize from '../src'
 
 test('call a function before browser launch', done => {
+  expect.assertions(1)
   const fn = jest.fn()
   const instance = new Rize({ beforeLaunch: fn })
   instance
@@ -11,6 +12,7 @@ test('call a function before browser launch', done => {
 }, process.env.CI ? 8000 : 5000)
 
 test('call a function after browser launched', done => {
+  expect.assertions(4)
   const fn = jest.fn()
   const instance = new Rize({ afterLaunched: fn })
   instance

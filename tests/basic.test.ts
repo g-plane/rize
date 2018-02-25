@@ -2,6 +2,7 @@ import puppeteer from 'puppeteer'
 import Rize from '../src'
 
 test('sleep for a short time', done => {
+  expect.assertions(1)
   const instance = new Rize()
   const mock = jest.fn()
   instance.execute(() => (instance.page.waitFor = mock))
@@ -15,17 +16,19 @@ test('sleep for a short time', done => {
 }, process.env.CI ? 8000 : 5000)
 
 test('execute a function', done => {
+  expect.assertions(3)
   const instance = new Rize()
   instance
     .execute(function (browser, page) {
       expect(this).toBe(instance)
-      expect(browser).toBe(this.browser)
-      expect(page).toBe(this.page)
+      expect(browser).toBe(instance.browser)
+      expect(page).toBe(instance.page)
     })
     .end(done)
 })
 
 test('exit browser and run callback', done => {
+  expect.assertions(1)
   const instance = new Rize()
   const cb = jest.fn()
   instance.end(() => {

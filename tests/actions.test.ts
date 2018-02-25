@@ -4,6 +4,7 @@ import { getPortPromise as getPort } from 'portfinder'
 import Rize from '../src'
 
 test('click on an element', async done => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -32,6 +33,7 @@ test('click on an element', async done => {
 }, process.env.CI ? 8000 : 5000)
 
 test('double click on an element', async done => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -60,6 +62,7 @@ test('double click on an element', async done => {
 })
 
 test('right click on an element', async done => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -90,6 +93,7 @@ test('right click on an element', async done => {
 })
 
 test('hover on an element', async done => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -118,6 +122,7 @@ test('hover on an element', async done => {
 })
 
 test('type text to an element', async done => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -139,6 +144,7 @@ test('type text to an element', async done => {
 })
 
 test('focus on an element', async done => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -167,6 +173,7 @@ test('focus on an element', async done => {
 })
 
 test('select values on an element', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -214,6 +221,7 @@ test('select values on an element', async done => {
 })
 
 test('press a key on an element', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -260,6 +268,7 @@ test('press a key on an element', async done => {
 })
 
 test('key down on an element', async done => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -290,6 +299,7 @@ test('key down on an element', async done => {
 })
 
 test('key up on an element', async done => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
