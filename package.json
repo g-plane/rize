@@ -38,6 +38,9 @@
     "transform": {
       "^.+\\.ts$": "ts-jest"
     },
+    "setupFiles": [
+      "<rootDir>/tests/utils/setup.ts"
+    ],
     "testEnvironment": "node",
     "moduleFileExtensions": [
       "ts",
