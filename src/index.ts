@@ -4,6 +4,7 @@ import mixinBasic from './basic'
 import mixinPage from './page'
 import mixinAssertions from './assertions'
 import mixinActions from './actions'
+import mixinRetrieval from './retrieval'
 
 export interface RizeOptions {
   /**
@@ -1096,6 +1097,222 @@ export default class Rize {
   }
 
   /* actions END */
+
+  /* retrieval START */
+
+  /**
+   * Retrieve the title of current page.
+   *
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const title = await rize.title()
+   * })()
+   * ```
+   */
+  title () {
+    return Promise.resolve('')
+  }
+
+  /**
+   * Retrieve text content.
+   *
+   * @param {string} [selector='body'] CSS selector. Default is `body`.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const bodyText = await rize.text()
+   *   const divText = await rize.text('div')
+   * })()
+   * ```
+   */
+  text (selector = 'body') {
+    return Promise.resolve('')
+  }
+
+  /**
+   * Retrieve *inner* HTML content.
+   *
+   * @param {string} [selector='html'] CSS selector. Default is `html`.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const html = await rize.html()
+   *   const divHtml = await rize.html('div')
+   * })()
+   * ```
+   */
+  html (selector = 'html') {
+    return Promise.resolve('')
+  }
+
+  /**
+   * Retrieve an attribute of an element.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} attribute Attribute name.
+   * @returns {(Promise<string | null>)} Attribute value.
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const classes = await rize.attribute('div', 'class')
+   * })()
+   * ```
+   */
+  attribute (selector: string, attribute: string): Promise<string | null> {
+    return Promise.resolve('')
+  }
+
+  /**
+   * Retrieve style value of an element.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} property CSS property.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const value = await rize.style('div', 'font-size')
+   * })()
+   * ```
+   */
+  style (selector: string, property: string) {
+    return Promise.resolve('')
+  }
+
+  /**
+   * Retrieve value of an `<input>` element.
+   *
+   * @param {string} selector CSS selector.
+   * @returns {(Promise<string | null>)}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const value = await rize.value('input')
+   * })()
+   * ```
+   */
+  value (selector: string): Promise<string | null> {
+    return Promise.resolve('')
+  }
+
+  /**
+   * Retrieve a boolean value indicates if an element has a given class name.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} className Expected class name.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const exists = await rize.hasClass('div', 'pull-right')
+   * })()
+   * ```
+   */
+  hasClass (selector: string, className: string) {
+    return Promise.resolve(false)
+  }
+
+  /**
+   * Retrieve the URL of current page.
+   *
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const url = await rize.url()
+   * })()
+   * ```
+   */
+  url () {
+    return Promise.resolve('')
+  }
+
+  /**
+   * Retrieve value of a key in query string.
+   *
+   * @param {string} key Query string key.
+   * @returns {(Promise<string | string[] | undefined>)}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const value = await rize.queryString('key')
+   * })()
+   * ```
+   */
+  queryString (key: string): Promise<string | string[] | undefined> {
+    return Promise.resolve('')
+  }
+
+  /**
+   * Retrieve cookies of current page.
+   *
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const exists = await rize.cookies()
+   * })()
+   * ```
+   */
+  cookies () {
+    return Promise.resolve({} as puppeteer.Cookie)
+  }
+
+  /* retrieval END */
 }
 
 // @ts-ignore. This is for compatibility with CommonJS users.
@@ -1105,3 +1322,4 @@ mixinBasic(Rize)
 mixinPage(Rize)
 mixinAssertions(Rize)
 mixinActions(Rize)
+mixinRetrieval(Rize)
