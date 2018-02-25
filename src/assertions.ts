@@ -159,22 +159,20 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
 
   Rize.prototype.assertStyleHas = function (
     selector: string,
-    attribute: string,
+    property: string,
     value: string
   ) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, 'Element not found.')
 
-      const camelAttr = attribute.replace(
-        /(\-[A-Za-z])/g,
-        m => m.toUpperCase().replace('-', '')
-      )
-
       const actual = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        (sel, attr) => (document.querySelector(sel) as HTMLElement).style[attr],
-        selector, camelAttr
+        (sel, prop) => document
+          .querySelector<HTMLElement>(sel)!
+          .style.getPropertyValue(prop),
+        selector,
+        property
       )
       assert.strictEqual(actual, value)
     })

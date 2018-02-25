@@ -827,7 +827,7 @@ export default class Rize {
    * Assert that an element has the given style.
    *
    * @param {string} selector CSS selector.
-   * @param {string} attribute CSS attribute. Camel-case or kebab-case are OK.
+   * @param {string} property CSS property.
    * @param {string} value CSS value.
    * @returns
    * @memberof Rize
@@ -843,10 +843,9 @@ export default class Rize {
    * ```javascript
    * const rize = new Rize()
    * rize.assertStyleHas('div', 'font-size', '5px')
-   * rize.assertStyleHas('div', 'fontSize', '5px')
    * ```
    */
-  assertStyleHas (selector: string, attribute: string, value: string) {
+  assertStyleHas (selector: string, property: string, value: string) {
     return this
   }
 

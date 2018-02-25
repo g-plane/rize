@@ -159,7 +159,6 @@ test('assert style of an element', async done => {
   instance
     .goto(`http://localhost:${port}/`)
     .assertStyleHas('div', 'font-size', '5px')
-    .assertStyleHas('div', 'fontSize', '5px')
     .execute(() => server.close())
     .end(done)
 })
