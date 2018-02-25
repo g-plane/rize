@@ -27,13 +27,14 @@
     "prebuild": "rimraf dist",
     "build": "tsc -p .",
     "build:docs": "typedoc --excludeExternals --excludePrivate --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs ./src/index.ts",
-    "test": "jest --verbose",
-    "coverage": "jest --verbose --coverage"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "engines": {
     "node": ">=6.4.0"
   },
   "jest": {
+    "verbose": true,
     "transform": {
       "^.+\\.ts$": "ts-jest"
     },
