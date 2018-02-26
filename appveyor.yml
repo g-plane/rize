@@ -13,7 +13,7 @@ test_script:
   - yarn test
 
 cache:
- - node_modules
+ - node_modules -> yarn.lock
  - "%LOCALAPPDATA%/Yarn"
 
 build: off
