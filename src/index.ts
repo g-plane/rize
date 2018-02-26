@@ -1004,6 +1004,64 @@ export default class Rize {
     return this
   }
 
+  /**
+   * Check the given checkbox.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.check('input[type="checkbox"]')
+   * ```
+   */
+  check (selector: string) {
+    return this
+  }
+
+  /**
+   * Uncheck the given checkbox.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.uncheck('input[type="checkbox"]')
+   * ```
+   */
+  uncheck (selector: string) {
+    return this
+  }
+
+  /**
+   * Select the given value of a radio button field.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} value Value of the radio button.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.radio('input[name="who"]', 'you')
+   * ```
+   */
+  radio (selector: string, value: string) {
+    return this
+  }
+
   /* tslint:disable max-line-length */
   /**
    * Press a key to the page or an element by the given selector.

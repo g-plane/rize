@@ -57,6 +57,45 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
+  Rize.prototype.check = function (selector: string) {
+    this.push(async () => {
+      await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLInputElement>(sel)!.checked = true,
+        selector
+      )
+    })
+
+    return this
+  }
+
+  Rize.prototype.uncheck = function (selector: string) {
+    this.push(async () => {
+      await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLInputElement>(sel)!.checked = false,
+        selector
+      )
+    })
+
+    return this
+  }
+
+  Rize.prototype.radio =  function (selector: string, value: string) {
+    this.push(async () => {
+      await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, val) => document
+          .querySelector<HTMLInputElement>(`${sel}[value="${val}"]`)!
+          .checked = true,
+        selector,
+        value
+      )
+    })
+
+    return this
+  }
+
   Rize.prototype.press = function (key: string, selector?: string) {
     this.push(async () => {
       if (selector) {

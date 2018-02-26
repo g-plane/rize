@@ -220,6 +220,90 @@ test('select values on an element', async done => {
     .end(done)
 })
 
+test('check a checkbox', async done => {
+  expect.assertions(2)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><input type="checkbox" /></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .execute(async (browser, page) => {
+      const checked = await page.evaluate(
+        () => document.querySelector('input').checked
+      )
+      expect(checked).toBe(false)
+    })
+    .check('input')
+    .execute(async (browser, page) => {
+      const checked = await page.evaluate(
+        () => document.querySelector('input').checked
+      )
+      expect(checked).toBe(true)
+      server.close()
+    })
+    .end(done)
+})
+
+test('uncheck a checkbox', async done => {
+  expect.assertions(2)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><input type="checkbox" checked /></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .execute(async (browser, page) => {
+      const checked = await page.evaluate(
+        () => document.querySelector('input').checked
+      )
+      expect(checked).toBe(true)
+    })
+    .uncheck('input')
+    .execute(async (browser, page) => {
+      const checked = await page.evaluate(
+        () => document.querySelector('input').checked
+      )
+      expect(checked).toBe(false)
+      server.close()
+    })
+    .end(done)
+})
+
+test('check a radio', async done => {
+  expect.assertions(2)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><input type="radio" value="val" /></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .execute(async (browser, page) => {
+      const checked = await page.evaluate(
+        () => document.querySelector('input').checked
+      )
+      expect(checked).toBe(false)
+    })
+    .radio('input', 'val')
+    .execute(async (browser, page) => {
+      const checked = await page.evaluate(
+        () => document.querySelector('input').checked
+      )
+      expect(checked).toBe(true)
+      server.close()
+    })
+    .end(done)
+})
+
 test('press a key on an element', async done => {
   expect.assertions(2)
   const port = await getPort()
