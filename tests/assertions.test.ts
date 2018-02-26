@@ -162,3 +162,197 @@ test('assert style of an element', async done => {
     .execute(() => server.close())
     .end(done)
 })
+
+test('assert value is', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><input value="rize" /></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertValueIs('input', 'rize')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert value is not', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><input value="rize" /></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertValueIsNot('input', 'chino')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert value contains', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><input value="rabbit-house" /></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertValueContains('input', 'rabbit')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert checkbox checked', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><input type="checkbox" checked /></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertChecked('input')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert checkbox not checked', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><input type="checkbox" /></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertNotChecked('input')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert radio button selected', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <input type="radio" name="rabbit-house" value="chino" />
+        <input type="radio" name="rabbit-house" value="cocoa" />
+        <input type="radio" name="rabbit-house" value="rize" checked />
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertRadioSelected('[name="rabbit-house"]', 'rize')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert radio button not selected', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <input type="radio" name="rabbit-house" value="chino" />
+        <input type="radio" name="rabbit-house" value="cocoa" />
+        <input type="radio" name="rabbit-house" value="rize" checked />
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertRadioNotSelected('[name="rabbit-house"]', 'chino')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert option selected', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <select>
+          <option value="chino" />
+          <option value="cocoa" />
+          <option value="rize" selected />
+        </select>
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertSelected('select', 'rize')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert option not selected', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <select>
+          <option value="chino" />
+          <option value="cocoa" />
+          <option value="rize" selected />
+        </select>
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertNotSelected('select', 'cocoa')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert element is visible', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body><div></div></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertElementVisible('div')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert element is present', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body><div style="display: none"></div></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertElementPresent('div')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert element is missing', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body><div style="display: none"></div></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertElementMissing('span')
+    .execute(() => server.close())
+    .end(done)
+})

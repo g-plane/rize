@@ -178,4 +178,189 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
 
     return this
   }
+
+  Rize.prototype.assertValueIs = function (selector: string, value: string) {
+    this.push(async () => {
+      const actual: string = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLInputElement>(sel)!.value,
+        selector
+      )
+      assert.strictEqual(actual, value)
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertValueIsNot = function (selector: string, value: string) {
+    this.push(async () => {
+      const actual: string = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLInputElement>(sel)!.value,
+        selector
+      )
+      assert.notStrictEqual(actual, value)
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertValueContains = function (
+    selector: string,
+    value: string
+  ) {
+    this.push(async () => {
+      const actual: string = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLInputElement>(sel)!.value,
+        selector
+      )
+      assert.ok(
+        actual.includes(value),
+        `Expected value contains "${value}", but not.`
+      )
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertChecked = function (selector: string) {
+    this.push(async () => {
+      const actual: boolean = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLInputElement>(sel)!.checked,
+        selector
+      )
+      assert.ok(actual, 'The given checkbox have not been checked.')
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertNotChecked = function (selector: string) {
+    this.push(async () => {
+      const actual: boolean = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLInputElement>(sel)!.checked,
+        selector
+      )
+      assert.ok(!actual, 'The given checkbox have been checked.')
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertRadioSelected = function (
+    selector: string,
+    value: string
+  ) {
+    this.push(async () => {
+      const actual: boolean = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, val) => document
+          .querySelector<HTMLInputElement>(`${sel}[value=${val}]`)!
+          .checked,
+        selector,
+        value
+      )
+      assert.ok(actual, 'The given radio button have not been selected.')
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertRadioNotSelected = function (
+    selector: string,
+    value: string
+  ) {
+    this.push(async () => {
+      const actual: boolean = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, val) => document
+          .querySelector<HTMLInputElement>(`${sel}[value=${val}]`)!
+          .checked,
+        selector,
+        value
+      )
+      assert.ok(!actual, 'The given radio button have been selected.')
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertSelected = function (selector: string, value: string) {
+    this.push(async () => {
+      const actual: boolean = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, val) => document
+          .querySelector<HTMLSelectElement>(sel)!
+          .querySelector<HTMLOptionElement>(`[value=${val}]`)!
+          .selected,
+        selector,
+        value
+      )
+      assert.ok(actual, `The given value "${value}" have not been selected.`)
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertNotSelected = function (
+    selector: string,
+    value: string
+  ) {
+    this.push(async () => {
+      const actual: boolean = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel, val) => document
+          .querySelector<HTMLSelectElement>(sel)!
+          .querySelector<HTMLOptionElement>(`[value=${val}]`)!
+          .selected,
+        selector,
+        value
+      )
+      assert.ok(!actual, `The given value "${value}" have been selected.`)
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertElementVisible = function (selector: string) {
+    this.push(async () => {
+      const display: string = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLElement>(sel)!.style.display,
+        selector
+      )
+      assert.notStrictEqual(display, 'none')
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertElementPresent = function (selector: string) {
+    this.push(async () => {
+      const element: HTMLElement = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLElement>(sel),
+        selector
+      )
+      assert.notEqual(element, null)
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertElementMissing = function (selector: string) {
+    this.push(async () => {
+      const element: HTMLElement = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLElement>(sel),
+        selector
+      )
+      assert.equal(element, null)
+    })
+
+    return this
+  }
 }

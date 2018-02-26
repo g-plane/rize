@@ -888,6 +888,276 @@ export default class Rize {
     return this
   }
 
+  /**
+   * Assert that the given element has expected value.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} value Expected value.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <input value="val" />
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertValueIs('input', 'val')
+   * ```
+   */
+  assertValueIs (selector: string, value: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given element does not have expected value.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} value Expected value.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <input value="val" />
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertValueIsNot('input', 'value')
+   * ```
+   */
+  assertValueIsNot (selector: string, value: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given element contains expected value.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} value Expected value.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <input value="value" />
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertValueContains('input', 'val')
+   * ```
+   */
+  assertValueContains (selector: string, value: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given checkbox has been checked.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <input type="checkbox" checked />
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertChecked('input')
+   * ```
+   */
+  assertChecked (selector: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given checkbox has not been checked.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <input type="checkbox" />
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertNotChecked('input')
+   * ```
+   */
+  assertNotChecked (selector: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given radio button has been selected.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} value Radio button value.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <input type="radio" name="characters" value="rize" checked />
+   * <input type="radio" name="characters" value="chino" />
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertRadioSelected('input', 'rize')
+   * ```
+   */
+  assertRadioSelected (selector: string, value: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given radio button has not been selected.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} value Radio button value.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <input type="radio" name="characters" value="rize" checked />
+   * <input type="radio" name="characters" value="chino" />
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertRadioNotSelected('input', 'chino')
+   * ```
+   */
+  assertRadioNotSelected (selector: string, value: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given `<option>` element has been selected.
+   *
+   * The `selector` argument should point to a `<select>` element.
+   *
+   * @param {string} selector CSS selector which points to a `<select>` element.
+   * @param {string} value Value of `<option>` element.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <select>
+   *   <option value="chino" />
+   *   <option value="cocoa" />
+   *   <option value="rize" selected />
+   * </select>
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertSelected('select', 'rize')
+   * ```
+   */
+  assertSelected (selector: string, value: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given `<option>` element has not been selected.
+   *
+   * The `selector` argument should point to a `<select>` element.
+   *
+   * @param {string} selector CSS selector which points to a `<select>` element.
+   * @param {string} value Value of `<option>` element.
+   * @returns
+   * @memberof Rize
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <select>
+   *   <option value="chino" />
+   *   <option value="cocoa" />
+   *   <option value="rize" selected />
+   * </select>
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertNotSelected('select', 'chino')
+   * ```
+   */
+  assertNotSelected (selector: string, value: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given element is visible.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.assertElementVisible('div')
+   * ```
+   */
+  assertElementVisible (selector: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given element is present, though it is not visible.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.assertElementPresent('div')
+   * ```
+   */
+  assertElementPresent (selector: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given element is missing.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.assertElementMissing('.nope')
+   * ```
+   */
+  assertElementMissing (selector: string) {
+    return this
+  }
+
   /* assertions END */
 
   /* actions START */
