@@ -17,6 +17,7 @@ matrix:
   include:
   - node_js: 9
     script:
+      - yarn lint
       - yarn coverage
     after_success:
       - yarn codecov

@@ -28,7 +28,8 @@
     "build": "tsc -p .",
     "build:docs": "typedoc --excludeExternals --excludePrivate --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs ./src/index.ts",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "lint": "tslint -p ."
   },
   "engines": {
     "node": ">=6.4.0"
