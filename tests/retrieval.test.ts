@@ -11,9 +11,12 @@ test('retrieve title', async done => {
   const instance = new Rize()
   instance.goto(`http://localhost:${port}/`)
   await expect(instance.title()).resolves.toBe('rize')
-  instance.execute(() => jest
-    .spyOn(instance.page, 'title')
-    .mockReturnValue(Promise.reject(new Error())))
+  instance.execute(() => {
+    jest
+      .spyOn(instance.page, 'title')
+      .mockReturnValue(Promise.reject(new Error()))
+    server.close()
+  })
   await expect(instance.title()).rejects.toThrowError()
   instance.end(done)
 })
