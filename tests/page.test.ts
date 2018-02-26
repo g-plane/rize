@@ -135,6 +135,22 @@ test('evaluate a function', done => {
     .end(done)
 })
 
+test('evaluate a funtion and retrieve return value', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><head><title>rize</title></head></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance.goto(`http://localhost:${port}/`)
+  await expect(instance.evaluateWithReturn(() => document.title))
+    .resolves.toBe('rize')
+  await expect(instance.evaluateWithReturn('document.title'))
+    .resolves.toBe('rize')
+  instance
+    .execute(() => server.close())
+    .end(done)
+})
+
 test('use user agent', done => {
   expect.assertions(1)
   const instance = new Rize()

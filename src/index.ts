@@ -349,6 +349,11 @@ export default class Rize {
   /**
    * Evaluate a function or an expression in browser.
    *
+   * This method will *not* retrieve the return value and
+   * this method returns `this` to make API chainable.
+   * If you want to retrieve the return value,
+   * please use `evaluateWithReturn` method.
+   *
    * Note that this function or expression will be evaluated
    * in browser environment, not in Node.js environment.
    * So you *can* visit variables in browser also
@@ -372,6 +377,40 @@ export default class Rize {
    */
   evaluate (fn: Function | string, ...args) {
     return this
+  }
+
+  /**
+   * Evaluate a function or an expression in browser
+   * and retrieve return value.
+   *
+   * Note that this function or expression will be evaluated
+   * in browser environment, not in Node.js environment.
+   * So you *can* visit variables in browser also
+   * you *cannot* visit variables in Node.js.
+   *
+   * If you want to execute a function in Node.js environment,
+   * please use `execute` method instead.
+   *
+   * @template T
+   * @param {(((...args) => T) | string)} fn Function or expression.
+   * @param {any} args Arguments of function.
+   * @returns {Promise<T>} Promise-wrapped return value of the given function.
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const title = await rize.evaluateWithReturn(() => document.title)
+   *   const text = await rize.evaluateWithReturn('document.body.textContent')
+   * })()
+   * ```
+   */
+  evaluateWithReturn <T = any> (
+    fn: ((...args) => T) | string,
+    ...args
+  ): Promise<T> {
+    return Promise.resolve((fn as (...args) => T)())
   }
 
   /**

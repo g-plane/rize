@@ -58,6 +58,20 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
+  Rize.prototype.evaluateWithReturn = function <T = any> (
+    fn: ((...args) => T) | string,
+    ...args
+  ) {
+    const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
+
+    return new Promise<T>(resolve => {
+      this.push(async () => {
+        const returnValue: T = await this.page.evaluate(stringified)
+        resolve(returnValue)
+      })
+    })
+  }
+
   Rize.prototype.withUserAgent = function (userAgent: string) {
     this.push(async () => {
       await this.page.setUserAgent(userAgent)
