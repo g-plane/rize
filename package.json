@@ -70,7 +70,7 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^22.0.4",
     "tslint": "^5.9.1",
-    "tslint-config-gplane": "^1.4.0",
+    "tslint-config-gplane": "^2.0.2",
     "typedoc": "^0.10.0",
     "typescript": "^2.7.2"
   },

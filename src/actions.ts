@@ -81,7 +81,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.radio =  function (selector: string, value: string) {
+  Rize.prototype.radio = function (selector: string, value: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
