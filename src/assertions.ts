@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer'
 import assert from 'assert'
 import url from 'url'
 import RizeInstance from './index'

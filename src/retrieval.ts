@@ -1,5 +1,4 @@
 import url from 'url'
-import puppeteer from 'puppeteer'
 import RizeInstance from './index'
 
 export default function mixinRetrieval (Rize: typeof RizeInstance) {
