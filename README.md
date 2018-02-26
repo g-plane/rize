@@ -3,6 +3,7 @@
 <p align="center">
   <a href="https://travis-ci.org/g-plane/rize"><img src="https://img.shields.io/travis/g-plane/rize.svg?style=flat-square" alt="Travis Build Status"></a>
   <a href="https://ci.appveyor.com/project/g-plane/rize"><img src="https://img.shields.io/appveyor/ci/g-plane/rize.svg?style=flat-square&logo=appveyor" alt="AppVeyor Build Status"></a>
+<a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fg-plane%2Frize?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fg-plane%2Frize.svg?type=shield"/></a>
   <a href="https://codecov.io/gh/g-plane/rize"><img src="https://img.shields.io/codecov/c/github/g-plane/rize.svg?style=flat-square" alt="Coverage"></a>
   <a href="https://github.com/g-plane/rize/blob/master/LICENSE"><img src="https://img.shields.io/github/license/g-plane/rize.svg?style=flat-square" alt="License"></a>
   <a href="https://www.npmjs.com/package/rize"><img src="https://img.shields.io/npm/v/rize.svg?style=flat-square" alt="NPM Version"></a>
@@ -10,6 +11,9 @@
 </p>
 
 Rize is a high-level, fluent and chainable API provided library which let you use puppeteer simply.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fg-plane%2Frize.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fg-plane%2Frize?ref=badge_large)
 
 ## Installation
 
