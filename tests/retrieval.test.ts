@@ -123,7 +123,7 @@ test('retrieve query string', async done => {
   instance.end(done)
 })
 
-test('retrieve cookies', async done => {
+test('retrieve cookie', async done => {
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
   const instance = new Rize()
@@ -132,13 +132,13 @@ test('retrieve cookies', async done => {
     .execute(
       (browser, page) => page.setCookie({ name: 'name', value: 'value' })
     )
-  await expect(instance.cookies())
+  await expect(instance.cookie())
     .resolves
     .toMatchObject({ name: 'name', value: 'value' })
   instance.execute(() => jest
     .spyOn(instance.page, 'cookies')
     .mockReturnValue(Promise.reject(new Error())))
-  await expect(instance.cookies()).rejects.toThrowError()
+  await expect(instance.cookie()).rejects.toThrowError()
   server.close()
   instance.end(done)
 })

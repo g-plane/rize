@@ -77,15 +77,15 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertCookiesHas = function (name: string, value?: string) {
+  Rize.prototype.assertCookieHas = function (name: string, value?: string) {
     this.push(async () => {
-      const cookies = (await this.page.cookies())[0]
+      const cookie = (await this.page.cookies())[0]
 
       if (value) {
-        const needed = { name: cookies.name, value: cookies.value }
+        const needed = { name: cookie.name, value: cookie.value }
         assert.deepStrictEqual(needed, { name, value })
       } else {
-        assert.strictEqual(cookies.name, name)
+        assert.strictEqual(cookie.name, name)
       }
     })
 

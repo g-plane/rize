@@ -132,7 +132,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.cookies = function () {
+  Rize.prototype.cookie = function () {
     return new Promise((resolve, reject) => {
       this.push(async () => {
         try {

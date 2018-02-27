@@ -72,7 +72,7 @@ test('assert query string does not have a key', async done => {
     .end(done)
 })
 
-test('assert has cookies', async done => {
+test('assert has cookie', async done => {
   const port = await getPort()
   const server = http.createServer((req, res) => res.end()).listen(port)
   const instance = new Rize()
@@ -82,8 +82,8 @@ test('assert has cookies', async done => {
       name: 'name',
       value: 'value'
     }))
-    .assertCookiesHas('name')
-    .assertCookiesHas('name', 'value')
+    .assertCookieHas('name')
+    .assertCookieHas('name', 'value')
     .execute(() => server.close())
     .end(done)
 })

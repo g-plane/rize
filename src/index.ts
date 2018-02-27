@@ -741,13 +741,13 @@ export default class Rize {
   }
 
   /**
-   * Assert that the cookies of current page has the given name and value.
+   * Assert that the cookie of current page has the given name and value.
    *
    * You can pass an expected value as the second argument.
-   * Then it will check the value of given name in cookies.
+   * Then it will check the value of given name in cookie.
    *
-   * @param {string} name Expected cookies name.
-   * @param {string} [value] Expected cookies value.
+   * @param {string} name Expected cookie name.
+   * @param {string} [value] Expected cookie value.
    * @returns
    * @memberof Rize
    *
@@ -756,11 +756,11 @@ export default class Rize {
    * ```javascript
    *
    * const rize = new Rize()
-   * rize.assertCookiesHas('name')
-   * rize.assertCookiesHas('name', 'value')
+   * rize.assertCookieHas('name')
+   * rize.assertCookieHas('name', 'value')
    * ```
    */
-  assertCookiesHas (name: string, value?: string) {
+  assertCookieHas (name: string, value?: string) {
     return this
   }
 
@@ -1809,7 +1809,7 @@ export default class Rize {
   }
 
   /**
-   * Retrieve cookies of current page.
+   * Retrieve cookie of current page.
    *
    * @returns
    * @memberof Rize
@@ -1820,11 +1820,11 @@ export default class Rize {
    *
    * (async () => {
    *   const rize = new Rize()
-   *   const exists = await rize.cookies()
+   *   const exists = await rize.cookie()
    * })()
    * ```
    */
-  cookies () {
+  cookie () {
     return Promise.resolve({} as puppeteer.Cookie)
   }
 
