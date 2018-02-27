@@ -155,10 +155,10 @@ test('retrieve cookies', async done => {
         { name: 'name2', value: 'value2' }
       )
     )
-  await expect(instance.cookies()).resolves.toEqual([
+  await expect(instance.cookies()).resolves.toEqual(expect.arrayContaining([
     expect.objectContaining({ name: 'name2', value: 'value2' }),
     expect.objectContaining({ name: 'name1', value: 'value1' })
-  ])
+  ]))
   instance.execute(() => jest
     .spyOn(instance.page, 'cookies')
     .mockReturnValue(Promise.reject(new Error())))
