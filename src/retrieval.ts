@@ -143,4 +143,52 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
       })
     })
   }
+
+  Rize.prototype.cookies = function () {
+    return new Promise((resolve, reject) => {
+      this.push(async () => {
+        try {
+          resolve(await this.page.cookies())
+        } catch (error) {
+          reject(error)
+        }
+      })
+    })
+  }
+
+  Rize.prototype.isVisible = function (selector: string) {
+    return new Promise((resolve, reject) => {
+      this.push(async () => {
+        try {
+          const result: string = await this.page.evaluate(
+            /* Instrumenting cannot be executed in browser. */
+            /* istanbul ignore next */
+            sel => document.querySelector<HTMLElement>(sel)!.style.display,
+            selector
+          )
+          resolve(result !== 'none')
+        } catch (error) {
+          reject(error)
+        }
+      })
+    })
+  }
+
+  Rize.prototype.isPresent = function (selector: string) {
+    return new Promise((resolve, reject) => {
+      this.push(async () => {
+        try {
+          const element: HTMLElement | null = await this.page.evaluate(
+            /* Instrumenting cannot be executed in browser. */
+            /* istanbul ignore next */
+            sel => document.querySelector<HTMLElement>(sel),
+            selector
+          )
+          resolve(element !== null)
+        } catch (error) {
+          reject(error)
+        }
+      })
+    })
+  }
 }

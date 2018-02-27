@@ -1906,12 +1906,74 @@ export default class Rize {
    *
    * (async () => {
    *   const rize = new Rize()
-   *   const exists = await rize.cookie()
+   *   const cookie = await rize.cookie()
    * })()
    * ```
    */
   cookie () {
     return Promise.resolve({} as puppeteer.Cookie)
+  }
+
+  /**
+   * Retrieve cookies of current page.
+   *
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const cookies = await rize.cookies()
+   * })()
+   * ```
+   */
+  cookies () {
+    return Promise.resolve([] as puppeteer.Cookie[])
+  }
+
+  /**
+   * Retrieve if an element is visible.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const isVisible = await rize.isVisible('div')
+   * })()
+   * ```
+   */
+  isVisible (selector: string) {
+    return Promise.resolve(false)
+  }
+
+  /**
+   * Retrieve if an element is present.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const isPresent = await rize.isPresent('div.nope')
+   * })()
+   * ```
+   */
+  isPresent (selector: string) {
+    return Promise.resolve(false)
   }
 
   /* retrieval END */

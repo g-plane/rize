@@ -142,3 +142,60 @@ test('retrieve cookie', async done => {
   server.close()
   instance.end(done)
 })
+
+test('retrieve cookies', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end('')).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .execute(
+      (browser, page) => page.setCookie(
+        { name: 'name1', value: 'value1' },
+        { name: 'name2', value: 'value2' }
+      )
+    )
+  await expect(instance.cookies()).resolves.toEqual([
+    expect.objectContaining({ name: 'name2', value: 'value2' }),
+    expect.objectContaining({ name: 'name1', value: 'value1' })
+  ])
+  instance.execute(() => jest
+    .spyOn(instance.page, 'cookies')
+    .mockReturnValue(Promise.reject(new Error())))
+  await expect(instance.cookies()).rejects.toThrowError()
+  server.close()
+  instance.end(done)
+})
+
+test('retrieve if an element is visible', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body><div style="display: none"></div><p></p></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance.goto(`http://localhost:${port}/`)
+  await expect(instance.isVisible('p')).resolves.toBe(true)
+  await expect(instance.isVisible('div')).resolves.toBe(false)
+  await expect(instance.isVisible('span')).rejects.toThrowError()
+  server.close()
+  instance.end(done)
+})
+
+test('retrieve if an element is present', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body><div style="display: none"></div></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance.goto(`http://localhost:${port}/`)
+  await expect(instance.isPresent('div')).resolves.toBe(true)
+  await expect(instance.isPresent('span')).resolves.toBe(false)
+  instance.execute(() => {
+    jest.spyOn(instance.page, 'evaluate').mockImplementation(
+      () => Promise.reject(new Error())
+    )
+  })
+  await expect(instance.isPresent('div')).rejects.toThrowError()
+  server.close()
+  instance.end(done)
+})
