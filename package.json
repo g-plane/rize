@@ -54,7 +54,6 @@
       "/node_modules/",
       "<rootDir>/tests/utils"
     ],
-    "mapCoverage": true,
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "<rootDir>/src/index.ts"
