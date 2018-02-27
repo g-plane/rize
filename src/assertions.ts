@@ -101,6 +101,15 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
+  Rize.prototype.assertDontSee = function (text: string) {
+    this.push(async () => {
+      const html = await this.page.content()
+      assert.ok(!html.includes(text), 'Unexpected text found.')
+    })
+
+    return this
+  }
+
   Rize.prototype.assertSeeIn = function (selector: string, text: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
@@ -111,6 +120,21 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
         selector
       )
       assert.ok(textContent.includes(text), 'Text not found.')
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertDontSeeIn = function (selector: string, text: string) {
+    this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, 'Element not found.')
+      const textContent: string = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (sel: string) => document.querySelector(sel)!.textContent,
+        selector
+      )
+      assert.ok(!textContent.includes(text), 'Unexpected text found.')
     })
 
     return this
@@ -151,6 +175,27 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
         selector, className
       )
       assert.ok(result, `Element does not has "${className}" class.`)
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertClassMissing = function (
+    selector: string,
+    className: string,
+  ) {
+    this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, 'Element not found.')
+      const result: boolean = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (
+          sel: string,
+          name
+        ) => document.querySelector(sel)!.classList.contains(name),
+        selector, className
+      )
+      assert.ok(!result, `Element has unexpected "${className}" class.`)
     })
 
     return this
@@ -333,6 +378,19 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
         selector
       )
       assert.notStrictEqual(display, 'none')
+    })
+
+    return this
+  }
+
+  Rize.prototype.assertElementHidden = function (selector: string) {
+    this.push(async () => {
+      const display: string = await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => document.querySelector<HTMLElement>(sel)!.style.display,
+        selector
+      )
+      assert.strictEqual(display, 'none', 'The given element is visible.')
     })
 
     return this

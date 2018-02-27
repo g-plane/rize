@@ -103,6 +103,21 @@ test('see some text in page', async done => {
     .end(done)
 })
 
+test('do not see some text in page', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><script>document.write(1 + 1)</script></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertDontSee('4')
+    .execute(() => server.close())
+    .end(done)
+})
+
 test('see some text in an element', async done => {
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -114,6 +129,21 @@ test('see some text in an element', async done => {
   instance
     .goto(`http://localhost:${port}/`)
     .assertSeeIn('div', 'rize')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('do not see some text in an element', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><div>rize</div></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertDontSeeIn('div', 'cocoa')
     .execute(() => server.close())
     .end(done)
 })
@@ -144,6 +174,21 @@ test('assert an element has a class', async done => {
   instance
     .goto(`http://localhost:${port}/`)
     .assertClassHas('div', 'rabbit-house')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert an element do not have a class', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><div class="rabbit-house">rize</div></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertClassMissing('div', 'rabbit')
     .execute(() => server.close())
     .end(done)
 })
@@ -327,6 +372,19 @@ test('assert element is visible', async done => {
   instance
     .goto(`http://localhost:${port}/`)
     .assertElementVisible('div')
+    .execute(() => server.close())
+    .end(done)
+})
+
+test('assert element is hidden', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body><div style="display: none"></div></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .assertElementHidden('div')
     .execute(() => server.close())
     .end(done)
 })

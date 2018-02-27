@@ -786,10 +786,29 @@ export default class Rize {
   }
 
   /**
+   * Assert that the given text appears on the page.
+   *
+   * @param {string} text Expected text.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.assertDontSee('Nothing in HTML.')
+   * ```
+   */
+  assertDontSee (text: string) {
+    return this
+  }
+
+  /**
    * Assert that the given text can be found by the given selector.
    *
    * @param {string} selector CSS selector.
-   * @param {string} text Expected text.
+   * @param {string} text Expected text you don't want to see.
    * @returns
    * @memberof Rize
    *
@@ -807,6 +826,31 @@ export default class Rize {
    * ```
    */
   assertSeeIn (selector: string, text: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given text does not appear within the given selector.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} text Expected text you don't want to see.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <div class="my-class">some text in HTML</div>
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertDontSeeIn('.my-class', 'nothing')
+   * ```
+   */
+  assertDontSeeIn (selector: string, text: string) {
     return this
   }
 
@@ -859,6 +903,31 @@ export default class Rize {
    * ```
    */
   assertClassHas (selector: string, className: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given element does not have the given class name.
+   *
+   * @param {string} selector CSS selector.
+   * @param {string} className Class name.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * Suppose the HTML structure:
+   *
+   * ```html
+   * <div class="rabbit-house"></div>
+   * ```
+   *
+   * ```javascript
+   * const rize = new Rize()
+   * rize.assertClassMissing('div', 'rabbit')
+   * ```
+   */
+  assertClassMissing (selector: string, className: string) {
     return this
   }
 
@@ -1121,6 +1190,23 @@ export default class Rize {
    * ```
    */
   assertElementVisible (selector: string) {
+    return this
+  }
+
+  /**
+   * Assert that the given element is hidden.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.assertElementHidden('div')
+   * ```
+   */
+  assertElementHidden (selector: string) {
     return this
   }
 
