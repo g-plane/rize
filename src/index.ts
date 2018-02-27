@@ -99,8 +99,7 @@ export default class Rize {
   }
 
   /**
-   * Unless you know what you want to do,
-   * please do not use this function directly.
+   * Push an operation to queue.
    *
    * @param fn Function to be pushed to queue.
    * @returns
@@ -133,6 +132,7 @@ export default class Rize {
    *
    * @returns
    * @memberof Rize
+   * @private
    */
   clearQueue () {
     this.push(() => (this.queue = []))
@@ -145,6 +145,7 @@ export default class Rize {
    *
    * @returns
    * @memberof Rize
+   * @private
    */
   clearQueueNow () {
     this.queue = []
