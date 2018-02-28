@@ -25,3 +25,18 @@ matrix:
     node_js: 6.4
   - os: osx
     node_js: 8
+  - node_js: 9
+    secure: dAkalIIvmBbx5yAJuoiCAV7xGcqF0p9Sl24B1SJH7SbF7pKc5G5TD0sDA4slGqU178ATlydkE7wZyLSyMgDnMBWVZRsOb7GrBWZuCuG0dSgRj4t1tSLWQm6XJD1Eer29KCKgRS3GwbB9JnUQAQD/nfCj/FLXrZn2fZlBGuYxnGXVh+lSf9sJ586RdD8xOecVYlV7ZBdw8nbhRQuP1Y77kpab4gUiN7NLmY5RnYB8/PNNC5WJ90BYhxr/bJz35xaX07X5z5nQ1pQrwKFVbUBOULDEBwKm4Cb9R2al+/O/R6KxX4UZ31tLBQQlDvZTU6LhWhYYXhuwkqh1mG1Z0woIkVh5Y+JGEAblLzFiKEvOMLrXnuKWReyC4xUQrJ8b75y1wF62+wqLq2djct6kdYV6viMGW0SakDacUR7ktD1ODs+tPF8AC1cf1rRnD90HybUdba0pYSUlQXA0J3kqgi9/KI3GC9/dKpt5I1nNq4Qwv4ju88AcJlWok9ZnNWldKI1yuIp9HZ458PoyYHPtjavHtyOqjx4VZhYadcFK+v0xYFAaM58Q5974ND77uCNPELWE1/UuUg8X8g46wENIHQh+LDaPZ9BcK1nZNwZKrZy23keKGS8hRq66G8BoBW0Kj3D6//rnVL00M+TbDGpodNkDfqGJJSnrlmAx131I/yVTJSo=
+    script:
+      - yarn build:docs
+      - cd docs && touch .nojekyll
+    deploy:
+      provider: pages
+      skip-cleanup: true
+      github-token: $GITHUB_TOKEN
+      keep-history: true
+      local-dir: docs
+      fqdn: rize.js.org
+      email: g-plane@hotmail.com
+      name: Pig Fang
+      allow-empty-commit: true
