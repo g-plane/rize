@@ -11,6 +11,8 @@
 
 Rize is a high-level, fluent and chainable API provided library which let you use puppeteer simply.
 
+Additional Notes: "Rize" is pronounced like /ɾize/, not /raɪzɪ/. "Rize" is one of characters in [*Is the Order a Rabbit?*](https://en.wikipedia.org/wiki/Is_the_Order_a_Rabbit%3F).
+
 ## Installation
 
 You should install `puppeteer` at the same time.
