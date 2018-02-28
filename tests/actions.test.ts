@@ -143,6 +143,42 @@ test('type text to an element', async done => {
     .end(done)
 })
 
+test('clear text on an element', async done => {
+  expect.assertions(2)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <input value="rize" />
+        <textarea>rize</textarea>
+        <div>rize</div>
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .clear('input')
+    .clear('textarea')
+    .clear('div')  // Should no errors threw.
+    .execute(async () => {
+      const input: string = await instance.page.evaluate(
+        () => document.querySelector('input').value
+      )
+      expect(input).toBe('')
+      const textarea: string = await instance.page.evaluate(
+        () => document.querySelector('textarea').textContent
+      )
+      expect(textarea).toBe('')
+      const div: string = await instance.page.evaluate(
+        () => document.querySelector('div').textContent
+      )
+      expect(div).toBe('rize')  // Text should not be modified.
+      server.close()
+    })
+    .end(done)
+})
+
 test('focus on an element', async done => {
   expect.assertions(1)
   const port = await getPort()

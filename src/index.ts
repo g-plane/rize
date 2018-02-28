@@ -1328,6 +1328,9 @@ export default class Rize {
   /**
    * Type some text on an element.
    *
+   * This method won't clear existing value of an element and
+   * it only will append the given text.
+   *
    * @param {string} selector CSS selector.
    * @param {string} text Text to be typed.
    * @returns
@@ -1342,6 +1345,26 @@ export default class Rize {
    * ```
    */
   type (selector: string, text: string) {
+    return this
+  }
+
+  /**
+   * Clear value of `<input>` element or text content of `<textarea>` element.
+   *
+   * @param {string} selector CSS selector.
+   * @returns
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.clear('input')
+   * rize.clear('textarea')
+   * ```
+   */
+  clear (selector: string) {
     return this
   }
 

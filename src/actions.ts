@@ -36,6 +36,30 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
+  Rize.prototype.clear = function (selector: string) {
+    this.push(async () => {
+      await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        sel => {
+          const element: HTMLInputElement | HTMLTextAreaElement =
+            document.querySelector(sel)
+
+          if (element.tagName === 'INPUT') {
+            element.value = ''
+          } else if (element.tagName === 'TEXTAREA') {
+            element.textContent = ''
+          } else {
+            // Don't throw error.
+            return
+          }
+        },
+        selector
+      )
+    })
+
+    return this
+  }
+
   Rize.prototype.focus = function (selector: string) {
     this.push(async () => await this.page.focus(selector))
 
