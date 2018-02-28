@@ -87,8 +87,16 @@ test('retrieve value', async done => {
   instance.goto(`http://localhost:${port}/`)
   await expect(instance.value('input')).resolves.toBe('rize')
   await expect(instance.value('span')).rejects.toThrowError()
-  server.close()
-  instance.end(done)
+  instance
+    .value('input', 'rabbit-house')
+    .execute(async (browser, page) => {
+      const value: string = await page.evaluate(
+        () => document.querySelector('input').value
+      )
+      expect(value).toBe('rabbit-house')
+      server.close()
+    })
+    .end(done)
 })
 
 test('retrieve if an element has a class', async done => {

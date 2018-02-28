@@ -93,8 +93,28 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  value (selector: string) {
-    return this.attribute(selector, 'value')
+  value (selector: string): Promise<string | null>
+
+  value (selector: string, newValue: string): this
+
+  value (selector: string, newValue?: string): Promise<string | null> | this {
+    if (newValue) {
+      this.push(async () => {
+        await this.page.evaluate(
+          /* Instrumenting cannot be executed in browser. */
+          /* istanbul ignore next */
+          (sel, val) => document
+            .querySelector<HTMLInputElement>(sel)!
+            .value = val,
+          selector,
+          newValue
+        )
+      })
+
+      return this
+    } else {
+      return this.attribute(selector, 'value')
+    }
   }
 
   hasClass (selector: string, className: string) {

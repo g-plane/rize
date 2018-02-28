@@ -1654,7 +1654,25 @@ export default class Rize
    * })()
    * ```
    */
-  value (selector: string): Promise<string | null> {
+  value (selector: string): Promise<string | null>
+
+  /**
+   * Set a value of an `<input>` element.
+   *
+   * @param selector CSS selector.
+   * @param newValue New value.
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.value('input', 'new-value')
+   * ```
+   */
+  value (selector: string, newValue: string): this
+
+  value (selector: string, newValue?: string): Promise<string | null> | this {
     return Promise.resolve('')
   }
 
