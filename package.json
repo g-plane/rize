@@ -29,7 +29,8 @@
     "build:docs": "typedoc --excludeExternals --excludePrivate --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs ./src/index.ts",
     "test": "jest",
     "coverage": "jest --coverage",
-    "lint": "tslint -p ."
+    "lint": "tslint -p .",
+    "prepublish": "yarn build"
   },
   "engines": {
     "node": ">=6.4.0"
