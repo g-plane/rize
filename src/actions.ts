@@ -66,10 +66,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  select (
-    selector: string,
-    values: string | string[]
-  ) {
+  select (selector: string, values: string | string[]) {
     this.push(async () => {
       if (Array.isArray(values)) {
         await this.page.select(selector, ...values)
@@ -150,29 +147,19 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  mouseClick (
-    x: number,
-    y: number,
-    options?: puppeteer.MousePressOptions
-  ) {
+  mouseClick (x: number, y: number, options?: puppeteer.MousePressOptions) {
     this.push(async () => await this.page.mouse.click(x, y, options))
 
     return this
   }
 
-  mouseDown (
-    button: puppeteer.MouseButtons = 'left',
-    clickCount: number = 1
-  ) {
+  mouseDown (button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
     this.push(async () => await this.page.mouse.down({ button, clickCount }))
 
     return this
   }
 
-  mouseUp (
-    button: puppeteer.MouseButtons = 'left',
-    clickCount: number = 1
-  ) {
+  mouseUp (button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
     this.push(async () => await this.page.mouse.up({ button, clickCount }))
 
     return this

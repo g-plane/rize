@@ -140,11 +140,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertAttribute (
-    selector: string,
-    attribute: string,
-    value: string
-  ) {
+  assertAttribute (selector: string, attribute: string, value: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, 'Element not found.')
@@ -159,10 +155,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertClassHas (
-    selector: string,
-    className: string,
-  ) {
+  assertClassHas (selector: string, className: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, 'Element not found.')
@@ -180,10 +173,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertClassMissing (
-    selector: string,
-    className: string,
-  ) {
+  assertClassMissing (selector: string, className: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, 'Element not found.')
@@ -201,11 +191,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertStyleHas (
-    selector: string,
-    property: string,
-    value: string
-  ) {
+  assertStyleHas (selector: string, property: string, value: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, 'Element not found.')
@@ -250,10 +236,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertValueContains (
-    selector: string,
-    value: string
-  ) {
+  assertValueContains (selector: string, value: string) {
     this.push(async () => {
       const actual: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -295,10 +278,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertRadioSelected (
-    selector: string,
-    value: string
-  ) {
+  assertRadioSelected (selector: string, value: string) {
     this.push(async () => {
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -314,10 +294,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertRadioNotSelected (
-    selector: string,
-    value: string
-  ) {
+  assertRadioNotSelected (selector: string, value: string) {
     this.push(async () => {
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -350,10 +327,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertNotSelected (
-    selector: string,
-    value: string
-  ) {
+  assertNotSelected (selector: string, value: string) {
     this.push(async () => {
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */

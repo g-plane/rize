@@ -80,10 +80,7 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  saveScreenshot (
-    path: string,
-    options?: puppeteer.ScreenshotOptions
-  ) {
+  saveScreenshot (path: string, options?: puppeteer.ScreenshotOptions) {
     this.push(async () => {
       await this.page.screenshot({ ...options, path })
     })
@@ -91,10 +88,7 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  savePDF (
-    path: string,
-    options?: puppeteer.PDFOptions
-  ) {
+  savePDF (path: string, options?: puppeteer.PDFOptions) {
     this.push(async () => {
       await this.page.pdf({ ...options, path })
     })
@@ -108,10 +102,7 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  waitForElement (
-    selector: string,
-    timeout?: number
-  ) {
+  waitForElement (selector: string, timeout?: number) {
     this.push(async () => await this.page.waitForSelector(
       selector,
       { timeout }
@@ -120,11 +111,7 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  waitForEvaluation (
-    fn: string | Function,
-    timeout?: number,
-    ...args
-  ) {
+  waitForEvaluation (fn: string | Function, timeout?: number, ...args) {
     const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
 
     this.push(
