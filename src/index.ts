@@ -526,6 +526,26 @@ export default class Rize
   }
 
   /**
+   * Assert that the current URL matches the given regular expression.
+   *
+   * @param regex Regular expression.
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * // Suppose the URL is "http://localhost/"
+   *
+   * const rize = new Rize()
+   * rize.assertUrlMatch('^http')
+   * rize.assertUrlMatch(/^http/)
+   * ```
+   */
+  assertUrlMatch (regex: RegExp | string) {
+    return this
+  }
+
+  /**
    * Assert that the current path matches the given path.
    *
    * @param expected Expected path.
@@ -598,6 +618,26 @@ export default class Rize
    * ```
    */
   assertTitleContains (title: string) {
+    return this
+  }
+
+  /**
+   * Assert that title of current page matches the given regular expression.
+   *
+   * @param regex Regular expression.
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * // Suppose the title of page is "Tedeza Rize".
+   *
+   * const rize = new Rize()
+   * rize.assertTitleMatch('Rize$')
+   * rize.assertTitleMatch(/Rize$/)
+   * ```
+   */
+  assertTitleMatch (regex: RegExp | string) {
     return this
   }
 

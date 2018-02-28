@@ -11,6 +11,14 @@ test('assert url', done => {
     .end(done)
 }, process.env.CI ? 8000 : 5000)
 
+test('assert url matches a regular expression', done => {
+  const instance = new Rize()
+  instance
+    .assertUrlMatch('^about')
+    .assertUrlMatch(/blank$/)
+    .end(done)
+})
+
 test('assert url path', async done => {
   const port = await getPort()
   const server = http.createServer((req, res) => res.end()).listen(port)
@@ -46,6 +54,15 @@ test('assert title contains a string', done => {
   instance
     .execute(() => instance.page.evaluate(() => document.title = 'testing'))
     .assertTitleContains('test')
+    .end(done)
+})
+
+test('assert title matches a regular expression', done => {
+  const instance = new Rize()
+  instance
+    .execute(() => instance.page.evaluate(() => document.title = 'testing'))
+    .assertTitleMatch('^te')
+    .assertTitleMatch(/ing$/)
     .end(done)
 })
 

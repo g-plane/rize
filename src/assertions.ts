@@ -9,6 +9,25 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
+  assertUrlMatch (regex: RegExp | string) {
+    this.push(() => {
+      const pageUrl = this.page.url()
+      if (typeof regex === 'string') {
+        assert.ok(
+          new RegExp(regex).test(pageUrl),
+          `Current URL "${pageUrl}" does not match "${regex}".`
+        )
+      } else {
+        assert.ok(
+          regex.test(pageUrl),
+          `Current URL "${pageUrl}" does not match "${regex.source}".`
+        )
+      }
+    })
+
+    return this
+  }
+
   assertPathIs (expected: string) {
     this.push(() => {
       const pageUrl = url.parse(this.page.url())
@@ -45,6 +64,25 @@ export default class Assertions extends Infrastructure {
         actual.includes(title),
         `Actual title does not contain "${title}".`
       )
+    })
+
+    return this
+  }
+
+  assertTitleMatch (regex: RegExp | string) {
+    this.push(async () => {
+      const title = await this.page.title()
+      if (typeof regex === 'string') {
+        assert.ok(
+          new RegExp(regex).test(title),
+          `Page title "${title}" does not match "${regex}".`
+        )
+      } else {
+        assert.ok(
+          regex.test(title),
+          `Page title "${title}" does not match "${regex.source}".`
+        )
+      }
     })
 
     return this
