@@ -1977,6 +1977,322 @@ export default class Rize {
     return Promise.resolve(false)
   }
 
+  /**
+   * Find an element by CSS selector and execute an operation.
+   *
+   * @template T
+   * @param {string} selector
+   * @param fn One of available `Rize` APIs.
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.find('button#greeting', rize.click)
+   *
+   * // or
+   *
+   * ;(async () => {
+   *   const rize = new Rize()
+   *   const text = await rize.find('span#greeting', rize.text)
+   * })()
+   * ```
+   */
+  find <T> (
+    selector: string,
+    fn: ((selector: string) => T)
+  ): T
+
+  /**
+   * Find an element by CSS selector and execute an operation.
+   *
+   * @template T
+   * @template U1
+   * @param {string} selector
+   * @param fn One of available `Rize` APIs.
+   * @param {U1} arg1
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.find('input#name', rize.type, 'my-name')
+   *
+   * // or
+   *
+   * ;(async () => {
+   *   const rize = new Rize()
+   *   const font = await rize.find('span#greeting', rize.style, 'font-size')
+   * })()
+   * ```
+   */
+  find <T, U1> (
+    selector: string,
+    fn: ((selector: string, arg1: U1) => T),
+    arg1: U1
+  ): T
+
+  /**
+   * Find an element by CSS selector and execute an operation.
+   *
+   * @template T
+   * @template U1
+   * @template U2
+   * @param {string} selector
+   * @param fn One of available `Rize` APIs.
+   * @param {U1} arg1
+   * @param {U2} arg2
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.find('div#message', rize.assertAttribute, 'id', 'message')
+   * ```
+   */
+  find <T, U1, U2> (
+    selector: string,
+    fn: ((selector: string, arg1: U1, arg2: U2) => T),
+    arg1: U1,
+    arg2: U2
+  ): T
+
+  find <T> (
+    selector: string,
+    fn: ((selector: string, ...args) => T),
+    ...args
+  ): T {
+    return fn('')
+  }
+
+  /**
+   * Find all elements by CSS selector and pick one to execute an operation.
+   *
+   * @template T
+   * @param {string} selector
+   * @param {number} index Starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findAll('button', 2, rize.click)
+   *
+   * // or
+   *
+   * ;(async () => {
+   *   const rize = new Rize()
+   *   const text = await rize.findAll('span', 2, rize.text)
+   * })()
+   * ```
+   */
+  findAll <T> (
+    selector: string,
+    index: number,
+    fn: ((selector: string) => T)
+  ): T
+
+  /**
+   * Find all elements by CSS selector and pick one to execute an operation.
+   *
+   * @template T
+   * @template U1
+   * @param {string} selector
+   * @param {number} index Starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @param {U1} arg1
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findAll('input', 1, rize.type, 'my-name')
+   *
+   * // or
+   *
+   * ;(async () => {
+   *   const rize = new Rize()
+   *   const font = await rize.findAll('span', 1, rize.style, 'font-size')
+   * })()
+   * ```
+   */
+  findAll <T, U1> (
+    selector: string,
+    index: number,
+    fn: ((selector: string, arg1: U1) => T),
+    arg1: U1
+  ): T
+
+  /**
+   * Find all elements by CSS selector and pick one to execute an operation.
+   *
+   * @template T
+   * @template U1
+   * @template U2
+   * @param {string} selector
+   * @param {number} index Starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @param {U1} arg1
+   * @param {U2} arg2
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findAll('div', 2, rize.assertAttribute, 'id', 'message')
+   * ```
+   */
+  findAll <T, U1, U2> (
+    selector: string,
+    index: number,
+    fn: ((selector: string, arg1: U1, arg2: U2) => T),
+    arg1: U1,
+    arg2: U2
+  ): T
+
+  findAll <T> (
+    selector: string,
+    index: number,
+    fn: ((selector: string, ...args) => T),
+    ...args
+  ): T {
+    return fn('')
+  }
+
+  /**
+   * Find all elements by XPath and pick one to execute an operation.
+   *
+   * @template T
+   * @param {string} expression
+   * @param {number} index Starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findByXPath('/html/body//div', 2, rize.click)
+   *
+   * // or
+   *
+   * ;(async () => {
+   *   const rize = new Rize()
+   *   const text = await rize.findByXPath('/html/body//span', 2, rize.text)
+   * })()
+   * ```
+   */
+  findByXPath <T> (
+    expression: string,
+    index: number,
+    fn: ((selector: string) => T)
+  ): T
+
+  /**
+   * Find all elements by XPath and pick one to execute an operation.
+   *
+   * @template T
+   * @template U1
+   * @param {string} expression
+   * @param {number} index Starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @param {U1} arg1
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findByXPath('/html/body//input', 1, rize.type, 'my-name')
+   *
+   * // or
+   *
+   * ;(async () => {
+   *   const rize = new Rize()
+   *   const font = await rize.findByXPath(
+   *     '/html/body//span',
+   *     1,
+   *     rize.style,
+   *     'font-size'
+   *   )
+   * })()
+   * ```
+   */
+  findByXPath <T, U1> (
+    expression: string,
+    index: number,
+    fn: ((selector: string, arg1: U1) => T),
+    arg1: U1
+  ): T
+
+  /**
+   * Find all elements by XPath and pick one to execute an operation.
+   *
+   * @template T
+   * @template U1
+   * @template U2
+   * @param {string} expression
+   * @param {number} index Starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @param {U1} arg1
+   * @param {U2} arg2
+   * @returns {T}
+   * @memberof Rize
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findByXPath(
+   *   '/html/body//div',
+   *   2,
+   *   rize.assertAttribute,
+   *   'id',
+   *   'message'
+   * )
+   * ```
+   */
+  findByXPath <T, U1, U2> (
+    expression: string,
+    index: number,
+    fn: ((selector: string, arg1: U1, arg2: U2) => T),
+    arg1: U1,
+    arg2: U2
+  ): T
+
+  findByXPath <T> (
+    expression: string,
+    index: number,
+    fn: ((selector: string, ...args) => T),
+    ...args
+  ): T {
+    return fn('')
+  }
+
   /* retrieval END */
 }
 

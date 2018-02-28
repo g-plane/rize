@@ -199,3 +199,61 @@ test('retrieve if an element is present', async done => {
   server.close()
   instance.end(done)
 })
+
+test('find an element by CSS selector', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html><body><div style="font-size: 5px">rize</div></body></html>
+  `)).listen(port)
+  const instance = new Rize()
+  const text = await instance.goto(`http://localhost:${port}/`)
+    .find('div', instance.text)
+  expect(text).toBe('rize')
+  await expect(
+    instance.find('div', instance.style, 'font-size')
+  ).resolves.toBe('5px')
+  server.close()
+  instance.end(done)
+})
+
+test('find elements with index by CSS selector', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <div style="font-size: 5px">syaro</div>
+        <div>rize</div>
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  const text = await instance.goto(`http://localhost:${port}/`)
+    .findAll('div', 1, instance.text)
+  expect(text).toBe('rize')
+  await expect(
+    instance.findAll('div', 0, instance.style, 'font-size')
+  ).resolves.toBe('5px')
+  server.close()
+  instance.end(done)
+})
+
+test('find elements with index by XPath', async done => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <div style="font-size: 5px">syaro</div>
+        <div>rize</div>
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  const text = await instance.goto(`http://localhost:${port}/`)
+    .findByXPath('/html/body//div', 1, instance.text)
+  expect(text).toBe('rize')
+  await expect(
+    instance.findByXPath('/html/body//div', 0, instance.style, 'font-size')
+  ).resolves.toBe('5px')
+  server.close()
+  instance.end(done)
+})

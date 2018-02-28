@@ -1,4 +1,5 @@
 import url from 'url'
+import crypto from 'crypto'
 import RizeInstance from './index'
 
 export default function mixinRetrieval (Rize: typeof RizeInstance) {
@@ -190,5 +191,85 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
         }
       })
     })
+  }
+
+  Rize.prototype.find = function <T> (
+    selector: string,
+    fn: ((selector: string, ...args) => T),
+    ...args
+  ): T {
+    const random = crypto.randomBytes(10).toString('hex')
+    this.push(async () => {
+      await this.page.evaluate(
+        /* Instrumenting cannot be executed in browser. */
+        /* istanbul ignore next */
+        (sel: string, id: string) => document
+          .querySelector<HTMLElement>(sel)!
+          .setAttribute('data-rize', id),
+        selector,
+        random
+      )
+    })
+
+    return fn.call(this, `[data-rize="${random}"]`, ...args)
+  }
+
+  Rize.prototype.findAll = function <T> (
+    selector: string,
+    index: number,
+    fn: ((selector: string, ...args) => T),
+    ...args
+  ): T {
+    const random = crypto.randomBytes(10).toString('hex')
+    this.push(async () => {
+      await this.page.evaluate(
+        /* Instrumenting cannot be executed in browser. */
+        /* istanbul ignore next */
+        (sel: string, i: number, id: string) => document
+          .querySelectorAll<HTMLElement>(sel)[i]
+          .setAttribute('data-rize', id),
+        selector,
+        index,
+        random
+      )
+    })
+
+    return fn.call(this, `[data-rize="${random}"]`, ...args)
+  }
+
+  Rize.prototype.findByXPath = function <T> (
+    expression: string,
+    index: number,
+    fn: ((selector: string, ...args) => T),
+    ...args
+  ): T {
+    const random = crypto.randomBytes(10).toString('hex')
+    this.push(async () => {
+      await this.page.evaluate(
+        /* Instrumenting cannot be executed in browser. */
+        /* istanbul ignore next */
+        (expr: string, i: number, id: string) => {
+          const elements = document.evaluate(
+            expr,
+            document,
+            null,
+            XPathResult.ANY_TYPE,
+            null
+          )
+          let element = elements.iterateNext()
+          let it = 0
+          while (element && it < i) {
+            element = elements.iterateNext()
+            it++
+          }
+          void (element as HTMLElement).setAttribute('data-rize', id)
+        },
+        expression,
+        index,
+        random
+      )
+    })
+
+    return fn.call(this, `[data-rize="${random}"]`, ...args)
   }
 }
