@@ -1,10 +1,12 @@
 import EventEmitter from 'events'
 import puppeteer from 'puppeteer'
-import mixinBasic from './basic'
-import mixinPage from './page'
-import mixinAssertions from './assertions'
-import mixinActions from './actions'
-import mixinRetrieval from './retrieval'
+
+import Infrastructure from './infrastructure'
+import Actions from './actions'
+import Assertions from './assertions'
+import Basic from './basic'
+import Page from './page'
+import Retrieval from './retrieval'
 
 export interface RizeOptions {
   /**
@@ -67,10 +69,9 @@ export interface RizeOptions {
   height?: number
 }
 
-export default class Rize {
-  private queue: symbol[] = []
-  private eventBus = new EventEmitter()
-
+export default class Rize
+  extends Infrastructure
+  implements Actions, Assertions, Basic, Page, Retrieval {
   /**
    * Low-level instance of puppeteer's browser.
    *
@@ -91,7 +92,8 @@ export default class Rize {
    * @memberof Rize
    */
   constructor (options: puppeteer.LaunchOptions & RizeOptions = {}) {
-    (async () => {
+    super()
+    void (async () => {
       options.beforeLaunch && options.beforeLaunch()
 
       if (process.env.TRAVIS && process.platform === 'linux') {
@@ -127,24 +129,7 @@ export default class Rize {
    * @memberof Rize
    * @private
    */
-  push (fn: () => any) {
-    const unique = Symbol()
-    this.queue.push(unique)
-    this.eventBus.once(unique, async () => {
-      try {
-        await fn()
-      } catch (error) {
-        throw error
-      } finally {
-        this.eventBus.emit(this.queue[this.queue.indexOf(unique) + 1])
-        this.queue.shift()
-      }
-    })
-
-    if (this.browser && this.page && this.queue.length === 1) {
-      this.eventBus.emit(unique)
-    }
-
+  protected push (fn: () => any) {
     return this
   }
 
@@ -155,9 +140,7 @@ export default class Rize {
    * @memberof Rize
    * @private
    */
-  clearQueue () {
-    this.push(() => (this.queue = []))
-
+  protected clearQueue () {
     return this
   }
 
@@ -168,9 +151,7 @@ export default class Rize {
    * @memberof Rize
    * @private
    */
-  clearQueueNow () {
-    this.queue = []
-
+  protected clearQueueNow () {
     return this
   }
 
@@ -2340,11 +2321,25 @@ export default class Rize {
   /* retrieval END */
 }
 
+/**
+ * @private
+ */
+function mixin (main: typeof Rize, modules: any[]) {
+  modules.forEach(module => {
+      Object.getOwnPropertyNames(module.prototype).forEach(name => {
+          main.prototype[name] = module.prototype[name]
+      })
+  })
+}
+
+mixin(Rize, [
+  Infrastructure,
+  Actions,
+  Assertions,
+  Basic,
+  Page,
+  Retrieval
+])
+
 // @ts-ignore. This is for compatibility with CommonJS users.
 export = Rize
-
-mixinBasic(Rize)
-mixinPage(Rize)
-mixinAssertions(Rize)
-mixinActions(Rize)
-mixinRetrieval(Rize)

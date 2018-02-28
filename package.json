@@ -26,7 +26,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p .",
-    "build:docs": "typedoc --excludeExternals --excludePrivate --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs ./src/index.ts",
+    "build:docs": "typedoc --excludeExternals --excludePrivate --excludeProtected --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs ./src/index.ts",
     "test": "jest",
     "coverage": "jest --coverage",
     "lint": "tslint -p .",
@@ -57,7 +57,8 @@
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/src/index.ts"
+      "<rootDir>/src/index.ts",
+      "<rootDir>/src/infrastructure.ts"
     ]
   },
   "devDependencies": {

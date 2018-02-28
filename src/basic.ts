@@ -1,8 +1,8 @@
 import puppeteer from 'puppeteer'
-import RizeInstance from './index'
+import Infrastructure from './infrastructure'
 
-export default function mixinBasic (Rize: typeof RizeInstance) {
-  Rize.prototype.sleep = function (ms: number) {
+export default class Basic extends Infrastructure {
+  sleep (ms: number) {
     this.push(async () => {
       await this.page.waitFor(ms)
     })
@@ -10,9 +10,9 @@ export default function mixinBasic (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.execute = function (
+  execute (
     fn: (
-      this: RizeInstance,
+      this: Infrastructure,
       browser: puppeteer.Browser,
       page: puppeteer.Page,
       ...args
@@ -23,7 +23,7 @@ export default function mixinBasic (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.end = function (callback?: (...args) => any) {
+  end (callback?: (...args) => any) {
     this.push(async () => {
       await this.browser.close()
       callback && callback()

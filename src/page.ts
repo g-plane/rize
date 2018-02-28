@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-import RizeInstance from './index'
+import Infrastructure from './infrastructure'
 
 function serializeArg (arg) {
   return arg === undefined ? 'undefined' : JSON.stringify(arg)
@@ -9,8 +9,8 @@ function serializeFunc (func: Function, ...rest) {
   return `(${func})(${rest.map(serializeArg).join(',')})`
 }
 
-export default function mixinPage (Rize: typeof RizeInstance) {
-  Rize.prototype.goto = function (url: string) {
+export default class Page extends Infrastructure {
+  goto (url: string) {
     this.push(async () => {
       await this.page.goto(url)
     })
@@ -18,7 +18,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.closePage = function () {
+  closePage () {
     this.push(async () => {
       await this.page.close()
     })
@@ -26,7 +26,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.forward = function (options?: puppeteer.NavigationOptions) {
+  forward (options?: puppeteer.NavigationOptions) {
     this.push(async () => {
       await this.page.goForward(options)
     })
@@ -34,7 +34,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.back = function (options?: puppeteer.NavigationOptions) {
+  back (options?: puppeteer.NavigationOptions) {
     this.push(async () => {
       await this.page.goBack(options)
     })
@@ -42,7 +42,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.refresh = function (options?: puppeteer.NavigationOptions) {
+  refresh (options?: puppeteer.NavigationOptions) {
     this.push(async () => {
       await this.page.reload(options)
     })
@@ -50,7 +50,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.evaluate = function (fn: Function | string, ...args) {
+  evaluate (fn: Function | string, ...args) {
     const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
 
     this.push(async () => await this.page.evaluate(stringified))
@@ -58,7 +58,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.evaluateWithReturn = function <T = any> (
+  evaluateWithReturn <T = any> (
     fn: ((...args) => T) | string,
     ...args
   ) {
@@ -72,7 +72,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.withUserAgent = function (userAgent: string) {
+  withUserAgent (userAgent: string) {
     this.push(async () => {
       await this.page.setUserAgent(userAgent)
     })
@@ -80,7 +80,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.saveScreenshot = function (
+  saveScreenshot (
     path: string,
     options?: puppeteer.ScreenshotOptions
   ) {
@@ -91,7 +91,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.savePDF = function (
+  savePDF (
     path: string,
     options?: puppeteer.PDFOptions
   ) {
@@ -102,13 +102,13 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.waitForNavigation = function (timeout?: number) {
+  waitForNavigation (timeout?: number) {
     this.push(async () => await this.page.waitForNavigation({ timeout }))
 
     return this
   }
 
-  Rize.prototype.waitForElement = function (
+  waitForElement (
     selector: string,
     timeout?: number
   ) {
@@ -120,7 +120,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.waitForEvaluation = function (
+  waitForEvaluation (
     fn: string | Function,
     timeout?: number,
     ...args
@@ -134,7 +134,7 @@ export default function mixinPage (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.withAuth = function (username: string, password: string) {
+  withAuth (username: string, password: string) {
     this.push(async () => await this.page.authenticate({ username, password }))
 
     return this

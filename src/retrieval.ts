@@ -1,9 +1,9 @@
 import url from 'url'
 import crypto from 'crypto'
-import RizeInstance from './index'
+import Infrastructure from './infrastructure'
 
-export default function mixinRetrieval (Rize: typeof RizeInstance) {
-  Rize.prototype.title = function () {
+export default class Retrieval extends Infrastructure {
+  title () {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -15,7 +15,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.text = function (selector = 'body') {
+  text (selector = 'body') {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -33,7 +33,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.html = function (selector = 'html') {
+  html (selector = 'html') {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -51,7 +51,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.attribute = function (selector: string, attribute: string) {
+  attribute (selector: string, attribute: string) {
     return new Promise<string | null>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -72,7 +72,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.style = function (selector: string, property: string) {
+  style (selector: string, property: string) {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -93,11 +93,11 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.value = function (selector: string) {
+  value (selector: string) {
     return this.attribute(selector, 'value')
   }
 
-  Rize.prototype.hasClass = function (selector: string, className: string) {
+  hasClass (selector: string, className: string) {
     return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -118,13 +118,13 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.url = function () {
+  url () {
     return new Promise(fulfill => {
       this.push(() => fulfill(this.page.url()))
     })
   }
 
-  Rize.prototype.queryString = function (key: string) {
+  queryString (key: string): Promise<string | string[] | undefined> {
     return new Promise(fulfill => {
       this.push(() => {
         const { query } = url.parse(this.page.url(), true)
@@ -133,7 +133,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.cookie = function () {
+  cookie () {
     return new Promise((resolve, reject) => {
       this.push(async () => {
         try {
@@ -145,7 +145,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.cookies = function () {
+  cookies () {
     return new Promise((resolve, reject) => {
       this.push(async () => {
         try {
@@ -157,7 +157,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.isVisible = function (selector: string) {
+  isVisible (selector: string) {
     return new Promise((resolve, reject) => {
       this.push(async () => {
         try {
@@ -175,7 +175,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.isPresent = function (selector: string) {
+  isPresent (selector: string) {
     return new Promise((resolve, reject) => {
       this.push(async () => {
         try {
@@ -193,7 +193,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     })
   }
 
-  Rize.prototype.find = function <T> (
+  find <T> (
     selector: string,
     fn: ((selector: string, ...args) => T),
     ...args
@@ -214,7 +214,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     return fn.call(this, `[data-rize="${random}"]`, ...args)
   }
 
-  Rize.prototype.findAll = function <T> (
+  findAll <T> (
     selector: string,
     index: number,
     fn: ((selector: string, ...args) => T),
@@ -237,7 +237,7 @@ export default function mixinRetrieval (Rize: typeof RizeInstance) {
     return fn.call(this, `[data-rize="${random}"]`, ...args)
   }
 
-  Rize.prototype.findByXPath = function <T> (
+  findByXPath <T> (
     expression: string,
     index: number,
     fn: ((selector: string, ...args) => T),

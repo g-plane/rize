@@ -1,14 +1,14 @@
 import puppeteer from 'puppeteer'
-import RizeInstance from './index'
+import Infrastructure from './infrastructure'
 
-export default function mixinActions (Rize: typeof RizeInstance) {
-  Rize.prototype.click = function (selector: string) {
+export default class Actions extends Infrastructure {
+  click (selector: string) {
     this.push(async () => await this.page.click(selector))
 
     return this
   }
 
-  Rize.prototype.doubleClick = function (selector: string) {
+  doubleClick (selector: string) {
     this.push(async () => {
       await this.page.click(selector, { clickCount: 2 })
     })
@@ -16,7 +16,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.rightClick = function (selector: string) {
+  rightClick (selector: string) {
     this.push(async () => {
       await this.page.click(selector, { button: 'right' })
     })
@@ -24,19 +24,19 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.hover = function (selector: string) {
+  hover (selector: string) {
     this.push(async () => await this.page.hover(selector))
 
     return this
   }
 
-  Rize.prototype.type = function (selector: string, text: string) {
+  type (selector: string, text: string) {
     this.push(async () => await this.page.type(selector, text))
 
     return this
   }
 
-  Rize.prototype.clear = function (selector: string) {
+  clear (selector: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -60,13 +60,13 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.focus = function (selector: string) {
+  focus (selector: string) {
     this.push(async () => await this.page.focus(selector))
 
     return this
   }
 
-  Rize.prototype.select = function (
+  select (
     selector: string,
     values: string | string[]
   ) {
@@ -81,7 +81,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.check = function (selector: string) {
+  check (selector: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -93,7 +93,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.uncheck = function (selector: string) {
+  uncheck (selector: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -105,7 +105,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.radio = function (selector: string, value: string) {
+  radio (selector: string, value: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -120,7 +120,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.press = function (key: string, selector?: string) {
+  press (key: string, selector?: string) {
     this.push(async () => {
       if (selector) {
         await (await this.page.$(selector))!.press(key)
@@ -132,25 +132,25 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.keyDown = function (key: string) {
+  keyDown (key: string) {
     this.push(async () => await this.page.keyboard.down(key))
 
     return this
   }
 
-  Rize.prototype.keyUp = function (key: string) {
+  keyUp (key: string) {
     this.push(async () => await this.page.keyboard.up(key))
 
     return this
   }
 
-  Rize.prototype.mouseMoveTo = function (x: number, y: number) {
+  mouseMoveTo (x: number, y: number) {
     this.push(async () => await this.page.mouse.move(x, y))
 
     return this
   }
 
-  Rize.prototype.mouseClick = function (
+  mouseClick (
     x: number,
     y: number,
     options?: puppeteer.MousePressOptions
@@ -160,7 +160,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.mouseDown = function (
+  mouseDown (
     button: puppeteer.MouseButtons = 'left',
     clickCount: number = 1
   ) {
@@ -169,7 +169,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.mouseUp = function (
+  mouseUp (
     button: puppeteer.MouseButtons = 'left',
     clickCount: number = 1
   ) {
@@ -178,13 +178,13 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.uploadFile = function (selector: string, path: string) {
+  uploadFile (selector: string, path: string) {
     this.push(async () => await (await this.page.$(selector))!.uploadFile(path))
 
     return this
   }
 
-  Rize.prototype.addClass = function (selector: string, className: string) {
+  addClass (selector: string, className: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -198,7 +198,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.removeClass = function (selector: string, className: string) {
+  removeClass (selector: string, className: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -212,7 +212,7 @@ export default function mixinActions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.toggleClass = function (selector: string, className: string) {
+  toggleClass (selector: string, className: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */

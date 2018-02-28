@@ -1,15 +1,15 @@
 import assert from 'assert'
 import url from 'url'
-import RizeInstance from './index'
+import Infrastructure from './infrastructure'
 
-export default function mixinAssertions (Rize: typeof RizeInstance) {
-  Rize.prototype.assertUrlIs = function (expected: string) {
+export default class Assertions extends Infrastructure {
+  assertUrlIs (expected: string) {
     this.push(() => assert.strictEqual(this.page.url(), expected))
 
     return this
   }
 
-  Rize.prototype.assertPathIs = function (expected: string) {
+  assertPathIs (expected: string) {
     this.push(() => {
       const pageUrl = url.parse(this.page.url())
       assert.strictEqual(pageUrl.path, expected)
@@ -18,7 +18,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertPathBeginsWith = function (expected: string) {
+  assertPathBeginsWith (expected: string) {
     this.push(() => {
       const pageUrl = url.parse(this.page.url())
       assert.ok(
@@ -30,7 +30,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertTitle = function (title: string) {
+  assertTitle (title: string) {
     this.push(async () => {
       assert.strictEqual(await this.page.title(), title)
     })
@@ -38,7 +38,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertTitleContains = function (title: string) {
+  assertTitleContains (title: string) {
     this.push(async () => {
       const actual = await this.page.title()
       assert.ok(
@@ -50,7 +50,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertQueryStringHas = function (key: string, value?: string) {
+  assertQueryStringHas (key: string, value?: string) {
     this.push(() => {
       const { query } = url.parse(this.page.url(), true)
 
@@ -67,7 +67,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertQueryStringMissing = function (key: string) {
+  assertQueryStringMissing (key: string) {
     this.push(() => {
       const { query } = url.parse(this.page.url(), true)
 
@@ -77,7 +77,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertCookieHas = function (name: string, value?: string) {
+  assertCookieHas (name: string, value?: string) {
     this.push(async () => {
       const cookie = (await this.page.cookies())[0]
 
@@ -92,7 +92,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertSee = function (text: string) {
+  assertSee (text: string) {
     this.push(async () => {
       const html = await this.page.content()
       assert.ok(html.includes(text), 'Text not found.')
@@ -101,7 +101,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertDontSee = function (text: string) {
+  assertDontSee (text: string) {
     this.push(async () => {
       const html = await this.page.content()
       assert.ok(!html.includes(text), 'Unexpected text found.')
@@ -110,7 +110,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertSeeIn = function (selector: string, text: string) {
+  assertSeeIn (selector: string, text: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, 'Element not found.')
@@ -125,7 +125,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertDontSeeIn = function (selector: string, text: string) {
+  assertDontSeeIn (selector: string, text: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, 'Element not found.')
@@ -140,7 +140,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertAttribute = function (
+  assertAttribute (
     selector: string,
     attribute: string,
     value: string
@@ -159,7 +159,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertClassHas = function (
+  assertClassHas (
     selector: string,
     className: string,
   ) {
@@ -180,7 +180,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertClassMissing = function (
+  assertClassMissing (
     selector: string,
     className: string,
   ) {
@@ -201,7 +201,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertStyleHas = function (
+  assertStyleHas (
     selector: string,
     property: string,
     value: string
@@ -224,7 +224,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertValueIs = function (selector: string, value: string) {
+  assertValueIs (selector: string, value: string) {
     this.push(async () => {
       const actual: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -237,7 +237,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertValueIsNot = function (selector: string, value: string) {
+  assertValueIsNot (selector: string, value: string) {
     this.push(async () => {
       const actual: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -250,7 +250,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertValueContains = function (
+  assertValueContains (
     selector: string,
     value: string
   ) {
@@ -269,7 +269,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertChecked = function (selector: string) {
+  assertChecked (selector: string) {
     this.push(async () => {
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -282,7 +282,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertNotChecked = function (selector: string) {
+  assertNotChecked (selector: string) {
     this.push(async () => {
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -295,7 +295,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertRadioSelected = function (
+  assertRadioSelected (
     selector: string,
     value: string
   ) {
@@ -314,7 +314,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertRadioNotSelected = function (
+  assertRadioNotSelected (
     selector: string,
     value: string
   ) {
@@ -333,7 +333,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertSelected = function (selector: string, value: string) {
+  assertSelected (selector: string, value: string) {
     this.push(async () => {
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -350,7 +350,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertNotSelected = function (
+  assertNotSelected (
     selector: string,
     value: string
   ) {
@@ -370,7 +370,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertElementVisible = function (selector: string) {
+  assertElementVisible (selector: string) {
     this.push(async () => {
       const display: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -383,7 +383,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertElementHidden = function (selector: string) {
+  assertElementHidden (selector: string) {
     this.push(async () => {
       const display: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -396,7 +396,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertElementPresent = function (selector: string) {
+  assertElementPresent (selector: string) {
     this.push(async () => {
       const element: HTMLElement = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -409,7 +409,7 @@ export default function mixinAssertions (Rize: typeof RizeInstance) {
     return this
   }
 
-  Rize.prototype.assertElementMissing = function (selector: string) {
+  assertElementMissing (selector: string) {
     this.push(async () => {
       const element: HTMLElement = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
