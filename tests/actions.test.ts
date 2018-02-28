@@ -144,7 +144,7 @@ test('type text to an element', async done => {
 })
 
 test('clear text on an element', async done => {
-  expect.assertions(2)
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
