@@ -5,7 +5,14 @@ export default class Infrastructure {
   protected queue: symbol[] = []
   protected eventBus = new EventEmitter()
 
+  /**
+   * Low-level instance of puppeteer's browser.
+   */
   public browser!: puppeteer.Browser
+
+  /**
+   * Low-level instance of puppeteer's current page.
+   */
   public page!: puppeteer.Page
 
   protected push (fn: () => any) {
