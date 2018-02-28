@@ -49,6 +49,22 @@ export interface RizeOptions {
    * ```
    */
   afterLaunched? (this: Rize, ...args): void
+
+  /**
+   * Width of viewport.
+   *
+   * @type {number}
+   * @memberof RizeOptions
+   */
+  width?: number
+
+  /**
+   * Height of viewport.
+   *
+   * @type {number}
+   * @memberof RizeOptions
+   */
+  height?: number
 }
 
 export default class Rize {
@@ -88,6 +104,11 @@ export default class Rize {
 
       this.browser = await puppeteer.launch(options)
       this.page = await this.browser.newPage()
+
+      await this.page.setViewport({
+        width: options.width || 1280,
+        height: options.height || 720
+      })
 
       options.afterLaunched && options.afterLaunched.call(this)
 
