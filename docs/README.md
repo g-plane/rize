@@ -20,13 +20,13 @@ If you are looking for all available APIs of `Rize`, please go [here](https://ri
 
 `puppeteer` is as a peer dependency of `Rize`, so you should install `puppeteer` manually.
 
-```shell
+```bash
 yarn add --dev puppeteer rize
 ```
 
 or via npm:
 
-```shell
+```bash
 npm install --save-dev puppeteer rize
 ```
 
@@ -34,25 +34,25 @@ If you are in China, you may specify Chromium binary mirror.
 
 On Linux or macOS:
 
-```shell
+```bash
 PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
 ```
 
 On Windows:
 
-```shell
+```batch
 SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
 ```
 
 For TypeScript users, you should install type declarations of `puppeteer`:
 
-```shell
+```bash
 yarn add --dev @types/puppeteer
 ```
 
 or 
 
-```shell
+```bash
 npm install --save-dev @types/puppeteer
 ```
 ## Getting Started
