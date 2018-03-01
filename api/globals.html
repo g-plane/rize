@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;index&quot; | Rize API Documentation</title>
+	<title>Rize API Documentation | Rize API Documentation</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -879,7 +879,7 @@ img { max-width: 100%; }
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="../index.html">Rize API Documentation</a></strong>
+					<strong><a href="index.html">Rize API Documentation</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -907,73 +907,86 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class=" tsd-kind-class tsd-parent-kind-external-module">
-			<a href="../classes/_index_.rize.html" class="tsd-kind-icon">Rize</a>
-		</li>
-		<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-			<a href="../interfaces/_index_.rizeoptions.html" class="tsd-kind-icon">Rize<wbr>Options</a>
-		</li>
-		<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-			<a href="_index_.html#mixin" class="tsd-kind-icon">mixin</a>
-		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<div class="tsd-panel tsd-typography">
+			<h1 align="center">Rize</h1>
+			<p align="center">
+				<a href="https://travis-ci.org/g-plane/rize"><img src="https://img.shields.io/travis/g-plane/rize.svg?style=flat-square" alt="Travis Build Status"></a>
+				<a href="https://ci.appveyor.com/project/g-plane/rize"><img src="https://img.shields.io/appveyor/ci/g-plane/rize.svg?style=flat-square&logo=appveyor" alt="AppVeyor Build Status"></a>
+				<a href="https://codecov.io/gh/g-plane/rize"><img src="https://img.shields.io/codecov/c/github/g-plane/rize.svg?style=flat-square" alt="Coverage"></a>
+				<a href="https://github.com/g-plane/rize/blob/master/LICENSE"><img src="https://img.shields.io/github/license/g-plane/rize.svg?style=flat-square" alt="License"></a>
+				<a href="https://www.npmjs.com/package/rize"><img src="https://img.shields.io/npm/v/rize.svg?style=flat-square" alt="NPM Version"></a>
+				<a href="https://www.npmjs.com/package/rize"><img src="https://img.shields.io/npm/dm/rize.svg?style=flat-square" alt="NPM Downloads"></a>
+			</p>
+			<p>Rize is a high-level, fluent and chainable API provided library which let you use puppeteer simply.</p>
+			<p>&quot;Rize&quot; is pronounced like /ɾize/, not /raɪzɪ/. &quot;Rize&quot; is one of characters in <a href="https://en.wikipedia.org/wiki/Is_the_Order_a_Rabbit%3F"><em>Is the Order a Rabbit?</em></a>.</p>
+			<h2 id="installation">Installation</h2>
+			<p>You should install <code>puppeteer</code> at the same time.</p>
+			<pre><code class="lang-shell">yarn add --dev puppeteer rize
+</code></pre>
+			<p>or via npm:</p>
+			<pre><code class="lang-shell">npm install --save-dev puppeteer rize
+</code></pre>
+			<p>If you are in China, you may specify Chromium binary mirror.</p>
+			<p>On Linux or macOS:</p>
+			<pre><code class="lang-shell">PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+</code></pre>
+			<p>On Windows:</p>
+			<pre><code class="lang-shell">SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+</code></pre>
+			<p>For TypeScript users, you should install type declarations of <code>puppeteer</code>:</p>
+			<pre><code class="lang-shell">yarn add --dev @types/puppeteer
+</code></pre>
+			<p>or </p>
+			<pre><code class="lang-shell">npm install --save-dev @types/puppeteer
+</code></pre>
+			<h2 id="basic-usage">Basic Usage</h2>
+			<h3 id="import">Import</h3>
+			<p>It&#39;s recommended to use ES-style import:</p>
+			<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> Rize <span class="hljs-keyword">from</span> <span class="hljs-string">'rize'</span>
+</code></pre>
+			<p>Or using CommonJS-style import, if you don&#39;t use any build tools:</p>
+			<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Rize = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rize'</span>)
+</code></pre>
+			<h3 id="getting-started">Getting Started</h3>
+			<p>Just like this:</p>
+			<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> rize = <span class="hljs-keyword">new</span> Rize()
+</code></pre>
+			<p>You can pass some options to the constructor,
+			and these options are <code>puppeteer</code>&#39;s options:</p>
+			<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> rize = <span class="hljs-keyword">new</span> Rize({ <span class="hljs-attr">headless</span>: <span class="hljs-literal">false</span> })
+</code></pre>
+			<p>All <code>Rize</code>&#39;s APIs are chainable, so you can do something like this:</p>
+			<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> rize = <span class="hljs-keyword">new</span> Rize()
+rize
+  .goto(<span class="hljs-string">'https://github.com/'</span>)
+  .type(<span class="hljs-string">'input.header-search-input'</span>, <span class="hljs-string">'node'</span>)
+  .press(<span class="hljs-string">'Enter'</span>)
+  .waitForNavigation()
+  .assertSee(<span class="hljs-string">'Node.js'</span>)
+  .end()  <span class="hljs-comment">// Don't forget to call `end` function to exit browser!</span>
+</code></pre>
+			<p>All available APIs are listed <a href="https://rize.js.org/classes/_index_.rize.html">here</a>. </p>
+			<h2 id="documentation">Documentation</h2>
+			<p>Please visit <a href="https://rize.js.org">rize.js.org</a></p>
+			<h2 id="license">License</h2>
+			<p>MIT License</p>
+			<p>Copyright (c) 2018-present Pig Fang</p>
+		</div>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Classes</h3>
+						<h3>External modules</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_index_.rize.html" class="tsd-kind-icon">Rize</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
-						<h3>Interfaces</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_index_.rizeoptions.html" class="tsd-kind-icon">Rize<wbr>Options</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section tsd-is-private tsd-is-private-protected tsd-is-not-exported">
-						<h3>Functions</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported"><a href="_index_.html#mixin" class="tsd-kind-icon">mixin</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_index_.html" class="tsd-kind-icon">"index"</a></li>
 						</ul>
 					</section>
 				</div>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected tsd-is-not-exported">
-			<h2>Functions</h2>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-				<a name="mixin" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> mixin</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-					<li class="tsd-signature tsd-kind-icon">mixin<span class="tsd-signature-symbol">(</span>main<span class="tsd-signature-symbol">: </span><a href="../classes/_index_.rize.html" class="tsd-signature-type">Rize</a>, modules<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/g-plane/rize/blob/21027bc/src/index.ts#L2142">index.ts:2142</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>main: <a href="../classes/_index_.rize.html" class="tsd-signature-type">Rize</a></h5>
-							</li>
-							<li>
-								<h5>modules: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
