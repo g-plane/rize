@@ -1577,6 +1577,40 @@ export default class Rize
     return this
   }
 
+  /**
+   * Set cookie(s).
+   *
+   * @param cookies
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.setCookie({ name: 'name', value: 'value' })
+   * ```
+   */
+  setCookie (...cookies: puppeteer.SetCookie[]) {
+    return this
+  }
+
+  /**
+   * Delete cookie(s).
+   *
+   * @param cookies
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.deleteCookie({ name: 'name' })
+   * ```
+   */
+  deleteCookie (...cookies: puppeteer.DeleteCookie[]) {
+    return this
+  }
+
   /* actions END */
 
   /* retrieval START */

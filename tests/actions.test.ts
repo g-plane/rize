@@ -600,3 +600,45 @@ test('toggle class', async done => {
     })
     .end(done)
 })
+
+test('set cookies', async done => {
+  expect.assertions(1)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end('')).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .setCookie(
+      { name: 'name1', value: 'value1' },
+      { name: 'name2', value: 'value2' }
+    )
+    .execute(async (browser, page) => {
+      await expect(page.cookies()).resolves.toEqual(expect.arrayContaining([
+        expect.objectContaining({ name: 'name1', value: 'value1' }),
+        expect.objectContaining({ name: 'name2', value: 'value2' })
+      ]))
+      server.close()
+    })
+    .end(done)
+})
+
+test('delete cookies', async done => {
+  expect.assertions(1)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end('')).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .execute(async (browser, page) => {
+      await page.setCookie(
+        { name: 'name1', value: 'value1' },
+        { name: 'name2', value: 'value2' }
+      )
+    })
+    .deleteCookie({ name: 'name1' }, { name: 'name2' })
+    .execute(async (browser, page) => {
+      await expect(page.cookies()).resolves.toHaveLength(0)
+      server.close()
+    })
+    .end(done)
+})

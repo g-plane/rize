@@ -212,4 +212,16 @@ export default class Actions extends Infrastructure {
 
     return this
   }
+
+  setCookie (...cookies: puppeteer.SetCookie[]) {
+    this.push(async () => this.page.setCookie(...cookies))
+
+    return this
+  }
+
+  deleteCookie (...cookies: puppeteer.DeleteCookie[]) {
+    this.push(async () => this.page.deleteCookie(...cookies))
+
+    return this
+  }
 }
