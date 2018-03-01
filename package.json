@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/g-plane/rize.git"
   },
+  "homepage": "https://rize.js.org/",
   "bugs": {
     "url": "https://github.com/g-plane/rize/issues/new"
   },
