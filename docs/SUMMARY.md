@@ -2,6 +2,7 @@
 
 - [Introduction](README.md)
 - [Getting Started](./getting-started.md)
+- [Interaction](./interaction.md)
 - [FAQ](faq.md)
 - [API](https://rize.js.org/api/modules/_index_.html)
   - [Available methods](https://rize.js.org/api/classes/_index_.rize.html)
