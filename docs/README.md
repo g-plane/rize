@@ -14,7 +14,7 @@ Rize is a high-level, fluent and chainable API provided library which let you us
 
 ## API Reference
 
-If you are looking for all available APIs of `Rize`, please go [here](./api/modules/_index_.html).
+If you are looking for all available APIs of `Rize`, please go [here](https://rize.js.org/api/modules/_index_.html).
 
 ## Installation
 

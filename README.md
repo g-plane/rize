@@ -97,7 +97,7 @@ rize
   .end()  // Don't forget to call `end` function to exit browser!
 ```
 
-All available APIs are listed [here](https://rize.js.org/classes/_index_.rize.html). 
+All available APIs are listed [here](https://rize.js.org/api/classes/_index_.rize.html). 
 
 ## Documentation
 
