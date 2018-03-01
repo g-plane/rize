@@ -244,23 +244,23 @@
 <p>If you are looking for all available APIs of <code>Rize</code>, please go <a href="https://rize.js.org/api/modules/_index_.html" target="_blank">here</a>.</p>
 <h2 id="installation">Installation</h2>
 <p><code>puppeteer</code> is as a peer dependency of <code>Rize</code>, so you should install <code>puppeteer</code> manually.</p>
-<pre class="language-"><code class="lang-shell">yarn add --dev puppeteer rize
+<pre class="language-"><code class="lang-bash">yarn add --dev puppeteer rize
 </code></pre>
 <p>or via npm:</p>
-<pre class="language-"><code class="lang-shell">npm install --save-dev puppeteer rize
+<pre class="language-"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev puppeteer rize
 </code></pre>
 <p>If you are in China, you may specify Chromium binary mirror.</p>
 <p>On Linux or macOS:</p>
-<pre class="language-"><code class="lang-shell">PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+<pre class="language-"><code class="lang-bash">PUPPETEER_DOWNLOAD_HOST<span class="token operator">=</span>https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
 </code></pre>
 <p>On Windows:</p>
-<pre class="language-"><code class="lang-shell">SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+<pre class="language-"><code class="lang-batch"><span class="token command"><span class="token keyword">SET</span> <span class="token variable">PUPPETEER_DOWNLOAD_HOST</span><span class="token operator">=</span>https:<span class="token operator">/</span><span class="token operator">/</span>storage.googleapis.com.cnpmjs.org yarn add <span class="token parameter attr-name">--dev</span> puppeteer rize</span>
 </code></pre>
 <p>For TypeScript users, you should install type declarations of <code>puppeteer</code>:</p>
-<pre class="language-"><code class="lang-shell">yarn add --dev @types/puppeteer
+<pre class="language-"><code class="lang-bash">yarn add --dev @types/puppeteer
 </code></pre>
 <p>or </p>
-<pre class="language-"><code class="lang-shell">npm install --save-dev @types/puppeteer
+<pre class="language-"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @types/puppeteer
 </code></pre>
 <h2 id="getting-started">Getting Started</h2>
 <p>We recommend to use ES-style <code>import</code> syntax:</p>
@@ -327,7 +327,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"getting-started.md","ref":"./getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","theme-vuejs-2","github","edit-link","highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/g-plane/rize/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-vuejs-2":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/g-plane/rize/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Rize","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2018-03-01T06:32:17.363Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-01T06:35:45.161Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"getting-started.md","ref":"./getting-started.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","theme-vuejs-2","github","edit-link","highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/g-plane/rize/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-vuejs-2":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/g-plane/rize/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Rize","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"README.md","mtime":"2018-03-01T07:55:07.120Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-01T07:57:40.506Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
