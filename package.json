@@ -26,7 +26,9 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p .",
-    "build:docs": "typedoc --excludeExternals --excludePrivate --excludeProtected --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs ./src/index.ts",
+    "build:docs": "yarn docs:guide && yarn docs:api",
+    "docs:api": "typedoc --excludeExternals --excludePrivate --excludeProtected --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs/dist/api ./src/index.ts",
+    "docs:guide": "gitbook install docs && gitbook build docs docs/dist",
     "test": "jest",
     "coverage": "jest --coverage",
     "lint": "tslint -p .",

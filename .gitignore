@@ -65,6 +65,3 @@ package-lock.json
 
 # Output files should not be added to VCS
 dist/
-
-# Documentation
-docs/

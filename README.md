@@ -11,7 +11,7 @@
 
 Rize is a high-level, fluent and chainable API provided library which let you use puppeteer simply.
 
-Additional Notes: "Rize" is pronounced like /ɾize/, not /raɪzɪ/. "Rize" is one of characters in [*Is the Order a Rabbit?*](https://en.wikipedia.org/wiki/Is_the_Order_a_Rabbit%3F).
+"Rize" is pronounced like /ɾize/, not /raɪzɪ/. "Rize" is one of characters in [*Is the Order a Rabbit?*](https://en.wikipedia.org/wiki/Is_the_Order_a_Rabbit%3F).
 
 ## Installation
 
@@ -27,7 +27,7 @@ or via npm:
 npm install --save-dev puppeteer rize
 ```
 
-If you are in China, you may specify Chrome binary mirror.
+If you are in China, you may specify Chromium binary mirror.
 
 On Linux or macOS:
 
@@ -87,6 +87,7 @@ const rize = new Rize({ headless: false })
 All `Rize`'s APIs are chainable, so you can do something like this:
 
 ```javascript
+const rize = new Rize()
 rize
   .goto('https://github.com/')
   .type('input.header-search-input', 'node')
@@ -98,22 +99,9 @@ rize
 
 All available APIs are listed [here](https://rize.js.org/classes/_index_.rize.html). 
 
-### Lifecycle Hooks
+## Documentation
 
-`Rize` provides lifecycle hooks. You can use these hooks in `Rize` options.
-
-```javascript
-new Rize({
-  beforeLaunch () {
-    console.log('The browser is going to launch.')
-  },
-  afterLaunched () {
-    // You can visit browser and page instance here.
-    this.browser
-    this.page
-  }
-})
-```
+Please visit [rize.js.org](https://rize.js.org)
 
 ## License
 
