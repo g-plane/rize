@@ -1,0 +1,106 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+
+jobs:
+  install:
+    <<: *defaults
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-deps-{{ checksum "yarn.lock" }}
+            - v1-dep
+      - run: yarn
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-deps-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
+
+  test_on_node6:
+    <<: *defaults
+    docker:
+      - image: circleci/node:6.4
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Test
+          command: yarn test
+
+  test_on_node7:
+    <<: *defaults
+    docker:
+      - image: circleci/node:7
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Test
+          command: yarn test
+
+  test_on_node8:
+    <<: *defaults
+    docker:
+      - image: circleci/node:8
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Test
+          command: yarn coverage
+      - run: yarn codecov
+
+  test_on_node9:
+    <<: *defaults
+    docker:
+      - image: circleci/node:9
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Test
+          command: yarn test
+
+  lint:
+    <<: *defaults
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Linting
+          command: yarn lint
+
+workflows:
+  version: 2
+  lint_and_test:
+    jobs:
+      - install
+      - test_on_node4:
+          requires:
+            - install
+      - test_on_node6:
+          requires:
+            - install
+      - test_on_node7:
+          requires:
+            - install
+      - test_on_node8:
+          requires:
+            - install
+      - test_on_node9:
+          requires:
+            - install
+      - lint:
+          requires:
+            - install
