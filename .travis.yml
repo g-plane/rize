@@ -18,8 +18,9 @@ matrix:
       - yarn global add gitbook-cli
     script:
       - yarn build:docs
-      - cd docs/dist && touch .nojekyll
-      - mkdir docs/dist/.circleci && cp docs/assets/circleci.yml docs/dist/.circleci/config.yml
+      - cd docs/dist
+      - touch .nojekyll
+      - mkdir .circleci && cp ../assets/circleci.yml .circleci/config.yml
     deploy:
       provider: pages
       skip-cleanup: true
