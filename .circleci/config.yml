@@ -56,7 +56,10 @@ jobs:
       - run:
           name: Test
           command: yarn coverage
-      - run: yarn codecov
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
 
   test_on_node9:
     <<: *defaults
@@ -81,6 +84,16 @@ jobs:
           name: Linting
           command: yarn lint
 
+  coverage:
+    <<: *defaults
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run: yarn codecov
+
 workflows:
   version: 2
   lint_and_test:
@@ -101,3 +114,6 @@ workflows:
       - lint:
           requires:
             - install
+      - coverage:
+          requires:
+            - test_on_node8
