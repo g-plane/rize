@@ -36,6 +36,12 @@ export default class Actions extends Infrastructure {
     return this
   }
 
+  sendChar (char: string) {
+    this.push(async () => await this.page.keyboard.sendCharacter(char))
+
+    return this
+  }
+
   clear (selector: string) {
     this.push(async () => {
       await this.page.evaluate(

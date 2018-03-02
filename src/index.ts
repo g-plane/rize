@@ -1298,6 +1298,24 @@ export default class Rize
   }
 
   /**
+   * Dispatches a `keypress` and `input` event.
+   * This does not send a `keydown` or `keyup` event.
+   *
+   * @param char Character to send into the page.
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.sendChar('呵')
+   * ```
+   */
+  sendChar (char: string) {
+    return this
+  }
+
+  /**
    * Clear value of `<input>` element or text content of `<textarea>` element.
    *
    * @param selector CSS selector.

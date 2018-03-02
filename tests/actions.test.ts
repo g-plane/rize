@@ -143,6 +143,33 @@ test('type text to an element', async done => {
     .end(done)
 })
 
+test('send character to an element', async done => {
+  expect.assertions(1)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html></html>
+  `)).listen(port)
+  const instance = new Rize()
+  instance
+    .goto(`http://localhost:${port}/`)
+    .execute(async (browser, page) => {
+      await page.evaluate(() => {
+        document.onkeypress = event => {
+          document.body.textContent = event.key
+        }
+      })
+    })
+    .sendChar('リ')
+    .execute(async () => {
+      const text: string = await instance.page.evaluate(
+        () => document.body.textContent
+      )
+      expect(text).toBe('リ')
+      server.close()
+    })
+    .end(done)
+})
+
 test('clear text on an element', async done => {
   expect.assertions(3)
   const port = await getPort()
