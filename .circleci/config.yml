@@ -1,0 +1,10 @@
+version: 2
+ 
+jobs:
+  build:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: echo "Skip Circle CI."
+    branches:
+      ignore: gh-pages
