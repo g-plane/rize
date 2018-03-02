@@ -27,7 +27,7 @@ jobs:
   test_on_node6:
     <<: *defaults
     docker:
-      - image: circleci/node:6.4
+      - image: circleci/node:6-browsers
     steps:
       - attach_workspace:
           at: ~/repo
@@ -38,7 +38,7 @@ jobs:
   test_on_node7:
     <<: *defaults
     docker:
-      - image: circleci/node:7
+      - image: circleci/node:7-browsers
     steps:
       - attach_workspace:
           at: ~/repo
@@ -49,7 +49,7 @@ jobs:
   test_on_node8:
     <<: *defaults
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:8-browsers
     steps:
       - attach_workspace:
           at: ~/repo
@@ -61,7 +61,7 @@ jobs:
   test_on_node9:
     <<: *defaults
     docker:
-      - image: circleci/node:9
+      - image: circleci/node:9-browsers
     steps:
       - attach_workspace:
           at: ~/repo
@@ -86,9 +86,6 @@ workflows:
   lint_and_test:
     jobs:
       - install
-      - test_on_node4:
-          requires:
-            - install
       - test_on_node6:
           requires:
             - install
