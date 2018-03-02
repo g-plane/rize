@@ -126,4 +126,16 @@ export default class Page extends Infrastructure {
 
     return this
   }
+
+  addScriptTag (type: keyof puppeteer.ScriptTagOptions, value: string) {
+    this.push(async () => await this.page.addScriptTag({ [type]: value }))
+
+    return this
+  }
+
+  addStyleTag (type: keyof puppeteer.StyleTagOptions, value: string) {
+    this.push(async () => await this.page.addStyleTag({ [type]: value }))
+
+    return this
+  }
 }

@@ -502,6 +502,66 @@ export default class Rize
     return this
   }
 
+  /**
+   * Add a `<script>` tag to page.
+   * Note that the `<script>` tag will be appended to `<head>` section.
+   *
+   * If you pass `url` to argument `type`,
+   * you should specify a JavaScript file URL in argument `value`.
+   *
+   * If you pass `path` to argument `type`,
+   * you should specify a path to a JavaScript file in argument `value`.
+   *
+   * If you pass `content` to argument `type`,
+   * you should pass pure JavaScript code in argument `value`.
+   *
+   * @param type Can be `url`, `path` or `content`.
+   * @param value
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.addScriptTag('url', 'https://example.org/script.js')
+   * rize.addScriptTag('path', 'path/to/file.js')
+   * rize.addScriptTag('content', 'console.log("Pure JS code.")')
+   * ```
+   */
+  addScriptTag (type: keyof puppeteer.ScriptTagOptions, value: string) {
+    return this
+  }
+
+  /**
+   * Add a `<style>` tag to page.
+   * Note that the `<style>` tag will be appended to `<head>` section.
+   *
+   * If you pass `url` to argument `type`,
+   * you should specify a CSS file URL in argument `value`.
+   *
+   * If you pass `path` to argument `type`,
+   * you should specify a path to a CSS file in argument `value`.
+   *
+   * If you pass `content` to argument `type`,
+   * you should pass pure CSS code in argument `value`.
+   *
+   * @param type Can be `url`, `path` or `content`.
+   * @param value
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.addStyleTag('url', 'https://example.org/style.css')
+   * rize.addStyleTag('path', 'path/to/file.css')
+   * rize.addStyleTag('content', 'div { font-size: 5px; }')
+   * ```
+   */
+  addStyleTag (type: keyof puppeteer.StyleTagOptions, value: string) {
+    return this
+  }
+
   /* page END */
 
   /* assertions START */

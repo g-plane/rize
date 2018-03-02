@@ -271,3 +271,30 @@ test('authentication', done => {
     })
     .end(done)
 })
+
+test('add script tag', done => {
+  expect.assertions(1)
+  const instance = new Rize()
+  instance
+    .addScriptTag('content', 'document.body.textContent = "rize"')
+    .execute(async (browser, page) => {
+      const text = await page.evaluate('document.body.textContent')
+      expect(text).toBe('rize')
+    })
+    .end(done)
+})
+
+test('add style tag', done => {
+  expect.assertions(1)
+  const instance = new Rize()
+  instance
+    .addStyleTag('content', 'div { font-size: 5px; }')
+    .execute(async (browser, page) => {
+      const search = await page.evaluate(() => {
+        const elements = Array.from(document.children)
+        return elements.some(el => el.textContent === 'div { font-size: 5px; }')
+      })
+      expect(search).toBe(true)
+    })
+    .end(done)
+})
