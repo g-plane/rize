@@ -265,3 +265,11 @@ test('find elements with index by XPath', async done => {
   server.close()
   instance.end(done)
 })
+
+test('retrieval viewport info', async done => {
+  const instance = new Rize()
+  await expect(instance.viewport()).resolves.toEqual(
+    expect.objectContaining({ width: 1280, height: 720 })
+  )
+  instance.end(done)
+})

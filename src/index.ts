@@ -2227,6 +2227,23 @@ export default class Rize
     return fn('')
   }
 
+  /**
+   * Retrieval viewport information.
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const viewport = await rize.viewport()
+   * })()
+   * ```
+   */
+  viewport () {
+    return Promise.resolve({} as puppeteer.Viewport)
+  }
+
   /* retrieval END */
 }
 

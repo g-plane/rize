@@ -1,5 +1,6 @@
 import url from 'url'
 import crypto from 'crypto'
+import puppeteer from 'puppeteer'
 import Infrastructure from './infrastructure'
 
 export default class Retrieval extends Infrastructure {
@@ -291,5 +292,11 @@ export default class Retrieval extends Infrastructure {
     })
 
     return fn.call(this, `[data-rize="${random}"]`, ...args)
+  }
+
+  viewport () {
+    return new Promise<puppeteer.Viewport>(
+      fulfill => this.push(() => fulfill(this.page.viewport()))
+    )
   }
 }
