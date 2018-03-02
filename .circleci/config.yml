@@ -96,9 +96,13 @@ jobs:
 
 workflows:
   version: 2
-  lint_and_test:
+  testing:
     jobs:
-      - install
+      - install:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
       - test_on_node6:
           requires:
             - install
