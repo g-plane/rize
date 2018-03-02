@@ -6,3 +6,5 @@ jobs:
       - image: alpine:latest
     steps:
       - run: echo "Skip Circle CI."
+    branches:
+      ignore: gh-pages
