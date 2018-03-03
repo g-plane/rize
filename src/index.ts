@@ -2268,7 +2268,7 @@ export default class Rize
   }
 
   /**
-   * Retrieval viewport information.
+   * Retrieve viewport information.
    *
    * @example
    *
