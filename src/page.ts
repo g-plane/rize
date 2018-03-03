@@ -127,6 +127,12 @@ export default class Page extends Infrastructure {
     return this
   }
 
+  withHeaders (headers: puppeteer.Headers) {
+    this.push(async () => await this.page.setExtraHTTPHeaders(headers))
+
+    return this
+  }
+
   addScriptTag (type: keyof puppeteer.ScriptTagOptions, value: string) {
     this.push(async () => await this.page.addScriptTag({ [type]: value }))
 

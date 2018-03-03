@@ -272,6 +272,22 @@ test('authentication', done => {
     .end(done)
 })
 
+test('set headers', done => {
+  expect.assertions(1)
+  const instance = new Rize()
+  instance
+    .execute(() => {
+      jest.spyOn(instance.page, 'setExtraHTTPHeaders')
+    })
+    .withHeaders({ 'X-Requested-With': 'XMLHttpRequest' })
+    .execute(() => {
+      expect(instance.page.setExtraHTTPHeaders).toBeCalledWith(
+        { 'X-Requested-With': 'XMLHttpRequest' }
+      )
+    })
+    .end(done)
+})
+
 test('add script tag', done => {
   expect.assertions(1)
   const instance = new Rize()

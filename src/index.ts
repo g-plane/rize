@@ -503,6 +503,28 @@ export default class Rize
   }
 
   /**
+   * Set extra HTTP headers.
+   *
+   * The extra HTTP headers will be sent with every request the page initiates.
+   *
+   * This method does not guarantee
+   * the order of headers in the outgoing requests.
+   *
+   * @param headers Extra http headers to be sent with every request.
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.withHeaders({ 'X-Requested-With': 'XMLHttpRequest' })
+   * ```
+   */
+  withHeaders (headers: puppeteer.Headers) {
+    return this
+  }
+
+  /**
    * Add a `<script>` tag to page.
    * Note that the `<script>` tag will be appended to `<head>` section.
    *
