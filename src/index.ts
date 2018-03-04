@@ -160,6 +160,19 @@ export default class Rize
   }
 
   /**
+   * Exit browser and return a `Promise`.
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.end().then(() => console.log('Browser has exited.'))
+   * ```
+   */
+  end (): Promise<void>
+
+  /**
    * Exit browser.
    * You can pass a callback,
    * and the callback will be called after browser exited.
@@ -171,17 +184,12 @@ export default class Rize
    * ```javascript
    *
    * const rize = new Rize()
-   * rize.end()
-   * ```
-   *
-   * or
-   *
-   * ```javascript
-   * const rize = new Rize()
    * rize.end(() => console.log('Browser has exited.'))
    * ```
    */
-  end (callback?: (...args) => any) {
+  end (callback: (...args) => any): void
+
+  end (callback?: (...args) => any): Promise<void> | void {
     return
   }
 

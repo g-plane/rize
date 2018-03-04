@@ -23,10 +23,29 @@ export default class Basic extends Infrastructure {
     return this
   }
 
-  end (callback?: (...args) => any) {
-    this.push(async () => {
-      await this.browser.close()
-      callback && callback()
-    })
+  end (): Promise<void>
+
+  end (callback: (...args) => any): void
+
+  end (callback?: (...args) => any): Promise<void> | void {
+    if (callback) {
+      this.push(async () => {
+        await this.browser.close()
+        callback()
+      })
+      return
+    } else {
+      return new Promise((resolve, reject) => {
+        this.push(async () => {
+          try {
+            await this.browser.close()
+            resolve()
+          } catch (error) {
+            /* istanbul ignore next */
+            reject(error)
+          }
+        })
+      })
+    }
   }
 }

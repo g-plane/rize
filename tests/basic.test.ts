@@ -27,14 +27,16 @@ test('execute a function', done => {
     .end(done)
 })
 
-test('exit browser and run callback', done => {
-  expect.assertions(1)
-  const instance = new Rize()
+test('exit browser', async done => {
+  expect.assertions(2)
+  let instance = new Rize()
+  await expect(instance.end()).resolves.toBeUndefined()
+
+  instance = new Rize()
   const cb = jest.fn()
   instance.end(() => {
     cb()
     expect(cb).toHaveBeenCalled()
     done()
-    instance.browser.close()
   })
 })
