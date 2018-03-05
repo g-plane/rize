@@ -8,7 +8,7 @@ Her full name is "Rize Tedeza" and written "リゼ" in Japanese.
 
 So "Rize" is pronounced like /ɾize/, not /raɪzɪ/.
 
-## Why do you want to make this library?
+## Why do you want to create this library?
 
 Puppeteer has done a great job to control Chromium/Chrome and we can use puppeteer for web crawling, automated test and etc. However, the code for using puppeteer doesn't seem to be elegant and simple.
 
@@ -29,7 +29,7 @@ As you can see, most puppeteer's operations are asynchronous. So we must use ES2
 
 This is just a tiny example. If we have a large project, there will be many `await` keyword.
 
-That is the reason why I want to make this library. *Greatly inspired by jQuery and Laravel Dusk.*
+That is the reason why I want to create this library. *Greatly inspired by jQuery and Laravel Dusk.*
 
 Now let me show you an example for using Rize:
 

@@ -6,7 +6,7 @@ All methods which are used to retrieve data return Promise-wrapped data. In othe
 
 ## Page title and content
 
-Retrieve title is simple:
+Retrieving title is simple:
 
 ```javascript
 (async () => {
