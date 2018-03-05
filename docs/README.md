@@ -44,7 +44,7 @@ On Windows:
 SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
 ```
 
-For TypeScript users, you should install type declarations of `puppeteer`:
+For TypeScript users, you may install type declarations of `puppeteer`. This is optional and it is recommended to install it if you are going to visit puppeteer's API directly:
 
 ```bash
 yarn add --dev @types/puppeteer
