@@ -118,4 +118,7 @@ These two method have the same function signature. The first parameter `type` ca
 
 - If the first parameter `type` is `url`, you should give a URL to a remote JS/CSS file. 
 - If the first parameter `type` is `path`, you should give a path to a local JS/CSS file.
-- If the first parameter `type` is `content`, you should give a valid JavaScript code/CSS code.
+- If the first parameter `type` is `content`, you should give valid JavaScript code/CSS code.
+
+> Unless you have specify an old version Chrome/Chromium, you can feel free to use latest ES features.
+
