@@ -2536,7 +2536,7 @@ export default class Rize
 /**
  * @private
  */
-function mixin (main: typeof Rize, modules: any[]) {
+function mixin (main: typeof Rize, modules: Array<typeof Infrastructure>) {
   modules.forEach(module => {
       Object.getOwnPropertyNames(module.prototype).forEach(name => {
           main.prototype[name] = module.prototype[name]
