@@ -112,6 +112,8 @@ export default class Rize
    *
    * @param ms Time to sleep. The unit is millisecond.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -138,6 +140,8 @@ export default class Rize
    *
    * @param fn The function to be execute.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -162,6 +166,8 @@ export default class Rize
   /**
    * Exit browser and return a `Promise`.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -178,6 +184,8 @@ export default class Rize
    * and the callback will be called after browser exited.
    *
    * @param callback
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -203,6 +211,8 @@ export default class Rize
    *
    * @param url URL to be navigated.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -219,6 +229,8 @@ export default class Rize
    * Close current page, but it doesn't exit the browser.
    *
    * **You cannot visit the page any more!**
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -239,6 +251,8 @@ export default class Rize
    * @param options `puppeteer`'s navigation options.
    *
    * @see https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagegoforwardoptions
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -261,6 +275,8 @@ export default class Rize
    *
    * @see https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagegobackoptions
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -278,6 +294,8 @@ export default class Rize
    * Refresh current page.
    *
    * @param options `puppeteer`'s navigation options.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -310,6 +328,10 @@ export default class Rize
    * @param fn Function or expression.
    * @param args Arguments of function.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * ```javascript
    *
    * const rize = new Rize()
@@ -338,6 +360,8 @@ export default class Rize
    * @param args Arguments of function.
    * @returns Promise-wrapped return value of the given function.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -363,6 +387,8 @@ export default class Rize
    *
    * @see http://useragentstring.com/
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -381,6 +407,8 @@ export default class Rize
    *
    * @param path Path to screenshot file.
    * @param options `puppeteer`'s screenshots options.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -402,6 +430,8 @@ export default class Rize
    *
    * @param path Path to PDF file.
    * @param options `puppeteer`'s PDF options.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -425,6 +455,8 @@ export default class Rize
    *
    * @param timeout Maximum navigation time in milliseconds.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -443,6 +475,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param timeout Maximum time.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -479,6 +513,8 @@ export default class Rize
    * @param timeout Maximum time to wait for in milliseconds.
    * @param args Arguments of function. No need for expression.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -497,6 +533,8 @@ export default class Rize
 
   /**
    * Provide credentials for http authentication.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -519,6 +557,8 @@ export default class Rize
    * the order of headers in the outgoing requests.
    *
    * @param headers Extra http headers to be sent with every request.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -547,6 +587,8 @@ export default class Rize
    *
    * @param type Can be `url`, `path` or `content`.
    * @param value
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -578,6 +620,8 @@ export default class Rize
    * @param type Can be `url`, `path` or `content`.
    * @param value
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -601,6 +645,8 @@ export default class Rize
    *
    * @param expected Expected URL.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -619,6 +665,8 @@ export default class Rize
    * Assert that the current URL matches the given regular expression.
    *
    * @param regex Regular expression.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -640,6 +688,8 @@ export default class Rize
    *
    * @param expected Expected path.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -658,6 +708,8 @@ export default class Rize
    * Assert that the current path begins with the given string.
    *
    * @param expected Expected string.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -678,6 +730,8 @@ export default class Rize
    *
    * @param title Expected title.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -697,6 +751,8 @@ export default class Rize
    *
    * @param title Expected string.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -715,6 +771,8 @@ export default class Rize
    * Assert that title of current page matches the given regular expression.
    *
    * @param regex Regular expression.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -740,6 +798,8 @@ export default class Rize
    * @param key Expected key in query string.
    * @param value Expected value of a key in query string.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -759,6 +819,8 @@ export default class Rize
    * Assert that the given key is not in query string.
    *
    * @param key Expected missing key.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -783,6 +845,8 @@ export default class Rize
    * @param name Expected cookie name.
    * @param value Expected cookie value.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -803,6 +867,8 @@ export default class Rize
    *
    * @param text Expected text.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -819,6 +885,8 @@ export default class Rize
    * Assert that the given text appears on the page.
    *
    * @param text Expected text.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -837,6 +905,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param text Expected text you don't want to see.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -860,6 +930,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param text Expected text you don't want to see.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -886,6 +958,8 @@ export default class Rize
    * @param attribute Attribute name.
    * @param value Expected value.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * Suppose the HTML structure:
@@ -909,6 +983,8 @@ export default class Rize
    * @param selector CSS selector.
    * @param className Expected class name.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * Suppose the HTML structure:
@@ -931,6 +1007,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param className Class name.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -956,6 +1034,8 @@ export default class Rize
    * @param property CSS property.
    * @param value CSS value.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * Suppose the HTML structure:
@@ -979,6 +1059,10 @@ export default class Rize
    * @param selector CSS selector.
    * @param value Expected value.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * Suppose the HTML structure:
    *
    * ```html
@@ -999,6 +1083,10 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param value Expected value.
+   *
+   * @since 0.1.0
+   *
+   * @example
    *
    * Suppose the HTML structure:
    *
@@ -1021,6 +1109,10 @@ export default class Rize
    * @param selector CSS selector.
    * @param value Expected value.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * Suppose the HTML structure:
    *
    * ```html
@@ -1041,6 +1133,10 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * Suppose the HTML structure:
    *
    * ```html
@@ -1060,6 +1156,10 @@ export default class Rize
    * Assert that the given checkbox has not been checked.
    *
    * @param selector CSS selector.
+   *
+   * @since 0.1.0
+   *
+   * @example
    *
    * Suppose the HTML structure:
    *
@@ -1082,6 +1182,10 @@ export default class Rize
    * @param selector CSS selector.
    * @param value Radio button value.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * Suppose the HTML structure:
    *
    * ```html
@@ -1103,6 +1207,10 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param value Radio button value.
+   *
+   * @since 0.1.0
+   *
+   * @example
    *
    * Suppose the HTML structure:
    *
@@ -1127,6 +1235,10 @@ export default class Rize
    *
    * @param selector CSS selector which points to a `<select>` element.
    * @param value Value of `<option>` element.
+   *
+   * @since 0.1.0
+   *
+   * @example
    *
    * Suppose the HTML structure:
    *
@@ -1155,6 +1267,10 @@ export default class Rize
    * @param selector CSS selector which points to a `<select>` element.
    * @param value Value of `<option>` element.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * Suppose the HTML structure:
    *
    * ```html
@@ -1179,6 +1295,10 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * ```javascript
    *
    * const rize = new Rize()
@@ -1193,6 +1313,10 @@ export default class Rize
    * Assert that the given element is hidden.
    *
    * @param selector CSS selector.
+   *
+   * @since 0.1.0
+   *
+   * @example
    *
    * ```javascript
    *
@@ -1209,6 +1333,10 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * ```javascript
    *
    * const rize = new Rize()
@@ -1223,6 +1351,10 @@ export default class Rize
    * Assert that the given element is missing.
    *
    * @param selector CSS selector.
+   *
+   * @since 0.1.0
+   *
+   * @example
    *
    * ```javascript
    *
@@ -1243,6 +1375,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1259,6 +1393,8 @@ export default class Rize
    * Double click an element.
    *
    * @param selector CSS selector.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1277,6 +1413,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1293,6 +1431,8 @@ export default class Rize
    * Hover on an element.
    *
    * @param selector CSS selector.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1315,6 +1455,8 @@ export default class Rize
    * @param selector CSS selector.
    * @param text Text to be typed.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1333,6 +1475,8 @@ export default class Rize
    *
    * @param char Character to send into the page.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1349,6 +1493,8 @@ export default class Rize
    * Clear value of `<input>` element or text content of `<textarea>` element.
    *
    * @param selector CSS selector.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1368,6 +1514,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1385,6 +1533,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param values Values you want to choose, which can be one or more.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1419,6 +1569,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1435,6 +1587,8 @@ export default class Rize
    * Uncheck the given checkbox.
    *
    * @param selector CSS selector.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1453,6 +1607,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param value Value of the radio button.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1474,6 +1630,8 @@ export default class Rize
    * @param selector CSS selector.
    *
    * @see https://github.com/GoogleChrome/puppeteer/blob/master/lib/USKeyboardLayout.js
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1497,6 +1655,8 @@ export default class Rize
    *
    * @see https://github.com/GoogleChrome/puppeteer/blob/master/lib/USKeyboardLayout.js
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1518,6 +1678,8 @@ export default class Rize
    *
    * @see https://github.com/GoogleChrome/puppeteer/blob/master/lib/USKeyboardLayout.js
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1536,6 +1698,10 @@ export default class Rize
    *
    * @param x
    * @param y
+   *
+   * @since 0.1.0
+   *
+   * @example
    *
    * ```javascript
    *
@@ -1557,6 +1723,10 @@ export default class Rize
    * @param y
    * @param options `puppeteer`'s mouse options.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * ```javascript
    *
    * const rize = new Rize()
@@ -1576,6 +1746,10 @@ export default class Rize
    *
    * @param button Mouse button. It can be `left`, 'right` or `middle`.
    * @param clickCount Click count.
+   *
+   * @since 0.1.0
+   *
+   * @example
    *
    * ```javascript
    *
@@ -1597,6 +1771,10 @@ export default class Rize
    * @param button Mouse button. It can be `left`, 'right` or `middle`.
    * @param clickCount Click count.
    *
+   * @since 0.1.0
+   *
+   * @example
+   *
    * ```javascript
    *
    * const rize = new Rize()
@@ -1617,6 +1795,8 @@ export default class Rize
    * @param selector CSS selector.
    * @param path Path to file.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1635,6 +1815,8 @@ export default class Rize
    * @param selector CSS selector.
    * @param className Class name.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1652,6 +1834,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param className Existing class name.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1673,6 +1857,8 @@ export default class Rize
    * @param selector CSS selector.
    * @param className Class name.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1690,6 +1876,8 @@ export default class Rize
    *
    * @param cookies
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1706,6 +1894,8 @@ export default class Rize
    * Delete cookie(s).
    *
    * @param cookies
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1726,6 +1916,8 @@ export default class Rize
   /**
    * Retrieve the title of current page.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1744,6 +1936,8 @@ export default class Rize
    * Retrieve text content.
    *
    * @param selector CSS selector. Default is `body`.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1764,6 +1958,8 @@ export default class Rize
    * Retrieve *inner* HTML content.
    *
    * @param selector CSS selector. Default is `html`.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1787,6 +1983,8 @@ export default class Rize
    * @param attribute Attribute name.
    * @returns Attribute value.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1807,6 +2005,8 @@ export default class Rize
    * @param selector CSS selector.
    * @param property CSS property.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1826,6 +2026,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1843,6 +2045,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    * @param newValue New value.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1864,6 +2068,8 @@ export default class Rize
    * @param selector CSS selector.
    * @param className Expected class name.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1880,6 +2086,8 @@ export default class Rize
 
   /**
    * Retrieve the URL of current page.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1900,6 +2108,8 @@ export default class Rize
    *
    * @param key Query string key.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1917,6 +2127,8 @@ export default class Rize
   /**
    * Retrieve cookie of current page.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1933,6 +2145,8 @@ export default class Rize
 
   /**
    * Retrieve cookies of current page.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1953,6 +2167,8 @@ export default class Rize
    *
    * @param selector CSS selector.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -1971,6 +2187,8 @@ export default class Rize
    * Retrieve if an element is present.
    *
    * @param selector CSS selector.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -1992,6 +2210,8 @@ export default class Rize
    * @param selector CSS selector.
    * @param fn One of available `Rize` APIs.
    * @returns Return value of the operation.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -2020,6 +2240,8 @@ export default class Rize
    * @param fn One of available `Rize` APIs.
    * @param arg1 The first argument of the operation.
    * @returns Return value of the operation.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -2050,6 +2272,8 @@ export default class Rize
    * @param arg1 The first argument of the operation.
    * @param arg2 The second argument of the operation.
    * @returns Return value of the operation.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -2082,6 +2306,8 @@ export default class Rize
    * @param fn One of available `Rize` APIs.
    * @returns Return value of the operation.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -2111,6 +2337,8 @@ export default class Rize
    * @param fn One of available `Rize` APIs.
    * @param arg1 The first argument of the operation.
    * @returns Return value of the operation.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -2143,6 +2371,8 @@ export default class Rize
    * @param arg1 The first argument of the operation.
    * @param arg2 The second argument of the operation.
    * @returns Return value of the operation.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -2177,6 +2407,8 @@ export default class Rize
    * @param fn One of available `Rize` APIs.
    * @returns Return value of the operation.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -2206,6 +2438,8 @@ export default class Rize
    * @param fn One of available `Rize` APIs.
    * @param arg1 The first argument of the operation.
    * @returns Return value of the operation.
+   *
+   * @since 0.1.0
    *
    * @example
    *
@@ -2244,6 +2478,8 @@ export default class Rize
    * @param arg2 The second argument of the operation.
    * @returns Return value of the operation.
    *
+   * @since 0.1.0
+   *
    * @example
    *
    * ```javascript
@@ -2277,6 +2513,8 @@ export default class Rize
 
   /**
    * Retrieve viewport information.
+   *
+   * @since 0.1.0
    *
    * @example
    *
