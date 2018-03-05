@@ -62,7 +62,7 @@ rize
   .saveScreenshot('searching-node.png')
 ```
 
-If all work well, you should find a screenshot file in current directory.
+If all worked well, you should find a screenshot file in current directory.
 
 Now are everything done? Not really. Don't forget to exit the browser:
 
