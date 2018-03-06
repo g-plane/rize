@@ -72,13 +72,22 @@ test('switch page', async done => {
 })
 
 test('close page', done => {
-  expect.assertions(1)
+  expect.assertions(2)
   const instance = new Rize()
   instance
     .closePage()
     .execute(async () => {
       await expect(instance.browser.pages()).resolves.toHaveLength(1)
     })
+    .newPage('page1')
+    .closePage('nope')  // Should not throw any errors
+    .closePage('page1')
+    .execute(async () => {
+      await expect(instance.browser.pages()).resolves.toHaveLength(1)
+    })
+    .newPage('page2')
+    .newPage('page3')
+    .closePage('page2')
     .end(done)
 })
 

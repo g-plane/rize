@@ -295,6 +295,8 @@ export default class Rize
    *
    * **You cannot visit the page any more!**
    *
+   * @param name The name of page you want to close.
+   *
    * @since 0.1.0
    *
    * @example
@@ -302,10 +304,11 @@ export default class Rize
    * ```javascript
    *
    * const rize = new Rize()
-   * rize.closePage()
+   * rize.closePage()  // Close current active page.
+   * rize.closePage('page1')  // Close a specified page.
    * ```
    */
-  closePage () {
+  closePage (name?: string) {
     return this
   }
 

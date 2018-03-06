@@ -62,12 +62,27 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  closePage () {
+  closePage (name?: string) {
     this.push(async () => {
-      await this.page.close()
-      const index = this.pages.findIndex(({ page }) => page === this.page)
-      this.pages.splice(index, 1)
-      this.currentPageIndex = index - 1
+      let index: number
+
+      if (name) {
+        index = this.pages.findIndex(page => page.name === name)
+        if (index === -1) {
+          return
+        } else {
+          await this.pages[index].page.close()
+          if (this.currentPageIndex === index) {
+            this.currentPageIndex = index - 1
+          }
+          this.pages.splice(index, 1)
+        }
+      } else {
+        await this.page.close()
+        index = this.pages.findIndex(({ page }) => page === this.page)
+        this.pages.splice(index, 1)
+        this.currentPageIndex = index - 1
+      }
     })
 
     return this
