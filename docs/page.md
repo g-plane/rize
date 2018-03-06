@@ -122,3 +122,52 @@ These two method have the same function signature. The first parameter `type` ca
 
 > Unless you have specify an old version Chrome/Chromium, you can feel free to use latest ES features.
 
+## Multiple pages
+
+Rize supports multiple pages (aka tabs).
+
+You should understand something when using multiple pages in Rize. When you launched puppeteer, there will be two pages. One is created by puppeteer by default and the another one is created by Rize. This is useful if you aren't going to use multiple pages. (You don't need to open a new page manually.)
+
+### Open a new page
+
+To open a new page, just call the [`newPage`](https://rize.js.org/api/classes/_index_.rize.html#newpage) method.
+
+```javascript
+rize.newPage()
+```
+
+The [`newPage`](https://rize.js.org/api/classes/_index_.rize.html#newpage) receive two arguments (both are optional). The first one is `name`. You can use this to identify different pages and it is useful when you want to switch page.
+
+The second one is `options` which has two options.
+
+The `force` option is used to replace the old page with the same `name` you gave. If `force` is true, when you open a new page with duplicated name, existing page will be replaced with this new one. Otherwise, the existing page will be kept and no new page will be created.
+
+The `stayCurrent` option is used to determine if stay in current page after new page was created. If `stayCurrent` is true, after opened a new page, the active page won't be changed. Otherwise, the active page will be switched to the new page.
+
+### Close a page
+
+To close the page, just call [`closePage`](https://rize.js.org/api/classes/_index_.rize.html#closepage) method.
+
+```javascript
+rize.closePage()
+```
+
+Or you can give the name of the page you want to close:
+
+```javascript
+rize.closePage('page1')
+```
+
+### Switch to another page
+
+The [`switchPage`](https://rize.js.org/api/classes/_index_.rize.html#switchpage) receive one argument and it can be a string or a number.
+
+When it is a string, it means `name`. It is the name of the page you want to close.
+
+When it is a number, it will find the page by index in the internal array of pages and close it.
+
+```javascript
+rize.switchPage(0)
+rize.switchPage('page0')
+```
+
