@@ -89,7 +89,8 @@ export default class Rize
       }
 
       this.browser = await puppeteer.launch(options)
-      this.page = await this.browser.newPage()
+      this.preservePage = (await this.browser.pages())[0]
+      this.pages.push({ name: 'default', page: await this.browser.newPage() })
 
       await this.page.setViewport({
         width: options.width || 1280,
@@ -225,6 +226,70 @@ export default class Rize
     return this
   }
 
+  /* tslint:disable max-line-length */
+  /**
+   * Open a new page.
+   *
+   * This method has two options.
+   *
+   * If `force` is true, when you open a new page with duplicated name,
+   * existing page will be replaced with this new one.
+   * Otherwise, the existing page will be kept and no new page will be created.
+   *
+   * If `stayCurrent` is true, after opened a new page,
+   * the active page won't be changed.
+   * Otherwise, the active page will be switched to the new page.
+   *
+   * @param name A string to identify the new page. It's useful when switching page.
+   * @param options
+   *
+   * @since 0.2.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.newPage()
+   * rize.newPage('page1')
+   * rize.newPage('page1', { force: true })
+   * rize.newPage('page2', { stayCurrent: true })
+   * ```
+   */
+  /* tslint:enable max-line-length */
+  newPage (
+    name = '',
+    options: { force?: boolean, stayCurrent?: boolean } = {}
+  ) {
+    return this
+  }
+
+  /**
+   * Switch to another existing page.
+   *
+   * If the argument is a number,
+   * it will search the page by index in internal pages array and switch to it.
+   *
+   * If the argument is a string,
+   * it will search the page by the name and switch to it.
+   *
+   * @param name The index of the page or the name of the page.
+   *
+   * @since 0.2.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.switchPage(0)
+   * rize.switchPage('page1')
+   * ```
+   */
+  switchPage (name: string | number) {
+    return this
+  }
+
   /**
    * Close current page, but it doesn't exit the browser.
    *
@@ -242,6 +307,25 @@ export default class Rize
    */
   closePage () {
     return this
+  }
+
+  /**
+   * Retrieve the number of pages.
+   *
+   * @since 0.2.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const count = await rize.pagesCount()
+   * })()
+   * ```
+   */
+  pagesCount () {
+    return Promise.resolve(1)
   }
 
   /* tslint:disable max-line-length */

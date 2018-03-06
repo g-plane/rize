@@ -18,12 +18,65 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  closePage () {
+  newPage (
+    name = '',
+    options: { force?: boolean, stayCurrent?: boolean } = {}
+  ) {
     this.push(async () => {
-      await this.page.close()
+      let index = this.pages.findIndex(page => page.name === name)
+      if (index !== -1) {
+        if (options.force) {
+          this.pages[index].page.close()
+          this.pages[index].page = await this.browser.newPage()
+        }
+      } else {
+        this.pages.push({ name, page: await this.browser.newPage() })
+        index = this.pages.length - 1
+      }
+
+      if (!options.stayCurrent) {
+        this.currentPageIndex = index
+      }
     })
 
     return this
+  }
+
+  switchPage (name: string | number) {
+    this.push(
+      () => {
+        if (typeof name === 'string') {
+          const index = this.pages.findIndex(page => page.name === name)
+          /* istanbul ignore if */
+          if (index === -1) {
+            throw new Error(`No such page whose name is "${name}".`)
+          } else {
+            this.currentPageIndex = index
+          }
+        } else {
+          this.currentPageIndex = name
+        }
+      }
+    )
+
+    return this
+  }
+
+  closePage () {
+    this.push(async () => {
+      await this.page.close()
+      const index = this.pages.findIndex(({ page }) => page === this.page)
+      this.pages.splice(index, 1)
+      this.currentPageIndex = index - 1
+    })
+
+    return this
+  }
+
+  pagesCount () {
+    return new Promise<number>(
+      fulfill => this.push(() => fulfill(this.pages.length))
+    )
   }
 
   forward (options?: puppeteer.NavigationOptions) {

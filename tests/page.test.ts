@@ -18,18 +18,75 @@ test('go to a specified url', done => {
     .end(done)
 }, process.env.CI ? 8000 : 5000)
 
+test('open a new page', async done => {
+  expect.assertions(7)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end('')).listen(port)
+  const instance = new Rize()
+  instance
+    .newPage()
+    .execute(
+      async browser => await expect(browser.pages()).resolves.toHaveLength(3)
+    )
+    .goto(`http://localhost:${port}/`)
+    .newPage()
+    .execute(
+      (browser, page) => expect(page.url()).toBe(`http://localhost:${port}/`)
+    )
+    .execute(
+      async browser => await expect(browser.pages()).resolves.toHaveLength(3)
+    )
+    .newPage('', { force: true })
+    .execute(async (browser, page) => {
+      await expect(browser.pages()).resolves.toHaveLength(3)
+      expect(page.url()).toBe('about:blank')
+    })
+    .goto(`http://localhost:${port}/`)
+    .newPage('another page', { stayCurrent: true })
+    .execute(async (browser, page) => {
+      await expect(browser.pages()).resolves.toHaveLength(4)
+      expect(page.url()).toBe(`http://localhost:${port}/`)
+      server.close()
+    })
+    .end(done)
+})
+
+test('switch page', async done => {
+  expect.assertions(2)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end('')).listen(port)
+  const instance = new Rize()
+  instance
+    .newPage('page1')
+    .goto(`http://localhost:${port}/page1`)
+    .switchPage(0)
+    .execute(
+      (browser, page) => expect(page.url()).toBe('about:blank')
+    )
+    .switchPage('page1')
+    .execute((browser, page) => {
+      expect(page.url()).toBe(`http://localhost:${port}/page1`)
+      server.close()
+    })
+    .end(done)
+})
+
 test('close page', done => {
   expect.assertions(1)
   const instance = new Rize()
   instance
     .closePage()
-    .execute(() => {
-      expect(
-        (instance.page as puppeteer.Page & { _client })._client._connection
-      ).toBeFalsy()
-      done()
+    .execute(async () => {
+      await expect(instance.browser.pages()).resolves.toHaveLength(1)
     })
     .end(done)
+})
+
+test('count pages', async done => {
+  const instance = new Rize()
+  instance.newPage()
+  await expect(instance.pagesCount()).resolves.toBe(2)
+  instance.end(done)
 })
 
 test('go forward', done => {

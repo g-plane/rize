@@ -5,6 +5,10 @@ export default class Infrastructure {
   protected queue: symbol[] = []
   protected eventBus = new EventEmitter()
 
+  protected currentPageIndex = 0
+  protected preservePage!: puppeteer.Page
+  protected pages: Array<{ name: string, page: puppeteer.Page }> = []
+
   /**
    * Low-level instance of puppeteer's browser.
    */
@@ -13,7 +17,10 @@ export default class Infrastructure {
   /**
    * Low-level instance of puppeteer's current page.
    */
-  public page!: puppeteer.Page
+  get page () {
+    const currentPage = this.pages[this.currentPageIndex]
+    return currentPage ? currentPage.page : this.preservePage
+  }
 
   protected push (fn: () => any) {
     const unique = Symbol()
