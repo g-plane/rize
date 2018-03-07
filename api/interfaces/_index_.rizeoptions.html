@@ -914,6 +914,9 @@ img { max-width: 100%; }
 			<a href="_index_.rizeoptions.html" class="tsd-kind-icon">Rize<wbr>Options</a>
 			<ul>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="_index_.rizeoptions.html#defaultnavigationtimeout" class="tsd-kind-icon">default<wbr>Navigation<wbr>Timeout</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="_index_.rizeoptions.html#height" class="tsd-kind-icon">height</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -949,6 +952,7 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.rizeoptions.html#defaultnavigationtimeout" class="tsd-kind-icon">default<wbr>Navigation<wbr>Timeout</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.rizeoptions.html#height" class="tsd-kind-icon">height</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.rizeoptions.html#width" class="tsd-kind-icon">width</a></li>
 						</ul>
@@ -966,26 +970,41 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="defaultnavigationtimeout" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Navigation<wbr>Timeout</h3>
+				<div class="tsd-signature tsd-kind-icon">default<wbr>Navigation<wbr>Timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/g-plane/rize/blob/5833103/src/index.ts#L68">index.ts:68</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>This setting will change the default maximum navigation time of 30 seconds
+						for the following methods:</p>
+					</div>
+					<ul>
+						<li>Rize#goto(url)</li>
+						<li>Rize#forward()</li>
+						<li>Rize#back()</li>
+						<li>Rize#refresh()</li>
+						<li>Rize#waitForNavigation(timeout?)</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="height" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> height</h3>
 				<div class="tsd-signature tsd-kind-icon">height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/g-plane/rize/blob/6033cd8/src/index.ts#L68">index.ts:68</a></li>
+						<li>Defined in <a href="https://github.com/g-plane/rize/blob/5833103/src/index.ts#L56">index.ts:56</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>Height of viewport.</p>
 					</div>
-					<dl class="tsd-comment-tags">
-						<dt>type</dt>
-						<dd><p>{number}</p>
-						</dd>
-						<dt>memberof</dt>
-						<dd><p>RizeOptions</p>
-						</dd>
-					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -994,21 +1013,13 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/g-plane/rize/blob/6033cd8/src/index.ts#L60">index.ts:60</a></li>
+						<li>Defined in <a href="https://github.com/g-plane/rize/blob/5833103/src/index.ts#L51">index.ts:51</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>Width of viewport.</p>
 					</div>
-					<dl class="tsd-comment-tags">
-						<dt>type</dt>
-						<dd><p>{number}</p>
-						</dd>
-						<dt>memberof</dt>
-						<dd><p>RizeOptions</p>
-						</dd>
-					</dl>
 				</div>
 			</section>
 		</section>
@@ -1024,7 +1035,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/g-plane/rize/blob/6033cd8/src/index.ts#L52">index.ts:52</a></li>
+								<li>Defined in <a href="https://github.com/g-plane/rize/blob/5833103/src/index.ts#L46">index.ts:46</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1035,9 +1046,6 @@ img { max-width: 100%; }
 								So you can visit browser and page here.
 							(Like <code>this.browser</code> or <code>this.page</code>)</p>
 							<dl class="tsd-comment-tags">
-								<dt>memberof</dt>
-								<dd><p>RizeOptions</p>
-								</dd>
 								<dt>example</dt>
 								<dd><pre><code class="lang-javascript">
 <span class="hljs-keyword">const</span> rize = <span class="hljs-keyword">new</span> Rize({
@@ -1057,9 +1065,6 @@ img { max-width: 100%; }
 							</li>
 							<li>
 								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Arguments of the functions.</p>
-								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1076,7 +1081,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/g-plane/rize/blob/6033cd8/src/index.ts#L28">index.ts:28</a></li>
+								<li>Defined in <a href="https://github.com/g-plane/rize/blob/5833103/src/index.ts#L25">index.ts:25</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1084,9 +1089,6 @@ img { max-width: 100%; }
 								<p>A lifecycle hook which you can do something before the browser launching.</p>
 							</div>
 							<dl class="tsd-comment-tags">
-								<dt>memberof</dt>
-								<dd><p>RizeOptions</p>
-								</dd>
 								<dt>example</dt>
 								<dd><pre><code class="lang-javascript">
 <span class="hljs-keyword">const</span> rize = <span class="hljs-keyword">new</span> Rize({
@@ -1102,9 +1104,6 @@ img { max-width: 100%; }
 						<ul class="tsd-parameters">
 							<li>
 								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Arguments of the functions.</p>
-								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
