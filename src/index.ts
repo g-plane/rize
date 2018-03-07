@@ -11,9 +11,6 @@ export interface RizeOptions {
   /**
    * A lifecycle hook which you can do something before the browser launching.
    *
-   * @param {any} args Arguments of the functions.
-   * @memberof RizeOptions
-   *
    * @example
    *
    * ```javascript
@@ -34,9 +31,6 @@ export interface RizeOptions {
    * So you can visit browser and page here.
    * (Like `this.browser` or `this.page`)
    *
-   * @param {any} args Arguments of the functions.
-   * @memberof RizeOptions
-   *
    * @example
    *
    * ```javascript
@@ -53,17 +47,11 @@ export interface RizeOptions {
 
   /**
    * Width of viewport.
-   *
-   * @type {number}
-   * @memberof RizeOptions
    */
   width?: number
 
   /**
    * Height of viewport.
-   *
-   * @type {number}
-   * @memberof RizeOptions
    */
   height?: number
 
