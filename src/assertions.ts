@@ -2,9 +2,22 @@ import assert from 'assert'
 import url from 'url'
 import Infrastructure from './infrastructure'
 
+function greenify (text: string) {
+  return `\u001B[32m${text}\u001B[39m`
+}
+
+function redify (text: string) {
+  return `\u001B[31m${text}\u001B[39m`
+}
+
 export default class Assertions extends Infrastructure {
   assertUrlIs (expected: string) {
-    this.push(() => assert.strictEqual(this.page.url(), expected))
+    this.push(() => assert.strictEqual(
+      this.page.url(),
+      expected,
+      `Expected URL is "${greenify(expected)}", ` +
+        `but received "${redify(this.page.url())}".`
+    ))
 
     return this
   }
@@ -15,12 +28,14 @@ export default class Assertions extends Infrastructure {
       if (typeof regex === 'string') {
         assert.ok(
           new RegExp(regex).test(pageUrl),
-          `Current URL "${pageUrl}" does not match "${regex}".`
+          `Current URL "${redify(pageUrl)}" does not ` +
+            `match "${greenify(regex)}".`
         )
       } else {
         assert.ok(
           regex.test(pageUrl),
-          `Current URL "${pageUrl}" does not match "${regex.source}".`
+          `Current URL "${redify(pageUrl)}" does not ` +
+            `match "${greenify(regex.source)}".`
         )
       }
     })
@@ -31,7 +46,12 @@ export default class Assertions extends Infrastructure {
   assertPathIs (expected: string) {
     this.push(() => {
       const pageUrl = url.parse(this.page.url())
-      assert.strictEqual(pageUrl.path, expected)
+      assert.strictEqual(
+        pageUrl.path,
+        expected,
+        `Expected path is "${greenify(expected)}", ` +
+          `but received "${redify(pageUrl.path + '')}".`
+      )
     })
 
     return this
@@ -42,7 +62,7 @@ export default class Assertions extends Infrastructure {
       const pageUrl = url.parse(this.page.url())
       assert.ok(
         pageUrl.path!.startsWith(expected),
-        `Expected URL path starts with "${expected}".`
+        `Expected URL path starts with "${greenify(expected)}".`
       )
     })
 
@@ -51,7 +71,13 @@ export default class Assertions extends Infrastructure {
 
   assertTitle (title: string) {
     this.push(async () => {
-      assert.strictEqual(await this.page.title(), title)
+      const actual = await this.page.title()
+      assert.strictEqual(
+        actual,
+        title,
+        `Expected page title is "${greenify(title)}", ` +
+          `but received "${redify(actual)}".`
+      )
     })
 
     return this
@@ -62,7 +88,7 @@ export default class Assertions extends Infrastructure {
       const actual = await this.page.title()
       assert.ok(
         actual.includes(title),
-        `Actual title does not contain "${title}".`
+        `Received title does not contain "${greenify(title)}".`
       )
     })
 
@@ -75,12 +101,13 @@ export default class Assertions extends Infrastructure {
       if (typeof regex === 'string') {
         assert.ok(
           new RegExp(regex).test(title),
-          `Page title "${title}" does not match "${regex}".`
+          `Page title "${redify(title)}" does not match "${greenify(regex)}".`
         )
       } else {
         assert.ok(
           regex.test(title),
-          `Page title "${title}" does not match "${regex.source}".`
+          `Page title "${redify(title)}" does not ` +
+            `match "${greenify(regex.source)}".`
         )
       }
     })
@@ -93,11 +120,16 @@ export default class Assertions extends Infrastructure {
       const { query } = url.parse(this.page.url(), true)
 
       if (value) {
-        assert.strictEqual(query[key], value)
+        assert.strictEqual(
+          query[key],
+          value,
+          `Expected value of the key "${key}" is "${greenify(value)}", ` +
+            `but received "${redify(query[key] + '')}".`
+        )
       } else {
         assert.ok(
           key in query,
-          `The key "${key}" cannot be found in query string.`
+          `The key "${greenify(key)}" cannot be found in query string.`
         )
       }
     })
@@ -109,7 +141,10 @@ export default class Assertions extends Infrastructure {
     this.push(() => {
       const { query } = url.parse(this.page.url(), true)
 
-      assert.ok(!(key in query), `The key "${key}" was found in query string.`)
+      assert.ok(
+        !(key in query),
+        `The key "${redify(key)}" was found in query string.`
+      )
     })
 
     return this
@@ -120,10 +155,20 @@ export default class Assertions extends Infrastructure {
       const cookie = (await this.page.cookies())[0]
 
       if (value) {
-        const needed = { name: cookie.name, value: cookie.value }
-        assert.deepStrictEqual(needed, { name, value })
+        const actual = { name: cookie.name, value: cookie.value }
+        const expected = { name, value }
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Expected cookie is ${greenify(JSON.stringify(expected))}, ` +
+            `but received ${redify(JSON.stringify(actual))}`
+        )
       } else {
-        assert.strictEqual(cookie.name, name)
+        assert.strictEqual(
+          cookie.name,
+          name,
+          `Expected cookie "${greenify(name)}" cannot be found.`
+        )
       }
     })
 
@@ -133,7 +178,10 @@ export default class Assertions extends Infrastructure {
   assertSee (text: string) {
     this.push(async () => {
       const html = await this.page.content()
-      assert.ok(html.includes(text), 'Text not found.')
+      assert.ok(
+        html.includes(text),
+        `Expected text "${greenify(text)}" cannot be found.`
+      )
     })
 
     return this
@@ -142,7 +190,10 @@ export default class Assertions extends Infrastructure {
   assertDontSee (text: string) {
     this.push(async () => {
       const html = await this.page.content()
-      assert.ok(!html.includes(text), 'Unexpected text found.')
+      assert.ok(
+        !html.includes(text),
+        `Unexpected text "${redify(text)}" was found.`
+      )
     })
 
     return this
@@ -151,13 +202,16 @@ export default class Assertions extends Infrastructure {
   assertSeeIn (selector: string, text: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
-      assert.ok(element, 'Element not found.')
+      assert.ok(element, `Element "${selector}" cannot be found.`)
       const textContent: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (sel: string) => document.querySelector(sel)!.textContent,
         selector
       )
-      assert.ok(textContent.includes(text), 'Text not found.')
+      assert.ok(
+        textContent.includes(text),
+        `Expected text "${text}" cannot be found in element "${selector}".`
+      )
     })
 
     return this
@@ -166,13 +220,16 @@ export default class Assertions extends Infrastructure {
   assertDontSeeIn (selector: string, text: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
-      assert.ok(element, 'Element not found.')
+      assert.ok(element, `Element "${selector}" cannot be found.`)
       const textContent: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (sel: string) => document.querySelector(sel)!.textContent,
         selector
       )
-      assert.ok(!textContent.includes(text), 'Unexpected text found.')
+      assert.ok(
+        !textContent.includes(text),
+        `Unexpected text "${redify(text)}" was found in element "${selector}".`
+      )
     })
 
     return this
@@ -181,13 +238,18 @@ export default class Assertions extends Infrastructure {
   assertAttribute (selector: string, attribute: string, value: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
-      assert.ok(element, 'Element not found.')
+      assert.ok(element, `Element "${selector}" cannot be found.`)
       const actual = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (sel: string, attr) => document.querySelector(sel)!.getAttribute(attr),
         selector, attribute
       )
-      assert.strictEqual(actual, value)
+      assert.strictEqual(
+        actual,
+        value,
+        `Expected value of attribute "${attribute}" of element "${selector}" ` +
+        `is "${greenify(value)}", but received "${redify(actual)}".`
+      )
     })
 
     return this
@@ -196,7 +258,7 @@ export default class Assertions extends Infrastructure {
   assertClassHas (selector: string, className: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
-      assert.ok(element, 'Element not found.')
+      assert.ok(element, `Element "${selector}" cannot be found.`)
       const result: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (
@@ -205,7 +267,10 @@ export default class Assertions extends Infrastructure {
         ) => document.querySelector(sel)!.classList.contains(name),
         selector, className
       )
-      assert.ok(result, `Element does not has "${className}" class.`)
+      assert.ok(
+        result,
+        `Element "${selector}" does not has "${className}" class.`
+      )
     })
 
     return this
@@ -214,7 +279,7 @@ export default class Assertions extends Infrastructure {
   assertClassMissing (selector: string, className: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
-      assert.ok(element, 'Element not found.')
+      assert.ok(element, `Element "${selector}" cannot be found.`)
       const result: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (
@@ -223,7 +288,10 @@ export default class Assertions extends Infrastructure {
         ) => document.querySelector(sel)!.classList.contains(name),
         selector, className
       )
-      assert.ok(!result, `Element has unexpected "${className}" class.`)
+      assert.ok(
+        !result,
+        `Element "${selector}" has unexpected "${redify(className)}" class.`
+      )
     })
 
     return this
@@ -232,7 +300,7 @@ export default class Assertions extends Infrastructure {
   assertStyleHas (selector: string, property: string, value: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
-      assert.ok(element, 'Element not found.')
+      assert.ok(element, `Element "${selector}" cannot be found.`)
 
       const actual = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -242,7 +310,13 @@ export default class Assertions extends Infrastructure {
         selector,
         property
       )
-      assert.strictEqual(actual, value)
+      assert.strictEqual(
+        actual,
+        value,
+        `Expected value of style property "${property}" of element ` +
+          `"${selector}" is "${greenify(value)}", ` +
+          `but received ${redify(actual)}.`
+      )
     })
 
     return this
@@ -250,12 +324,20 @@ export default class Assertions extends Infrastructure {
 
   assertValueIs (selector: string, value: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         sel => document.querySelector<HTMLInputElement>(sel)!.value,
         selector
       )
-      assert.strictEqual(actual, value)
+      assert.strictEqual(
+        actual,
+        value,
+        `Expected value of element "${selector}" is "${greenify(value)}", ` +
+          `but received "${redify(actual)}".`
+      )
     })
 
     return this
@@ -263,12 +345,20 @@ export default class Assertions extends Infrastructure {
 
   assertValueIsNot (selector: string, value: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         sel => document.querySelector<HTMLInputElement>(sel)!.value,
         selector
       )
-      assert.notStrictEqual(actual, value)
+      assert.notStrictEqual(
+        actual,
+        value,
+        `Expected value of element "${selector}" is NOT "${greenify(value)}"` +
+          `, but received "${redify(actual)}".`
+      )
     })
 
     return this
@@ -276,6 +366,9 @@ export default class Assertions extends Infrastructure {
 
   assertValueContains (selector: string, value: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         sel => document.querySelector<HTMLInputElement>(sel)!.value,
@@ -283,7 +376,7 @@ export default class Assertions extends Infrastructure {
       )
       assert.ok(
         actual.includes(value),
-        `Expected value contains "${value}", but not.`
+        `Expected value of element "${selector}" contains "${value}", but not.`
       )
     })
 
@@ -292,12 +385,15 @@ export default class Assertions extends Infrastructure {
 
   assertChecked (selector: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         sel => document.querySelector<HTMLInputElement>(sel)!.checked,
         selector
       )
-      assert.ok(actual, 'The given checkbox have not been checked.')
+      assert.ok(actual, `The checkbox "${selector}" has not been checked.`)
     })
 
     return this
@@ -305,12 +401,15 @@ export default class Assertions extends Infrastructure {
 
   assertNotChecked (selector: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         sel => document.querySelector<HTMLInputElement>(sel)!.checked,
         selector
       )
-      assert.ok(!actual, 'The given checkbox have been checked.')
+      assert.ok(!actual, `The checkbox "${selector}" has been checked.`)
     })
 
     return this
@@ -318,6 +417,9 @@ export default class Assertions extends Infrastructure {
 
   assertRadioSelected (selector: string, value: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (sel, val) => document
@@ -326,7 +428,7 @@ export default class Assertions extends Infrastructure {
         selector,
         value
       )
-      assert.ok(actual, 'The given radio button have not been selected.')
+      assert.ok(actual, `The radio button "${selector}" has not been selected.`)
     })
 
     return this
@@ -334,6 +436,9 @@ export default class Assertions extends Infrastructure {
 
   assertRadioNotSelected (selector: string, value: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (sel, val) => document
@@ -342,7 +447,7 @@ export default class Assertions extends Infrastructure {
         selector,
         value
       )
-      assert.ok(!actual, 'The given radio button have been selected.')
+      assert.ok(!actual, `The radio button "${selector}" has been selected.`)
     })
 
     return this
@@ -350,6 +455,9 @@ export default class Assertions extends Infrastructure {
 
   assertSelected (selector: string, value: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (sel, val) => document
@@ -359,7 +467,10 @@ export default class Assertions extends Infrastructure {
         selector,
         value
       )
-      assert.ok(actual, `The given value "${value}" have not been selected.`)
+      assert.ok(
+        actual,
+        `The value "${value}" in element "${selector}" has not been selected.`
+      )
     })
 
     return this
@@ -367,6 +478,9 @@ export default class Assertions extends Infrastructure {
 
   assertNotSelected (selector: string, value: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const actual: boolean = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (sel, val) => document
@@ -376,7 +490,10 @@ export default class Assertions extends Infrastructure {
         selector,
         value
       )
-      assert.ok(!actual, `The given value "${value}" have been selected.`)
+      assert.ok(
+        !actual,
+        `The value "${value}" in element "${selector}" has been selected.`
+      )
     })
 
     return this
@@ -384,12 +501,19 @@ export default class Assertions extends Infrastructure {
 
   assertElementVisible (selector: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const display: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         sel => document.querySelector<HTMLElement>(sel)!.style.display,
         selector
       )
-      assert.notStrictEqual(display, 'none')
+      assert.notStrictEqual(
+        display,
+        'none',
+        `The element "${selector}" is ${redify('NOT')} visible.`
+      )
     })
 
     return this
@@ -397,12 +521,19 @@ export default class Assertions extends Infrastructure {
 
   assertElementHidden (selector: string) {
     this.push(async () => {
+      const element = await this.page.$(selector)
+      assert.ok(element, `Element "${selector}" cannot be found.`)
+
       const display: string = await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         sel => document.querySelector<HTMLElement>(sel)!.style.display,
         selector
       )
-      assert.strictEqual(display, 'none', 'The given element is visible.')
+      assert.strictEqual(
+        display,
+        'none',
+        `The element "${selector}" is visible.`
+      )
     })
 
     return this
@@ -415,7 +546,11 @@ export default class Assertions extends Infrastructure {
         sel => document.querySelector<HTMLElement>(sel),
         selector
       )
-      assert.notEqual(element, null)
+      assert.notEqual(
+        element,
+        null,
+        `The element "${selector}" is ${redify('NOT')} present.`
+      )
     })
 
     return this
@@ -428,7 +563,11 @@ export default class Assertions extends Infrastructure {
         sel => document.querySelector<HTMLElement>(sel),
         selector
       )
-      assert.equal(element, null)
+      assert.equal(
+        element,
+        null,
+        `The element "${selector}" is present.`
+      )
     })
 
     return this
