@@ -2324,7 +2324,7 @@ export default class Rize
    */
   find <T> (
     selector: string,
-    fn: ((selector: string) => T)
+    fn: (selector: string) => T
   ): T
 
   /**
@@ -2354,7 +2354,7 @@ export default class Rize
    */
   find <T, U1> (
     selector: string,
-    fn: ((selector: string, arg1: U1) => T),
+    fn: (selector: string, arg1: U1) => T,
     arg1: U1
   ): T
 
@@ -2379,14 +2379,14 @@ export default class Rize
    */
   find <T, U1, U2> (
     selector: string,
-    fn: ((selector: string, arg1: U1, arg2: U2) => T),
+    fn: (selector: string, arg1: U1, arg2: U2) => T,
     arg1: U1,
     arg2: U2
   ): T
 
   find <T> (
     selector: string,
-    fn: ((selector: string, ...args) => T),
+    fn: (selector: string, ...args) => T,
     ...args
   ): T {
     return fn('')
@@ -2396,7 +2396,7 @@ export default class Rize
    * Find all elements by CSS selector and pick one to execute an operation.
    *
    * @param selector CSS selector.
-   * @param index Starts from 0.
+   * @param index Index of the array of result. It starts from 0.
    * @param fn One of available `Rize` APIs.
    * @returns Return value of the operation.
    *
@@ -2420,14 +2420,14 @@ export default class Rize
   findAll <T> (
     selector: string,
     index: number,
-    fn: ((selector: string) => T)
+    fn: (selector: string) => T
   ): T
 
   /**
    * Find all elements by CSS selector and pick one to execute an operation.
    *
    * @param selector CSS selector.
-   * @param index Starts from 0.
+   * @param index Index of the array of result. It starts from 0.
    * @param fn One of available `Rize` APIs.
    * @param arg1 The first argument of the operation.
    * @returns Return value of the operation.
@@ -2452,7 +2452,7 @@ export default class Rize
   findAll <T, U1> (
     selector: string,
     index: number,
-    fn: ((selector: string, arg1: U1) => T),
+    fn: (selector: string, arg1: U1) => T,
     arg1: U1
   ): T
 
@@ -2460,7 +2460,7 @@ export default class Rize
    * Find all elements by CSS selector and pick one to execute an operation.
    *
    * @param selector CSS selector.
-   * @param index Starts from 0.
+   * @param index Index of the array of result. It starts from 0.
    * @param fn One of available `Rize` APIs.
    * @param arg1 The first argument of the operation.
    * @param arg2 The second argument of the operation.
@@ -2479,7 +2479,7 @@ export default class Rize
   findAll <T, U1, U2> (
     selector: string,
     index: number,
-    fn: ((selector: string, arg1: U1, arg2: U2) => T),
+    fn: (selector: string, arg1: U1, arg2: U2) => T,
     arg1: U1,
     arg2: U2
   ): T
@@ -2487,7 +2487,7 @@ export default class Rize
   findAll <T> (
     selector: string,
     index: number,
-    fn: ((selector: string, ...args) => T),
+    fn: (selector: string, ...args) => T,
     ...args
   ): T {
     return fn('')
@@ -2497,7 +2497,7 @@ export default class Rize
    * Find all elements by XPath and pick one to execute an operation.
    *
    * @param expression XPath expression.
-   * @param index Starts from 0.
+   * @param index Index of the array of result. It starts from 0.
    * @param fn One of available `Rize` APIs.
    * @returns Return value of the operation.
    *
@@ -2521,14 +2521,14 @@ export default class Rize
   findByXPath <T> (
     expression: string,
     index: number,
-    fn: ((selector: string) => T)
+    fn: (selector: string) => T
   ): T
 
   /**
    * Find all elements by XPath and pick one to execute an operation.
    *
    * @param expression XPath expression.
-   * @param index Starts from 0.
+   * @param index Index of the array of result. It starts from 0.
    * @param fn One of available `Rize` APIs.
    * @param arg1 The first argument of the operation.
    * @returns Return value of the operation.
@@ -2558,7 +2558,7 @@ export default class Rize
   findByXPath <T, U1> (
     expression: string,
     index: number,
-    fn: ((selector: string, arg1: U1) => T),
+    fn: (selector: string, arg1: U1) => T,
     arg1: U1
   ): T
 
@@ -2566,7 +2566,7 @@ export default class Rize
    * Find all elements by XPath and pick one to execute an operation.
    *
    * @param expression XPath expression.
-   * @param index Starts from 0.
+   * @param index Index of the array of result. It starts from 0.
    * @param fn One of available `Rize` APIs.
    * @param arg1 The first argument of the operation.
    * @param arg2 The second argument of the operation.
@@ -2591,7 +2591,7 @@ export default class Rize
   findByXPath <T, U1, U2> (
     expression: string,
     index: number,
-    fn: ((selector: string, arg1: U1, arg2: U2) => T),
+    fn: (selector: string, arg1: U1, arg2: U2) => T,
     arg1: U1,
     arg2: U2
   ): T
@@ -2599,7 +2599,7 @@ export default class Rize
   findByXPath <T> (
     expression: string,
     index: number,
-    fn: ((selector: string, ...args) => T),
+    fn: (selector: string, ...args) => T,
     ...args
   ): T {
     return fn('')
