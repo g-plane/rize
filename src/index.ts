@@ -66,6 +66,18 @@ export interface RizeOptions {
    * @memberof RizeOptions
    */
   height?: number
+
+  /**
+   * This setting will change the default maximum navigation time of 30 seconds
+   * for the following methods:
+   *
+   * - Rize#goto(url)
+   * - Rize#forward()
+   * - Rize#back()
+   * - Rize#refresh()
+   * - Rize#waitForNavigation(timeout?)
+   */
+  defaultNavigationTimeout?: number
 }
 
 export default class Rize
@@ -96,6 +108,13 @@ export default class Rize
         width: options.width || 1280,
         height: options.height || 720
       })
+
+      if (options.defaultNavigationTimeout !== undefined) {
+        const timeout = options.defaultNavigationTimeout
+        this.pages.forEach(({ page }) => {
+          page.setDefaultNavigationTimeout(timeout)
+        })
+      }
 
       options.afterLaunched && options.afterLaunched.call(this)
 
