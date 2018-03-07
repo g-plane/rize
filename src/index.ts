@@ -2606,6 +2606,130 @@ export default class Rize
   }
 
   /**
+   * Find all elements by the given selector and given text
+   * and pick one to execute an operation.
+   *
+   * @param selector CSS selector.
+   * @param text Expected text that should be in a element,
+   * @param index Index of the array of result. It starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @returns Return value of the operation.
+   *
+   * @since 0.3.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findWithText('button', 'some-text', 2, rize.click)
+   *
+   * // or
+   *
+   * ;(async () => {
+   *   const rize = new Rize()
+   *   const text = await rize.findWithText('span', 'some-text', 2, rize.text)
+   * })()
+   * ```
+   */
+  findWithText <T> (
+    selector: string,
+    text: string,
+    index: number,
+    fn: (selector: string) => T
+  ): T
+
+  /**
+   * Find all elements by the given selector and given text
+   * and pick one to execute an operation.
+   *
+   * @param selector CSS selector.
+   * @param text Expected text that should be in a element,
+   * @param index Index of the array of result. It starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @param arg1 The first argument of the operation.
+   * @returns Return value of the operation.
+   *
+   * @since 0.3.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findWithText('input', 'some-text', 1, rize.type, 'my-name')
+   *
+   * // or
+   *
+   * ;(async () => {
+   *   const rize = new Rize()
+   *   const font = await rize.findWithText(
+   *     'span',
+   *     'some-text',
+   *     1,
+   *     rize.style,
+   *     'font-size'
+   *   )
+   * })()
+   * ```
+   */
+  findWithText <T, U1> (
+    selector: string,
+    text: string,
+    index: number,
+    fn: (selector: string, arg1: U1) => T,
+    arg1: U1
+  ): T
+
+  /**
+   * Find all elements by the given selector and given text
+   * and pick one to execute an operation.
+   *
+   * @param selector CSS selector.
+   * @param text Expected text that should be in a element,
+   * @param index Index of the array of result. It starts from 0.
+   * @param fn One of available `Rize` APIs.
+   * @param arg1 The first argument of the operation.
+   * @param arg2 The second argument of the operation.
+   * @returns Return value of the operation.
+   *
+   * @since 0.3.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.findWithText(
+   *   'div',
+   *   'some-text',
+   *   2,
+   *   rize.assertAttribute,
+   *   'id',
+   *   'message'
+   * )
+   * ```
+   */
+  findWithText <T, U1, U2> (
+    selector: string,
+    text: string,
+    index: number,
+    fn: (selector: string, arg1: U1, arg2: U2) => T,
+    arg1: U1,
+    arg2: U2
+  ): T
+
+  findWithText <T> (
+    selector: string,
+    text: string,
+    index: number,
+    fn: (selector: string, ...args) => T,
+    ...args
+  ): T {
+    return fn('')
+  }
+
+  /**
    * Retrieve viewport information.
    *
    * @since 0.1.0

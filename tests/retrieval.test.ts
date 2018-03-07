@@ -266,6 +266,28 @@ test('find elements with index by XPath', async done => {
   instance.end(done)
 })
 
+test('find elements with text', async done => {
+  expect.assertions(2)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <div class="syaro">syaro</div>
+        <div class="rize" style="font-size: 5px">rize</div>
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  const hasClass = await instance.goto(`http://localhost:${port}/`)
+    .findWithText('div', 'rize', 0, instance.hasClass, 'rize')
+  expect(hasClass).toBe(true)
+  await expect(
+    instance.findWithText('div', 'rize', 0, instance.style, 'font-size')
+  ).resolves.toBe('5px')
+  server.close()
+  instance.end(done)
+})
+
 test('retrieval viewport info', async done => {
   const instance = new Rize()
   await expect(instance.viewport()).resolves.toEqual(

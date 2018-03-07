@@ -294,6 +294,34 @@ export default class Retrieval extends Infrastructure {
     return fn.call(this, `[data-rize="${random}"]`, ...args)
   }
 
+  findWithText <T> (
+    selector: string,
+    text: string,
+    index: number,
+    fn: ((selector: string, ...args) => T),
+    ...args
+  ): T {
+    const random = crypto.randomBytes(10).toString('hex')
+    this.push(async () => {
+      await this.page.evaluate(
+        /* Instrumenting cannot be executed in browser. */
+        /* istanbul ignore next */
+        (sel: string, t: string, i: number, id: string) => {
+          const element = Array
+            .from(document.querySelectorAll(sel))
+            .filter(el => (el.textContent || '').includes(t))[i]
+          element.setAttribute('data-rize', id)
+        },
+        selector,
+        text,
+        index,
+        random
+      )
+    })
+
+    return fn.call(this, `[data-rize="${random}"]`, ...args)
+  }
+
   viewport () {
     return new Promise<puppeteer.Viewport>(
       fulfill => this.push(() => fulfill(this.page.viewport()))
