@@ -4,6 +4,7 @@ import { getPortPromise as getPort } from 'portfinder'
 import Rize from '../src'
 
 test('retrieve title', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><title>rize</title></html>
@@ -22,6 +23,7 @@ test('retrieve title', async done => {
 })
 
 test('retrieve text', async done => {
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div>rize</div></body></html>
@@ -36,6 +38,7 @@ test('retrieve text', async done => {
 })
 
 test('retrieve html', async done => {
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div>rize</div></body></html>
@@ -52,6 +55,7 @@ test('retrieve html', async done => {
 })
 
 test('retrieve attribute', async done => {
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div class="rize"></div></body></html>
@@ -66,6 +70,7 @@ test('retrieve attribute', async done => {
 })
 
 test('retrieve style', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div style="font-size: 5px"></div></body></html>
@@ -79,6 +84,7 @@ test('retrieve style', async done => {
 })
 
 test('retrieve value', async done => {
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><input value="rize" /></body></html>
@@ -100,6 +106,7 @@ test('retrieve value', async done => {
 })
 
 test('retrieve if an element has a class', async done => {
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div class="rize"></div></body></html>
@@ -114,12 +121,14 @@ test('retrieve if an element has a class', async done => {
 })
 
 test('retrieve url', async done => {
+  expect.assertions(1)
   const instance = new Rize()
   await expect(instance.url()).resolves.toBe('about:blank')
   instance.end(done)
 })
 
 test('retrieve query string', async done => {
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
   const instance = new Rize()
@@ -132,6 +141,7 @@ test('retrieve query string', async done => {
 })
 
 test('retrieve cookie', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
   const instance = new Rize()
@@ -152,6 +162,7 @@ test('retrieve cookie', async done => {
 })
 
 test('retrieve cookies', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
   const instance = new Rize()
@@ -176,6 +187,7 @@ test('retrieve cookies', async done => {
 })
 
 test('retrieve if an element is visible', async done => {
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div style="display: none"></div><p></p></body></html>
@@ -190,6 +202,7 @@ test('retrieve if an element is visible', async done => {
 })
 
 test('retrieve if an element is present', async done => {
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div style="display: none"></div></body></html>
@@ -209,6 +222,7 @@ test('retrieve if an element is present', async done => {
 })
 
 test('find an element by CSS selector', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div style="font-size: 5px">rize</div></body></html>
@@ -225,6 +239,7 @@ test('find an element by CSS selector', async done => {
 })
 
 test('find elements with index by CSS selector', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -246,6 +261,7 @@ test('find elements with index by CSS selector', async done => {
 })
 
 test('find elements with index by XPath', async done => {
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -289,6 +305,7 @@ test('find elements with text', async done => {
 })
 
 test('retrieval viewport info', async done => {
+  expect.assertions(1)
   const instance = new Rize()
   await expect(instance.viewport()).resolves.toEqual(
     expect.objectContaining({ width: 1280, height: 720 })
