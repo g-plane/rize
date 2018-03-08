@@ -16,11 +16,15 @@
     "rize",
     "puppeteer",
     "test",
+    "testing",
     "e2e",
     "chrome",
     "googlechrome",
     "chainable",
-    "fluent"
+    "fluent",
+    "jest",
+    "mocha",
+    "ava"
   ],
   "main": "dist/index.js",
   "private": false,
