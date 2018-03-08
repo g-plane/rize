@@ -162,9 +162,9 @@ rize.closePage('page1')
 
 The [`switchPage`](https://rize.js.org/api/classes/_index_.rize.html#switchpage) receive one argument and it can be a string or a number.
 
-When it is a string, it means `name`. It is the name of the page you want to close.
+When it is a string, it means `name`. It is the name of the page you want to switch to.
 
-When it is a number, it will find the page by index in the internal array of pages and close it.
+When it is a number, it will find the page by index in the internal array of pages and switch to it.
 
 ```javascript
 rize.switchPage(0)
