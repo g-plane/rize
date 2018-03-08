@@ -1,10 +1,10 @@
 
 <!DOCTYPE HTML>
-<html lang="en" >
+<html lang="zh-CN" >
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Getting Started · Rize</title>
+        <title>开始 · Rize</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -79,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -103,7 +103,7 @@
                 <a href="./">
             
                     
-                    Introduction
+                    介绍
             
                 </a>
             
@@ -116,7 +116,7 @@
                 <a href="getting-started.html">
             
                     
-                    Getting Started
+                    开始
             
                 </a>
             
@@ -129,7 +129,7 @@
                 <a href="page.html">
             
                     
-                    Page Operations
+                    页面操作
             
                 </a>
             
@@ -142,7 +142,7 @@
                 <a href="interaction.html">
             
                     
-                    Interaction
+                    交互
             
                 </a>
             
@@ -155,7 +155,7 @@
                 <a href="find-elements.html">
             
                     
-                    Find Elements
+                    查找元素
             
                 </a>
             
@@ -168,7 +168,7 @@
                 <a href="testing.html">
             
                     
-                    Testing
+                    测试
             
                 </a>
             
@@ -181,7 +181,7 @@
                 <a href="retrieval.html">
             
                     
-                    Retrieving Data
+                    获取数据
             
                 </a>
             
@@ -221,7 +221,7 @@
                 <a target="_blank" href="https://rize.js.org/api/classes/_index_.rize.html">
             
                     
-                    Available methods
+                    可用的方法
             
                 </a>
             
@@ -234,7 +234,7 @@
                 <a target="_blank" href="https://rize.js.org/api/interfaces/_index_.rizeoptions.html">
             
                     
-                    Options
+                    选项
             
                 </a>
             
@@ -254,7 +254,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -279,7 +279,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Getting Started</a>
+        <a href="." >开始</a>
     </h1>
 </div>
 
@@ -294,38 +294,38 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="getting-started">Getting Started</h1>
-<p>Most of Rize APIs are chainable and all the operations will be executed in the order of you called.</p>
-<p>Now let me show you an example to visit GitHub to search something and save a screenshot.</p>
-<p>To make us see what happened, we can pass <code>headless: false</code> flag to Rize.</p>
+                                <h1 id="&#x5F00;&#x59CB;">&#x5F00;&#x59CB;</h1>
+<p>Rize &#x7684;&#x5927;&#x591A;&#x6570; API &#x90FD;&#x662F;&#x53EF;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x7684;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x64CD;&#x4F5C;&#x4F1A;&#x6309;&#x60A8;&#x8C03;&#x7528;&#x7684;&#x987A;&#x5E8F;&#x53BB;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x3002;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x5C06;&#x4F1A;&#x8BBF;&#x95EE; GitHub &#x5E76;&#x641C;&#x7D22;&#x4E00;&#x4E9B;&#x4E1C;&#x897F;&#xFF0C;&#x7136;&#x540E;&#x4FDD;&#x5B58;&#x622A;&#x56FE;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x80FD;&#x8BA9;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x53D1;&#x751F;&#x4E86;&#x4EC0;&#x4E48;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F20;&#x9012;&#x6807;&#x5FD7; <code>headless: false</code> &#x7ED9; Rize&#x3002;</p>
 <pre class="language-"><code class="lang-javascript"><span class="token keyword">const</span> rize <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Rize</span><span class="token punctuation">(</span><span class="token punctuation">{</span> headless<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p>As we know, in <code>puppeteer</code>, after you launched the browser, you must new a page. However, in Rize, you don&apos;t need to do that.</p>
-<p>So we just visit &quot;<a href="https://github.com/" target="_blank">https://github.com/</a>&quot;</p>
+<p>&#x60A8;&#x53EF;&#x80FD;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#xFF0C;&#x5728; <code>puppeteer</code> &#x4E2D;&#xFF0C;&#x5728;&#x542F;&#x52A8;&#x6D4F;&#x89C8;&#x5668;&#x4E4B;&#x540E;&#xFF0C;&#x60A8;&#x5FC5;&#x987B;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x3002;&#x7136;&#x800C;&#x5728; Rize &#x4E2D;&#xFF0C;&#x60A8;&#x4E0D;&#x9700;&#x8981;&#x8FD9;&#x4E48;&#x505A;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x6765;&#x8BBF;&#x95EE; <a href="https://github.com/" target="_blank">https://github.com/</a></p>
 <pre class="language-"><code class="lang-javascript">rize<span class="token punctuation">.</span><span class="token function">goto</span><span class="token punctuation">(</span><span class="token string">&apos;https://github.com/&apos;</span><span class="token punctuation">)</span>
 </code></pre>
-<p>Now we want to search &quot;node&quot;, so we can type &quot;node&quot; to the search box. The selector of the search box is <code>input.header-search-input</code>.</p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x641C;&#x7D22; &#x201C;node&#x201D;&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x9700;&#x8F93;&#x5165; &#x201C;node&#x201D; &#x5230;&#x641C;&#x7D22;&#x6846;&#x4E2D;&#x3002;&#x641C;&#x7D22;&#x6846;&#x7684;&#x9009;&#x62E9;&#x5668;&#x662F; <code>input.header-search-input</code>&#x3002;</p>
 <pre class="language-"><code class="lang-javascript">rize<span class="token punctuation">.</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token string">&apos;input.header-search-input&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;node&apos;</span><span class="token punctuation">)</span>
 </code></pre>
-<p>Don&apos;t forget most of Rize APIs are chain able, so we can make it elegant:</p>
+<p>&#x522B;&#x5FD8;&#x4E86; Rize &#x7684;&#x5927;&#x591A;&#x6570;&#x7684; API &#x662F;&#x53EF;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x8BA9;&#x4EE3;&#x7801;&#x53D8;&#x5F97;&#x4F18;&#x96C5;&#xFF1A;</p>
 <pre class="language-"><code class="lang-javascript">rize
   <span class="token punctuation">.</span><span class="token function">goto</span><span class="token punctuation">(</span><span class="token string">&apos;https://github.com/&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token string">&apos;input.header-search-input&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;node&apos;</span><span class="token punctuation">)</span>
 </code></pre>
-<p>Press <code>Enter</code> to submit the search query:</p>
+<p>&#x6309; <code>Enter</code> &#x952E;&#x6765;&#x63D0;&#x4EA4;&#x641C;&#x7D22;&#xFF1A;</p>
 <pre class="language-"><code class="lang-javascript">rize
   <span class="token punctuation">.</span><span class="token function">goto</span><span class="token punctuation">(</span><span class="token string">&apos;https://github.com/&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token string">&apos;input.header-search-input&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;node&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">press</span><span class="token punctuation">(</span><span class="token string">&apos;Enter&apos;</span><span class="token punctuation">)</span>
 </code></pre>
-<p>Well, we can submit to search now. However once you submitted the current page will be navigated to the result page. We must wait for the navigation:</p>
+<p>&#x597D;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x63D0;&#x4EA4;&#x4E86;&#x641C;&#x7D22;&#x3002;&#x4F46;&#x662F;&#x5728;&#x60A8;&#x63D0;&#x4EA4;&#x4E4B;&#x540E;&#xFF0C;&#x5F53;&#x524D;&#x9875;&#x9762;&#x4F1A;&#x88AB;&#x8F6C;&#x5411;&#x5230;&#x641C;&#x7D22;&#x7ED3;&#x679C;&#x9875;&#x9762;&#x3002;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x7B49;&#x5F85;&#x8FD9;&#x6B21;&#x8F6C;&#x5411;&#xFF1A;</p>
 <pre class="language-"><code class="lang-javascript">rize
   <span class="token punctuation">.</span><span class="token function">goto</span><span class="token punctuation">(</span><span class="token string">&apos;https://github.com/&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token string">&apos;input.header-search-input&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;node&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">press</span><span class="token punctuation">(</span><span class="token string">&apos;Enter&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">waitForNavigation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p>Let&apos;s go ahead and save a screenshot:</p>
+<p>&#x4FDD;&#x5B58;&#x622A;&#x56FE;&#xFF1A;</p>
 <pre class="language-"><code class="lang-javascript">rize
   <span class="token punctuation">.</span><span class="token function">goto</span><span class="token punctuation">(</span><span class="token string">&apos;https://github.com/&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token string">&apos;input.header-search-input&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;node&apos;</span><span class="token punctuation">)</span>
@@ -333,8 +333,8 @@
   <span class="token punctuation">.</span><span class="token function">waitForNavigation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">saveScreenshot</span><span class="token punctuation">(</span><span class="token string">&apos;searching-node.png&apos;</span><span class="token punctuation">)</span>
 </code></pre>
-<p>If all worked well, you should find a screenshot file in current directory.</p>
-<p>Now are everything done? Not really. Don&apos;t forget to exit the browser:</p>
+<p>&#x5982;&#x679C;&#x4E00;&#x5207;&#x5DE5;&#x4F5C;&#x6B63;&#x5E38;&#xFF0C;&#x60A8;&#x5C06;&#x4F1A;&#x5728;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x53D1;&#x73B0;&#x4E00;&#x5F20;&#x622A;&#x56FE;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x4EFB;&#x52A1;&#x4E86;&#x5417;&#xFF1F;&#x5E76;&#x4E0D;&#xFF01;&#x522B;&#x5FD8;&#x4E86;&#x9000;&#x51FA;&#x6D4F;&#x89C8;&#x5668;&#xFF1A;</p>
 <pre class="language-"><code class="lang-javascript">rize
   <span class="token punctuation">.</span><span class="token function">goto</span><span class="token punctuation">(</span><span class="token string">&apos;https://github.com/&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token string">&apos;input.header-search-input&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;node&apos;</span><span class="token punctuation">)</span>
@@ -343,7 +343,7 @@
   <span class="token punctuation">.</span><span class="token function">saveScreenshot</span><span class="token punctuation">(</span><span class="token string">&apos;searching-node.png&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p>That&apos;s all! For more advanced usage, please read other sections of this documentation.</p>
+<p>&#x5168;&#x90E8;&#x5B8C;&#x6210;&#xFF01;&#x60F3;&#x8981;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x7528;&#x6CD5;&#xFF0C;&#x8BF7;&#x9605;&#x8BFB;&#x672C;&#x6587;&#x6863;&#x7684;&#x5176;&#x5B83;&#x90E8;&#x5206;&#x3002;</p>
 
                                 
                                 </section>
@@ -372,12 +372,12 @@
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 介绍">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="page.html" class="navigation navigation-next " aria-label="Next page: Page Operations">
+                <a href="page.html" class="navigation navigation-next " aria-label="Next page: 页面操作">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -388,7 +388,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2","depth":1,"next":{"title":"Page Operations","level":"1.3","depth":1,"path":"page.md","ref":"./page.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","theme-vuejs-2","github","edit-link","highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/g-plane/rize/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-vuejs-2":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/g-plane/rize/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Rize","language":"en","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"getting-started.md","mtime":"2018-03-08T10:22:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-08T10:24:15.071Z"},"basePath":".","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"开始","level":"1.2","depth":1,"next":{"title":"页面操作","level":"1.3","depth":1,"path":"page.md","ref":"./page.md","articles":[]},"previous":{"title":"介绍","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","theme-vuejs-2","github","edit-link","highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/g-plane/rize/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-vuejs-2":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/g-plane/rize/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Rize","language":"zh-CN","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"getting-started.md","mtime":"2018-03-08T10:22:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-08T10:24:15.071Z"},"basePath":".","book":{"language":"zh-CN"}});
         });
     </script>
 </div>
