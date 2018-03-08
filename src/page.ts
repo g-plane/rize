@@ -26,6 +26,7 @@ export default class Page extends Infrastructure {
       let index = this.pages.findIndex(page => page.name === name)
       if (index !== -1) {
         if (options.force) {
+          /* tslint:disable-next-line no-floating-promises */
           this.pages[index].page.close()
           this.pages[index].page = await this.browser.newPage()
         }
