@@ -1,4 +1,4 @@
-import * as error from '../../src/utils/error'
+import * as error from '../../../src/utils/error'
 
 test('beautify error stack', () => {
   const fake = new Error()

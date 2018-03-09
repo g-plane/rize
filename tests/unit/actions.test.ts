@@ -1,7 +1,7 @@
 import http from 'http'
 import puppeteer from 'puppeteer'
 import { getPortPromise as getPort } from 'portfinder'
-import Rize from '../src'
+import Rize from '../../src'
 
 test('click on an element', async done => {
   expect.assertions(1)

@@ -1,4 +1,4 @@
-import Rize from '../src'
+import Rize from '../../src'
 
 test('call a function before browser launch', done => {
   expect.assertions(1)

@@ -2,7 +2,7 @@ import assert from 'assert'
 import http from 'http'
 import puppeteer from 'puppeteer'
 import { getPortPromise as getPort } from 'portfinder'
-import Rize from '../src'
+import Rize from '../../src'
 
 test('assert url', done => {
   const instance = new Rize()
