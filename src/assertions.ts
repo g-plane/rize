@@ -1,6 +1,7 @@
 import assert from 'assert'
 import url from 'url'
 import Infrastructure from './infrastructure'
+import { prepareStackTrace } from './utils/error'
 
 function greenify (text: string) {
   return `\u001B[32m${text}\u001B[39m`
@@ -17,7 +18,7 @@ export default class Assertions extends Infrastructure {
       expected,
       `Expected URL is "${greenify(expected)}", ` +
         `but received "${redify(this.page.url())}".`
-    ))
+    ), prepareStackTrace())
 
     return this
   }
@@ -38,7 +39,7 @@ export default class Assertions extends Infrastructure {
             `match "${greenify(regex.source)}".`
         )
       }
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -52,7 +53,7 @@ export default class Assertions extends Infrastructure {
         `Expected path is "${greenify(expected)}", ` +
           `but received "${redify(pageUrl.path + '')}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -64,7 +65,7 @@ export default class Assertions extends Infrastructure {
         pageUrl.path!.startsWith(expected),
         `Expected URL path starts with "${greenify(expected)}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -78,7 +79,7 @@ export default class Assertions extends Infrastructure {
         `Expected page title is "${greenify(title)}", ` +
           `but received "${redify(actual)}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -90,7 +91,7 @@ export default class Assertions extends Infrastructure {
         actual.includes(title),
         `Received title does not contain "${greenify(title)}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -110,7 +111,7 @@ export default class Assertions extends Infrastructure {
             `match "${greenify(regex.source)}".`
         )
       }
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -132,7 +133,7 @@ export default class Assertions extends Infrastructure {
           `The key "${greenify(key)}" cannot be found in query string.`
         )
       }
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -145,7 +146,7 @@ export default class Assertions extends Infrastructure {
         !(key in query),
         `The key "${redify(key)}" was found in query string.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -170,7 +171,7 @@ export default class Assertions extends Infrastructure {
           `Expected cookie "${greenify(name)}" cannot be found.`
         )
       }
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -182,7 +183,7 @@ export default class Assertions extends Infrastructure {
         html.includes(text),
         `Expected text "${greenify(text)}" cannot be found.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -194,7 +195,7 @@ export default class Assertions extends Infrastructure {
         !html.includes(text),
         `Unexpected text "${redify(text)}" was found.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -212,7 +213,7 @@ export default class Assertions extends Infrastructure {
         textContent.includes(text),
         `Expected text "${text}" cannot be found in element "${selector}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -230,7 +231,7 @@ export default class Assertions extends Infrastructure {
         !textContent.includes(text),
         `Unexpected text "${redify(text)}" was found in element "${selector}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -250,7 +251,7 @@ export default class Assertions extends Infrastructure {
         `Expected value of attribute "${attribute}" of element "${selector}" ` +
         `is "${greenify(value)}", but received "${redify(actual)}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -271,7 +272,7 @@ export default class Assertions extends Infrastructure {
         result,
         `Element "${selector}" does not has "${className}" class.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -292,7 +293,7 @@ export default class Assertions extends Infrastructure {
         !result,
         `Element "${selector}" has unexpected "${redify(className)}" class.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -317,7 +318,7 @@ export default class Assertions extends Infrastructure {
           `"${selector}" is "${greenify(value)}", ` +
           `but received ${redify(actual)}.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -338,7 +339,7 @@ export default class Assertions extends Infrastructure {
         `Expected value of element "${selector}" is "${greenify(value)}", ` +
           `but received "${redify(actual)}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -359,7 +360,7 @@ export default class Assertions extends Infrastructure {
         `Expected value of element "${selector}" is NOT "${greenify(value)}"` +
           `, but received "${redify(actual)}".`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -378,7 +379,7 @@ export default class Assertions extends Infrastructure {
         actual.includes(value),
         `Expected value of element "${selector}" contains "${value}", but not.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -394,7 +395,7 @@ export default class Assertions extends Infrastructure {
         selector
       )
       assert.ok(actual, `The checkbox "${selector}" has not been checked.`)
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -410,7 +411,7 @@ export default class Assertions extends Infrastructure {
         selector
       )
       assert.ok(!actual, `The checkbox "${selector}" has been checked.`)
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -429,7 +430,7 @@ export default class Assertions extends Infrastructure {
         value
       )
       assert.ok(actual, `The radio button "${selector}" has not been selected.`)
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -448,7 +449,7 @@ export default class Assertions extends Infrastructure {
         value
       )
       assert.ok(!actual, `The radio button "${selector}" has been selected.`)
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -471,7 +472,7 @@ export default class Assertions extends Infrastructure {
         actual,
         `The value "${value}" in element "${selector}" has not been selected.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -494,7 +495,7 @@ export default class Assertions extends Infrastructure {
         !actual,
         `The value "${value}" in element "${selector}" has been selected.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -514,7 +515,7 @@ export default class Assertions extends Infrastructure {
         'none',
         `The element "${selector}" is ${redify('NOT')} visible.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -534,7 +535,7 @@ export default class Assertions extends Infrastructure {
         'none',
         `The element "${selector}" is visible.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -551,7 +552,7 @@ export default class Assertions extends Infrastructure {
         null,
         `The element "${selector}" is ${redify('NOT')} present.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -568,7 +569,7 @@ export default class Assertions extends Infrastructure {
         null,
         `The element "${selector}" is present.`
       )
-    })
+    }, prepareStackTrace())
 
     return this
   }

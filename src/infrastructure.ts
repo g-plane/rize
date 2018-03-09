@@ -1,5 +1,6 @@
 import EventEmitter from 'events'
 import puppeteer from 'puppeteer'
+import { beautifyStack } from './utils/error'
 
 export default class Infrastructure {
   protected queue: symbol[] = []
@@ -22,14 +23,18 @@ export default class Infrastructure {
     return currentPage ? currentPage.page : this.preservePage
   }
 
-  protected push (fn: () => any) {
+  protected push (fn: () => any, trace?: Error) {
     const unique = Symbol()
     this.queue.push(unique)
     this.eventBus.once(unique, async () => {
       try {
         await fn()
       } catch (error) {
-        throw error
+        if (trace) {
+          throw beautifyStack(trace, error)
+        } else {
+          throw error
+        }
       } finally {
         this.eventBus.emit(this.queue[this.queue.indexOf(unique) + 1])
         this.queue.shift()

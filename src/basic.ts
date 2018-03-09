@@ -1,11 +1,10 @@
 import puppeteer from 'puppeteer'
 import Infrastructure from './infrastructure'
+import { prepareStackTrace } from './utils/error'
 
 export default class Basic extends Infrastructure {
   sleep (ms: number) {
-    this.push(async () => {
-      await this.page.waitFor(ms)
-    })
+    this.push(async () => await this.page.waitFor(ms), prepareStackTrace())
 
     return this
   }
@@ -18,7 +17,7 @@ export default class Basic extends Infrastructure {
       ...args
     ) => void
   ) {
-    this.push(() => fn.call(this, this.browser, this.page))
+    this.push(() => fn.call(this, this.browser, this.page), prepareStackTrace())
 
     return this
   }
@@ -32,7 +31,7 @@ export default class Basic extends Infrastructure {
       this.push(async () => {
         await this.browser.close()
         callback()
-      })
+      }, prepareStackTrace())
       return
     } else {
       return new Promise((resolve, reject) => {
@@ -44,7 +43,7 @@ export default class Basic extends Infrastructure {
             /* istanbul ignore next */
             reject(error)
           }
-        })
+        }, prepareStackTrace())
       })
     }
   }

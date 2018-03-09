@@ -48,7 +48,7 @@
       "^.+\\.ts$": "ts-jest"
     },
     "setupFiles": [
-      "<rootDir>/tests/utils/setup.ts"
+      "<rootDir>/tests/tools/setup.ts"
     ],
     "testEnvironment": "node",
     "moduleFileExtensions": [
@@ -60,7 +60,7 @@
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/tests/utils"
+      "<rootDir>/tests/tools"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",

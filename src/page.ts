@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer'
 import Infrastructure from './infrastructure'
+import { prepareStackTrace } from './utils/error'
 
 function serializeArg (arg) {
   return arg === undefined ? 'undefined' : JSON.stringify(arg)
@@ -11,9 +12,7 @@ function serializeFunc (func: Function, ...rest) {
 
 export default class Page extends Infrastructure {
   goto (url: string) {
-    this.push(async () => {
-      await this.page.goto(url)
-    })
+    this.push(async () => await this.page.goto(url), prepareStackTrace())
 
     return this
   }
@@ -38,7 +37,7 @@ export default class Page extends Infrastructure {
       if (!options.stayCurrent) {
         this.currentPageIndex = index
       }
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -57,7 +56,8 @@ export default class Page extends Infrastructure {
         } else {
           this.currentPageIndex = name
         }
-      }
+      },
+      prepareStackTrace()
     )
 
     return this
@@ -84,7 +84,7 @@ export default class Page extends Infrastructure {
         this.pages.splice(index, 1)
         this.currentPageIndex = index - 1
       }
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -98,23 +98,19 @@ export default class Page extends Infrastructure {
   forward (options?: puppeteer.NavigationOptions) {
     this.push(async () => {
       await this.page.goForward(options)
-    })
+    }, prepareStackTrace())
 
     return this
   }
 
   back (options?: puppeteer.NavigationOptions) {
-    this.push(async () => {
-      await this.page.goBack(options)
-    })
+    this.push(async () => await this.page.goBack(options), prepareStackTrace())
 
     return this
   }
 
   refresh (options?: puppeteer.NavigationOptions) {
-    this.push(async () => {
-      await this.page.reload(options)
-    })
+    this.push(async () => await this.page.reload(options), prepareStackTrace())
 
     return this
   }
@@ -122,7 +118,10 @@ export default class Page extends Infrastructure {
   evaluate (fn: Function | string, ...args) {
     const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
 
-    this.push(async () => await this.page.evaluate(stringified))
+    this.push(
+      async () => await this.page.evaluate(stringified),
+      prepareStackTrace()
+    )
 
     return this
   }
@@ -144,7 +143,7 @@ export default class Page extends Infrastructure {
   withUserAgent (userAgent: string) {
     this.push(async () => {
       await this.page.setUserAgent(userAgent)
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -152,7 +151,7 @@ export default class Page extends Infrastructure {
   saveScreenshot (path: string, options?: puppeteer.ScreenshotOptions) {
     this.push(async () => {
       await this.page.screenshot({ ...options, path })
-    })
+    }, prepareStackTrace())
 
     return this
   }
@@ -160,13 +159,16 @@ export default class Page extends Infrastructure {
   savePDF (path: string, options?: puppeteer.PDFOptions) {
     this.push(async () => {
       await this.page.pdf({ ...options, path })
-    })
+    }, prepareStackTrace())
 
     return this
   }
 
   waitForNavigation (timeout?: number) {
-    this.push(async () => await this.page.waitForNavigation({ timeout }))
+    this.push(
+      async () => await this.page.waitForNavigation({ timeout }),
+      prepareStackTrace()
+    )
 
     return this
   }
@@ -175,7 +177,7 @@ export default class Page extends Infrastructure {
     this.push(async () => await this.page.waitForSelector(
       selector,
       { timeout }
-    ))
+    ), prepareStackTrace())
 
     return this
   }
@@ -184,32 +186,45 @@ export default class Page extends Infrastructure {
     const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
 
     this.push(
-      async () => await this.page.waitForFunction(stringified, { timeout })
+      async () => await this.page.waitForFunction(stringified, { timeout }),
+      prepareStackTrace()
     )
 
     return this
   }
 
   withAuth (username: string, password: string) {
-    this.push(async () => await this.page.authenticate({ username, password }))
+    this.push(
+      async () => await this.page.authenticate({ username, password }),
+      prepareStackTrace()
+    )
 
     return this
   }
 
   withHeaders (headers: puppeteer.Headers) {
-    this.push(async () => await this.page.setExtraHTTPHeaders(headers))
+    this.push(
+      async () => await this.page.setExtraHTTPHeaders(headers),
+      prepareStackTrace()
+    )
 
     return this
   }
 
   addScriptTag (type: keyof puppeteer.ScriptTagOptions, value: string) {
-    this.push(async () => await this.page.addScriptTag({ [type]: value }))
+    this.push(
+      async () => await this.page.addScriptTag({ [type]: value }),
+      prepareStackTrace()
+    )
 
     return this
   }
 
   addStyleTag (type: keyof puppeteer.StyleTagOptions, value: string) {
-    this.push(async () => await this.page.addStyleTag({ [type]: value }))
+    this.push(
+      async () => await this.page.addStyleTag({ [type]: value }),
+      prepareStackTrace()
+    )
 
     return this
   }

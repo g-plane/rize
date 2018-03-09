@@ -2,6 +2,7 @@ import url from 'url'
 import crypto from 'crypto'
 import puppeteer from 'puppeteer'
 import Infrastructure from './infrastructure'
+import { prepareStackTrace } from './utils/error'
 
 export default class Retrieval extends Infrastructure {
   title () {
@@ -110,7 +111,7 @@ export default class Retrieval extends Infrastructure {
           selector,
           newValue
         )
-      })
+      }, prepareStackTrace())
 
       return this
     } else {
