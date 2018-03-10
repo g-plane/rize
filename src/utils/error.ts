@@ -1,3 +1,5 @@
+import { AssertionError } from 'assert'
+
 export function prepareStackTrace () {
   return new Error()
 }
@@ -14,3 +16,11 @@ export function beautifyStack (fake: Error, real: Error) {
 
   return real
 }
+
+export function throwAssertionError (error: Error) {
+  if (error instanceof AssertionError) {
+    throw error
+  }
+}
+
+process.on('unhandledRejection', throwAssertionError)
