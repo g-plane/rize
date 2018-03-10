@@ -35,6 +35,7 @@
     "docs:api": "typedoc --excludeExternals --excludePrivate --excludeProtected --name \"Rize API Documentation\" --theme minimal --ignoreCompilerErrors --out ./docs/dist/api ./src/index.ts",
     "docs:guide": "gitbook install docs && gitbook build docs docs/dist",
     "test": "jest",
+    "test:e2e": "jest --config tests/e2e/jest.config.json",
     "coverage": "jest --coverage",
     "lint": "tslint -p .",
     "prepublish": "yarn build"
@@ -69,14 +70,18 @@
     ]
   },
   "devDependencies": {
+    "@types/execa": "^0.8.1",
     "@types/jest": "^22.2.0",
     "@types/puppeteer": "^1.1.0",
     "codecov": "^3.0.0",
+    "execa": "^0.9.0",
     "jest": "^22.3.0",
+    "mocha": "^5.0.4",
     "portfinder": "^1.0.13",
     "puppeteer": "^1.1.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.0.4",
+    "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
     "tslint-config-gplane": "^2.1.0",
     "typedoc": "^0.11.0",
