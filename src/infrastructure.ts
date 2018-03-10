@@ -6,6 +6,11 @@ export default class Infrastructure {
   protected queue: symbol[] = []
   protected eventBus = new EventEmitter()
 
+  protected hooks = {
+    beforeLaunch () {/* placeholder */},
+    afterLaunched () {/* placeholder */}
+  }
+
   protected currentPageIndex = 0
   protected preservePage!: puppeteer.Page
   protected pages: Array<{ name: string, page: puppeteer.Page }> = []

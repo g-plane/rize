@@ -77,8 +77,13 @@ export default class Rize
    */
   constructor (options: puppeteer.LaunchOptions & RizeOptions = {}) {
     super()
+
+    Object.keys(this.hooks).forEach(method => {
+      this.hooks[method] = options[method] || this.hooks[method]
+    })
+
     void (async () => {
-      options.beforeLaunch && options.beforeLaunch()
+      this.hooks.beforeLaunch()
 
       if (process.env.TRAVIS && process.platform === 'linux') {
         options.args
@@ -104,7 +109,7 @@ export default class Rize
         })
       }
 
-      options.afterLaunched && options.afterLaunched.call(this)
+      this.hooks.afterLaunched.call(this)
 
       const first = this.queue[0]
       if (first) {
