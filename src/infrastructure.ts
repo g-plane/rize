@@ -8,7 +8,8 @@ export default class Infrastructure {
 
   protected hooks = {
     beforeLaunch () {/* placeholder */},
-    afterLaunched () {/* placeholder */}
+    afterLaunched () {/* placeholder */},
+    beforeExit () {/* placeholder */}
   }
 
   protected currentPageIndex = 0

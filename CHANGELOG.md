@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Improved error stack trace
+- New lifecycle hook: [`beforeExit`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#beforeexit)
 
 ## [0.3.0] - 2018-03-08
 ### Added

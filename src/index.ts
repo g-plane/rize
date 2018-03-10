@@ -46,6 +46,27 @@ export interface RizeOptions {
   afterLaunched? (this: Rize, ...args): void
 
   /**
+   * A lifecycle hook which you can do something before the browser exit.
+   *
+   * `this` context points to the `Rize` instance.
+   * So you can visit browser and page here.
+   * (Like `this.browser` or `this.page`)
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize({
+   *   beforeExit () {
+   *     this === rize  // true
+   *     console.log('The browser is going to exit.')
+   *   }
+   * })
+   * ```
+   */
+  beforeExit? (this: Rize, ...args): void
+
+  /**
    * Width of viewport.
    */
   width?: number
