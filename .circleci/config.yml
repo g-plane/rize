@@ -111,6 +111,9 @@ jobs:
       - image: circleci/node:9
     working_directory: ~/repo
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "fd:1d:85:85:6a:b5:a1:0c:ec:de:8c:94:a3:18:3d:00"
       - attach_workspace:
           at: ~/repo
       - run:
@@ -122,6 +125,8 @@ jobs:
             git remote add origin git@github.com:g-plane/rize.git
             git checkout -b gh-pages
             git pull origin gh-pages
+            git config --global user.name "Pig Fang"
+            git config --global user.email "g-plane@hotmail.com"
             cd ..
       - run:
           name: Generate docs
