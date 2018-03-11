@@ -105,6 +105,38 @@ jobs:
           at: ~/repo
       - run: yarn codecov
 
+  docs:
+    <<: *defaults
+    docker:
+      - image: circleci/node:9
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Prepare history
+          command: |
+            mkdir gh-pages
+            cd gh-pages
+            git init
+            git remote add origin git@github.com:g-plane/rize.git
+            git checkout -b gh-pages
+            git pull origin gh-pages
+            cd ..
+      - run:
+          name: Generate docs
+          command: yarn build:docs
+      - run:
+          name: Add docs to VCS
+          command: cp -r docs/dist/** gh-pages
+      - run:
+          name: Publish
+          command: |
+            cd gh-pages
+            git add .
+            git commit --allow-empty -m "Build docs at $CIRCLE_SHA1 [skip ci]"
+            git push origin gh-pages
+
 workflows:
   version: 2
   testing:
@@ -135,3 +167,6 @@ workflows:
       - coverage:
           requires:
             - test_on_node8
+      - docs:
+          requires:
+            - install
