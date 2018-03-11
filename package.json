@@ -61,7 +61,8 @@
     "testRegex": "(/tests/unit/.*|(\\.|/)(test|spec))\\.ts$",
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/tests/unit/tools"
+      "<rootDir>/tests/unit/tools",
+      "<rootDir>/tests/e2e/"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
