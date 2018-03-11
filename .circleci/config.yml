@@ -117,7 +117,7 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run:
-          name: Prepare history
+          name: Prepare Git history
           command: |
             echo "  StrictHostKeyChecking no" >> ~/.ssh/config
             mkdir gh-pages
@@ -135,11 +135,9 @@ jobs:
             yarn add --dev gitbook-cli
             yarn build:docs
       - run:
-          name: Add docs to VCS
-          command: cp -r docs/dist/** gh-pages
-      - run:
           name: Publish
           command: |
+            cp -r docs/dist/** gh-pages
             cd gh-pages
             git add .
             git commit --allow-empty -m "Build docs at $CIRCLE_SHA1 [skip ci]"
