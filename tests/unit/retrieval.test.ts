@@ -304,7 +304,7 @@ test('find elements with text', async done => {
   instance.end(done)
 })
 
-test('retrieval viewport info', async done => {
+test('retrieve viewport info', async done => {
   expect.assertions(1)
   const instance = new Rize()
   await expect(instance.viewport()).resolves.toEqual(
