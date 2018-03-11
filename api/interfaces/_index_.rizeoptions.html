@@ -926,6 +926,9 @@ img { max-width: 100%; }
 					<a href="_index_.rizeoptions.html#afterlaunched" class="tsd-kind-icon">after<wbr>Launched</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="_index_.rizeoptions.html#beforeexit" class="tsd-kind-icon">before<wbr>Exit</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="_index_.rizeoptions.html#beforelaunch" class="tsd-kind-icon">before<wbr>Launch</a>
 				</li>
 			</ul>
@@ -961,6 +964,7 @@ img { max-width: 100%; }
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_index_.rizeoptions.html#afterlaunched" class="tsd-kind-icon">after<wbr>Launched</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_index_.rizeoptions.html#beforeexit" class="tsd-kind-icon">before<wbr>Exit</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_index_.rizeoptions.html#beforelaunch" class="tsd-kind-icon">before<wbr>Launch</a></li>
 						</ul>
 					</section>
@@ -975,7 +979,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">default<wbr>Navigation<wbr>Timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/g-plane/rize/blob/3ed4160/src/index.ts#L68">index.ts:68</a></li>
+						<li>Defined in <a href="https://github.com/g-plane/rize/blob/2921f6b/src/index.ts#L89">index.ts:89</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -998,7 +1002,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/g-plane/rize/blob/3ed4160/src/index.ts#L56">index.ts:56</a></li>
+						<li>Defined in <a href="https://github.com/g-plane/rize/blob/2921f6b/src/index.ts#L77">index.ts:77</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1013,7 +1017,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/g-plane/rize/blob/3ed4160/src/index.ts#L51">index.ts:51</a></li>
+						<li>Defined in <a href="https://github.com/g-plane/rize/blob/2921f6b/src/index.ts#L72">index.ts:72</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1035,7 +1039,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/g-plane/rize/blob/3ed4160/src/index.ts#L46">index.ts:46</a></li>
+								<li>Defined in <a href="https://github.com/g-plane/rize/blob/2921f6b/src/index.ts#L46">index.ts:46</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1072,6 +1076,52 @@ img { max-width: 100%; }
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="beforeexit" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> before<wbr>Exit</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">before<wbr>Exit<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="../classes/_index_.rize.html" class="tsd-signature-type">Rize</a>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/g-plane/rize/blob/2921f6b/src/index.ts#L67">index.ts:67</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>A lifecycle hook which you can do something before the browser exit.</p>
+							</div>
+							<p><code>this</code> context points to the <code>Rize</code> instance.
+								So you can visit browser and page here.
+							(Like <code>this.browser</code> or <code>this.page</code>)</p>
+							<dl class="tsd-comment-tags">
+								<dt>example</dt>
+								<dd><pre><code class="lang-javascript">
+<span class="hljs-keyword">const</span> rize = <span class="hljs-keyword">new</span> Rize({
+  beforeExit () {
+    <span class="hljs-keyword">this</span> === rize  <span class="hljs-comment">// true</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'The browser is going to exit.'</span>)
+  }
+})
+</code></pre>
+								</dd>
+							</dl>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>this: <a href="../classes/_index_.rize.html" class="tsd-signature-type">Rize</a></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 				<a name="beforelaunch" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> before<wbr>Launch</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -1081,7 +1131,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/g-plane/rize/blob/3ed4160/src/index.ts#L25">index.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/g-plane/rize/blob/2921f6b/src/index.ts#L25">index.ts:25</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
