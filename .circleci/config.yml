@@ -113,12 +113,13 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "fd:1d:85:85:6a:b5:a1:0c:ec:de:8c:94:a3:18:3d:00"
+            - "78:6d:b3:d4:3b:49:10:34:d8:65:65:b6:06:ff:a0:e0"
       - attach_workspace:
           at: ~/repo
       - run:
           name: Prepare history
           command: |
+            echo "  StrictHostKeyChecking no" >> ~/.ssh/config
             mkdir gh-pages
             cd gh-pages
             git init
@@ -130,7 +131,9 @@ jobs:
             cd ..
       - run:
           name: Generate docs
-          command: yarn build:docs
+          command: |
+            yarn add --dev gitbook-cli
+            yarn build:docs
       - run:
           name: Add docs to VCS
           command: cp -r docs/dist/** gh-pages
