@@ -93,6 +93,7 @@ test('right click on an element', async done => {
 })
 
 test('click a link', async () => {
+  expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
