@@ -92,6 +92,34 @@ test('right click on an element', async done => {
     .end(done)
 })
 
+test('click a link', async () => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body>
+        <a>click me</a>
+        <script>
+          document.querySelector('a').onclick = function () {
+            this.textContent = 'clicked'
+          }
+        </script>
+      </body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  await instance
+    .goto(`http://localhost:${port}/`)
+    .clickLink('click me')
+    .execute(async (browser, page) => {
+      const text = await page.evaluate(
+        () => document.querySelector('a').textContent
+      )
+      expect(text).toBe('clicked')
+      server.close()
+    })
+    .end()
+})
+
 test('hover on an element', async done => {
   expect.assertions(1)
   const port = await getPort()

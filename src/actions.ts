@@ -27,6 +27,28 @@ export default class Actions extends Infrastructure {
     return this
   }
 
+  clickLink (text: string) {
+    this.push(async () => {
+      await this.page.evaluate(
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (t: string) => {
+          const element = Array
+            .from(document.querySelectorAll('a'))
+            .find(el => (el.textContent || '').trim() === t)
+
+          if (element) {
+            element.click()
+          } else {
+            throw new Error(`Cannot find an element with text "${text}"`)
+          }
+        },
+        text
+      )
+    }, prepareStackTrace())
+
+    return this
+  }
+
   hover (selector: string) {
     this.push(async () => await this.page.hover(selector), prepareStackTrace())
 

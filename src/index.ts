@@ -1548,6 +1548,25 @@ export default class Rize
   }
 
   /**
+   * Click an element which contains given text.
+   *
+   * @param text Text on the `<a>` element.
+   *
+   * @since 0.5.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.clickLink('click me')
+   * ```
+   */
+  clickLink (text: string) {
+    return this
+  }
+
+  /**
    * Hover on an element.
    *
    * @param selector CSS selector.
