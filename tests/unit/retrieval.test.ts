@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer'
 import { getPortPromise as getPort } from 'portfinder'
 import Rize from '../../src'
 
-test('retrieve title', async done => {
+test('retrieve title', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -19,10 +19,10 @@ test('retrieve title', async done => {
     server.close()
   })
   await expect(instance.title()).rejects.toThrowError()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve text', async done => {
+test('retrieve text', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -34,10 +34,10 @@ test('retrieve text', async done => {
   await expect(instance.text('div')).resolves.toBe('rize')
   await expect(instance.text('span')).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve html', async done => {
+test('retrieve html', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -51,10 +51,10 @@ test('retrieve html', async done => {
   await expect(instance.html('body')).resolves.toBe('<div>rize</div>\n  ')
   await expect(instance.html('span')).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve attribute', async done => {
+test('retrieve attribute', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -66,10 +66,10 @@ test('retrieve attribute', async done => {
   await expect(instance.attribute('div', 'style')).resolves.toBe(null)
   await expect(instance.attribute('span', 'class')).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve style', async done => {
+test('retrieve style', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -80,10 +80,10 @@ test('retrieve style', async done => {
   await expect(instance.style('div', 'font-size')).resolves.toBe('5px')
   await expect(instance.style('span', 'class')).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve value', async done => {
+test('retrieve value', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -93,7 +93,7 @@ test('retrieve value', async done => {
   instance.goto(`http://localhost:${port}/`)
   await expect(instance.value('input')).resolves.toBe('rize')
   await expect(instance.value('span')).rejects.toThrowError()
-  instance
+  await instance
     .value('input', 'rabbit-house')
     .execute(async (browser, page) => {
       const value: string = await page.evaluate(
@@ -102,10 +102,10 @@ test('retrieve value', async done => {
       expect(value).toBe('rabbit-house')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('retrieve if an element has a class', async done => {
+test('retrieve if an element has a class', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -117,17 +117,17 @@ test('retrieve if an element has a class', async done => {
   await expect(instance.hasClass('div', 'chino')).resolves.toBe(false)
   await expect(instance.hasClass('span', 'class')).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve url', async done => {
+test('retrieve url', async () => {
   expect.assertions(1)
   const instance = new Rize()
   await expect(instance.url()).resolves.toBe('about:blank')
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve query string', async done => {
+test('retrieve query string', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
@@ -137,10 +137,10 @@ test('retrieve query string', async done => {
   await expect(instance.queryString('key2')).resolves.toEqual(['abc', '123'])
   await expect(instance.queryString('key3')).resolves.toBeUndefined()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve cookie', async done => {
+test('retrieve cookie', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
@@ -158,10 +158,10 @@ test('retrieve cookie', async done => {
     .mockReturnValue(Promise.reject(new Error())))
   await expect(instance.cookie()).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve cookies', async done => {
+test('retrieve cookies', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
@@ -183,10 +183,10 @@ test('retrieve cookies', async done => {
     .mockReturnValue(Promise.reject(new Error())))
   await expect(instance.cookies()).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve if an element is visible', async done => {
+test('retrieve if an element is visible', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -198,10 +198,10 @@ test('retrieve if an element is visible', async done => {
   await expect(instance.isVisible('div')).resolves.toBe(false)
   await expect(instance.isVisible('span')).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve if an element is present', async done => {
+test('retrieve if an element is present', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -218,10 +218,10 @@ test('retrieve if an element is present', async done => {
   })
   await expect(instance.isPresent('div')).rejects.toThrowError()
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('find an element by CSS selector', async done => {
+test('find an element by CSS selector', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -235,10 +235,10 @@ test('find an element by CSS selector', async done => {
     instance.find('div', instance.style, 'font-size')
   ).resolves.toBe('5px')
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('find elements with index by CSS selector', async done => {
+test('find elements with index by CSS selector', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -257,10 +257,10 @@ test('find elements with index by CSS selector', async done => {
     instance.findAll('div', 0, instance.style, 'font-size')
   ).resolves.toBe('5px')
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('find elements with index by XPath', async done => {
+test('find elements with index by XPath', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -279,10 +279,10 @@ test('find elements with index by XPath', async done => {
     instance.findByXPath('/html/body//div', 0, instance.style, 'font-size')
   ).resolves.toBe('5px')
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('find elements with text', async done => {
+test('find elements with text', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -301,14 +301,14 @@ test('find elements with text', async done => {
     instance.findWithText('div', 'rize', 0, instance.style, 'font-size')
   ).resolves.toBe('5px')
   server.close()
-  instance.end(done)
+  await instance.end()
 })
 
-test('retrieve viewport info', async done => {
+test('retrieve viewport info', async () => {
   expect.assertions(1)
   const instance = new Rize()
   await expect(instance.viewport()).resolves.toEqual(
     expect.objectContaining({ width: 1280, height: 720 })
   )
-  instance.end(done)
+  await instance.end()
 })

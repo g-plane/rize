@@ -3,27 +3,27 @@ import http from 'http'
 import { getPortPromise as getPort } from 'portfinder'
 import Rize from '../../src'
 
-test('go to a specified url', done => {
+test('go to a specified url', async () => {
   expect.assertions(1)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'goto').mockImplementation(() => true)
     }
   })
-  instance
+  await instance
     .goto('url')
     .execute(() => {
       expect(instance.page.goto).toBeCalledWith('url')
     })
-    .end(done)
+    .end()
 }, process.env.CI ? 8000 : 5000)
 
-test('open a new page', async done => {
+test('open a new page', async () => {
   expect.assertions(7)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .newPage()
     .execute(
       async browser => await expect(browser.pages()).resolves.toHaveLength(3)
@@ -48,15 +48,15 @@ test('open a new page', async done => {
       expect(page.url()).toBe(`http://localhost:${port}/`)
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('switch page', async done => {
+test('switch page', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .newPage('page1')
     .goto(`http://localhost:${port}/page1`)
     .switchPage(0)
@@ -68,13 +68,13 @@ test('switch page', async done => {
       expect(page.url()).toBe(`http://localhost:${port}/page1`)
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('close page', done => {
+test('close page', async () => {
   expect.assertions(2)
   const instance = new Rize()
-  instance
+  await instance
     .closePage()
     .execute(async () => {
       await expect(instance.browser.pages()).resolves.toHaveLength(1)
@@ -88,24 +88,24 @@ test('close page', done => {
     .newPage('page2')
     .newPage('page3')
     .closePage('page2')
-    .end(done)
+    .end()
 })
 
-test('count pages', async done => {
+test('count pages', async () => {
   const instance = new Rize()
   instance.newPage()
   await expect(instance.pagesCount()).resolves.toBe(2)
-  instance.end(done)
+  await instance.end()
 })
 
-test('go forward', done => {
+test('go forward', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'goForward').mockImplementation(() => true)
     }
   })
-  instance
+  await instance
     .forward()
     .execute(() => {
       expect(instance.page.goForward).toBeCalled()
@@ -119,17 +119,17 @@ test('go forward', done => {
           jest.MockInstance<any>).mock.calls[1][0]
       ).toEqual({ timeout: 1 })
     })
-    .end(done)
+    .end()
 })
 
-test('go back', done => {
+test('go back', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'goBack').mockImplementation(() => true)
     }
   })
-  instance
+  await instance
     .back()
     .execute(() => {
       expect(instance.page.goBack).toBeCalled()
@@ -143,17 +143,17 @@ test('go back', done => {
           jest.MockInstance<any>).mock.calls[1][0]
       ).toEqual({ timeout: 1 })
     })
-    .end(done)
+    .end()
 })
 
-test('refresh page', done => {
+test('refresh page', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'reload').mockImplementation(() => true)
     }
   })
-  instance
+  await instance
     .refresh()
     .execute(() => {
       expect(instance.page.reload).toBeCalled()
@@ -167,13 +167,13 @@ test('refresh page', done => {
           jest.MockInstance<any>).mock.calls[1][0]
       ).toEqual({ timeout: 1 })
     })
-    .end(done)
+    .end()
 })
 
-test('evaluate a function', done => {
+test('evaluate a function', async () => {
   expect.assertions(3)
   const instance = new Rize()
-  instance
+  await instance
     .evaluate(text => document.write(`<div>${text}</div>`), 'rize')
     .execute(async (browser, page) => {
       const text: string = await page.evaluate(
@@ -198,10 +198,10 @@ test('evaluate a function', done => {
       )
       expect(text).toBe('maya')
     })
-    .end(done)
+    .end()
 })
 
-test('evaluate a funtion and retrieve return value', async done => {
+test('evaluate a funtion and retrieve return value', async () => {
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><head><title>rize</title></head></html>
@@ -212,31 +212,31 @@ test('evaluate a funtion and retrieve return value', async done => {
     .resolves.toBe('rize')
   await expect(instance.evaluateWithReturn('document.title'))
     .resolves.toBe('rize')
-  instance
+  await instance
     .execute(() => server.close())
-    .end(done)
+    .end()
 })
 
-test('use user agent', done => {
+test('use user agent', async () => {
   expect.assertions(1)
   const instance = new Rize()
-  instance
+  await instance
     .withUserAgent('Chrome')
     .execute(async () => {
       const ua = await instance.page.evaluate(() => navigator.userAgent)
       expect(ua).toBe('Chrome')
     })
-    .end(done)
+    .end()
 })
 
-test('generate a screenshot', done => {
+test('generate a screenshot', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'screenshot').mockImplementation(() => true)
     }
   })
-  instance
+  await instance
     .saveScreenshot('file1')
     .execute(() => {
       expect(instance.page.screenshot).toBeCalledWith({ path: 'file1' })
@@ -246,17 +246,17 @@ test('generate a screenshot', done => {
       expect(instance.page.screenshot as (typeof instance.page.screenshot) &
         jest.MockInstance<any>).toBeCalledWith({ path: 'file2', type: 'jpeg' })
     })
-    .end(done)
+    .end()
 })
 
-test('generate a PDF', done => {
+test('generate a PDF', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched () {
       jest.spyOn(instance.page, 'pdf').mockImplementation(() => true)
     }
   })
-  instance
+  await instance
     .savePDF('file1')
     .execute(() => {
       expect(instance.page.pdf).toBeCalledWith({ path: 'file1' })
@@ -269,10 +269,10 @@ test('generate a PDF', done => {
         format: 'Letter'
       })
     })
-    .end(done)
+    .end()
 })
 
-test('wait for navigation', done => {
+test('wait for navigation', async () => {
   expect.assertions(1)
   const port1 = 2333
   const port2 = 23333
@@ -282,7 +282,7 @@ test('wait for navigation', done => {
   const server2 = http.createServer((req, res) => res.end('')).listen(port2)
 
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port1}`)
     .execute(async (browser, page) => {
       await page.evaluate(() => document.querySelector('a').click())
@@ -293,41 +293,41 @@ test('wait for navigation', done => {
       server1.close()
       server2.close()
     })
-    .end(done)
+    .end()
 })
 
-test('wait for an element', async done => {
+test('wait for an element', async () => {
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <div></div>
   `)).listen(port)
 
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}`)
     .waitForElement('div')
     .execute(() => {
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('wait for a function and an expression', done => {
+test('wait for a function and an expression', async () => {
   const instance = new Rize()
-  instance
+  await instance
     .waitForEvaluation(() => true)
     .waitForEvaluation('true')
-    .end(done)
+    .end()
 })
 
-test('authentication', done => {
+test('authentication', async () => {
   expect.assertions(1)
   const instance = new Rize({
     afterLaunched () {
       this.page.authenticate = jest.fn()
     }
   })
-  instance
+  await instance
     .withAuth('Tedeza Rize', 'Komichi Aya')
     .execute((browser, page) => {
       expect(page.authenticate).toBeCalledWith({
@@ -335,13 +335,13 @@ test('authentication', done => {
         password: 'Komichi Aya'
       })
     })
-    .end(done)
+    .end()
 })
 
-test('set headers', done => {
+test('set headers', async () => {
   expect.assertions(1)
   const instance = new Rize()
-  instance
+  await instance
     .execute(() => {
       jest.spyOn(instance.page, 'setExtraHTTPHeaders')
     })
@@ -351,25 +351,25 @@ test('set headers', done => {
         { 'X-Requested-With': 'XMLHttpRequest' }
       )
     })
-    .end(done)
+    .end()
 })
 
-test('add script tag', done => {
+test('add script tag', async () => {
   expect.assertions(1)
   const instance = new Rize()
-  instance
+  await instance
     .addScriptTag('content', 'document.body.textContent = "rize"')
     .execute(async (browser, page) => {
       const text = await page.evaluate('document.body.textContent')
       expect(text).toBe('rize')
     })
-    .end(done)
+    .end()
 })
 
-test('add style tag', done => {
+test('add style tag', async () => {
   expect.assertions(1)
   const instance = new Rize()
-  instance
+  await instance
     .addStyleTag('content', 'div { font-size: 5px; }')
     .execute(async (browser, page) => {
       const search = await page.evaluate(() => {
@@ -378,5 +378,5 @@ test('add style tag', done => {
       })
       expect(search).toBe(true)
     })
-    .end(done)
+    .end()
 })

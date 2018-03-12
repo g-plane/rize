@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer'
 import { getPortPromise as getPort } from 'portfinder'
 import Rize from '../../src'
 
-test('click on an element', async done => {
+test('click on an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -12,7 +12,7 @@ test('click on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => (
@@ -29,10 +29,10 @@ test('click on an element', async done => {
       expect(text).toBe('clicked')
       server.close()
     })
-    .end(done)
+    .end()
 }, process.env.CI ? 8000 : 5000)
 
-test('double click on an element', async done => {
+test('double click on an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -41,7 +41,7 @@ test('double click on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => (
@@ -58,10 +58,10 @@ test('double click on an element', async done => {
       expect(text).toBe('double clicked')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('right click on an element', async done => {
+test('right click on an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -70,7 +70,7 @@ test('right click on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => (
@@ -89,7 +89,7 @@ test('right click on an element', async done => {
       expect(text).toBe('right clicked')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
 test('click a link', async () => {
@@ -121,7 +121,7 @@ test('click a link', async () => {
     .end()
 })
 
-test('hover on an element', async done => {
+test('hover on an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -130,7 +130,7 @@ test('hover on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => (
@@ -147,10 +147,10 @@ test('hover on an element', async done => {
       expect(text).toBe('hovered')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('type text to an element', async done => {
+test('type text to an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -159,7 +159,7 @@ test('type text to an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .type('input', 'rize')
     .execute(async () => {
@@ -169,17 +169,17 @@ test('type text to an element', async done => {
       expect(text).toBe('rize')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('send character to an element', async done => {
+test('send character to an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html></html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
       await page.evaluate(() => {
@@ -196,10 +196,10 @@ test('send character to an element', async done => {
       expect(text).toBe('リ')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('clear text on an element', async done => {
+test('clear text on an element', async () => {
   expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -212,7 +212,7 @@ test('clear text on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .clear('input')
     .clear('textarea')
@@ -232,10 +232,10 @@ test('clear text on an element', async done => {
       expect(div).toBe('rize')  // Text should not be modified.
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('focus on an element', async done => {
+test('focus on an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -244,7 +244,7 @@ test('focus on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => (
@@ -261,10 +261,10 @@ test('focus on an element', async done => {
       expect(text).toBe('focused')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('select values on an element', async done => {
+test('select values on an element', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -283,7 +283,7 @@ test('select values on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .select('#single', 'rize')
     .execute(async () => {
@@ -309,10 +309,10 @@ test('select values on an element', async done => {
       expect(selected).toEqual([true, true, false])
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('check a checkbox', async done => {
+test('check a checkbox', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -321,7 +321,7 @@ test('check a checkbox', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
       const checked = await page.evaluate(
@@ -337,10 +337,10 @@ test('check a checkbox', async done => {
       expect(checked).toBe(true)
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('uncheck a checkbox', async done => {
+test('uncheck a checkbox', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -349,7 +349,7 @@ test('uncheck a checkbox', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
       const checked = await page.evaluate(
@@ -365,10 +365,10 @@ test('uncheck a checkbox', async done => {
       expect(checked).toBe(false)
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('check a radio', async done => {
+test('check a radio', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -377,7 +377,7 @@ test('check a radio', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
       const checked = await page.evaluate(
@@ -393,10 +393,10 @@ test('check a radio', async done => {
       expect(checked).toBe(true)
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('press a key on an element', async done => {
+test('press a key on an element', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -406,7 +406,7 @@ test('press a key on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => {
@@ -440,10 +440,10 @@ test('press a key on an element', async done => {
       expect(buttonText).toBe('pressed `b`')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('key down on an element', async done => {
+test('key down on an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -452,7 +452,7 @@ test('key down on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => {
@@ -471,10 +471,10 @@ test('key down on an element', async done => {
       expect(text).toBe('key down')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('key up on an element', async done => {
+test('key up on an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
@@ -483,7 +483,7 @@ test('key up on an element', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => {
@@ -502,13 +502,13 @@ test('key up on an element', async done => {
       expect(text).toBe('key up')
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('move mouse', done => {
+test('move mouse', async () => {
   expect.assertions(1)
   const instance = new Rize()
-  instance
+  await instance
     .execute(() => {
       jest.spyOn(instance.page.mouse, 'move')
     })
@@ -516,13 +516,13 @@ test('move mouse', done => {
     .execute(() => {
       expect(instance.page.mouse.move).toBeCalledWith(1, 1)
     })
-    .end(done)
+    .end()
 })
 
-test('click mouse button', done => {
+test('click mouse button', async () => {
   expect.assertions(1)
   const instance = new Rize()
-  instance
+  await instance
     .execute(() => {
       jest.spyOn(instance.page.mouse, 'click')
     })
@@ -530,13 +530,13 @@ test('click mouse button', done => {
     .execute(() => {
       expect(instance.page.mouse.click).toBeCalledWith(1, 1, { clickCount: 1 })
     })
-    .end(done)
+    .end()
 })
 
-test('mouse button down', done => {
+test('mouse button down', async () => {
   expect.assertions(2)
   const instance = new Rize()
-  instance
+  await instance
     .execute(() => {
       jest.spyOn(instance.page.mouse, 'down')
     })
@@ -550,13 +550,13 @@ test('mouse button down', done => {
       expect(instance.page.mouse.down)
         .toBeCalledWith({ button: 'middle', clickCount: 2 })
     })
-    .end(done)
+    .end()
 })
 
-test('mouse button up', done => {
+test('mouse button up', async () => {
   expect.assertions(2)
   const instance = new Rize()
-  instance
+  await instance
     .execute(() => {
       jest.spyOn(instance.page.mouse, 'up')
     })
@@ -570,10 +570,10 @@ test('mouse button up', done => {
       expect(instance.page.mouse.up)
         .toBeCalledWith({ button: 'middle', clickCount: 2 })
     })
-    .end(done)
+    .end()
 })
 
-test('upload file', async done => {
+test('upload file', async () => {
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -581,23 +581,23 @@ test('upload file', async done => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .uploadFile('input', 'file')
     .execute(async () => {
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('add class', async done => {
+test('add class', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body></body></html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .addClass('body', 'rize')
     .execute(async (browser, page) => {
@@ -607,17 +607,17 @@ test('add class', async done => {
       expect(exists).toBe(true)
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('remove class', async done => {
+test('remove class', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body class="rize"></body></html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .removeClass('body', 'rize')
     .execute(async (browser, page) => {
@@ -627,17 +627,17 @@ test('remove class', async done => {
       expect(exists).toBe(false)
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('toggle class', async done => {
+test('toggle class', async () => {
   expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body></body></html>
   `)).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .toggleClass('body', 'rize')
     .execute(async (browser, page) => {
@@ -654,15 +654,15 @@ test('toggle class', async done => {
       expect(exists).toBe(false)
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('set cookies', async done => {
+test('set cookies', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .setCookie(
       { name: 'name1', value: 'value1' },
@@ -675,15 +675,15 @@ test('set cookies', async done => {
       ]))
       server.close()
     })
-    .end(done)
+    .end()
 })
 
-test('delete cookies', async done => {
+test('delete cookies', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end('')).listen(port)
   const instance = new Rize()
-  instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
       await page.setCookie(
@@ -696,5 +696,5 @@ test('delete cookies', async done => {
       await expect(page.cookies()).resolves.toHaveLength(0)
       server.close()
     })
-    .end(done)
+    .end()
 })
