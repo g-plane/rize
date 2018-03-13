@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - New API: [`clickLink`](https://rize.js.org/api/classes/_index_.rize.html#clicklink)
+### Fixed
+- Fix that Jest shows assertion message twice.
 
 ## [0.4.0] - 2018-03-12
 ### Added
