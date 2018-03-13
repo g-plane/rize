@@ -105,3 +105,41 @@ rize.assertRadioNotSelected('input[type=radio]', 'north')
 ## 全部的 API
 
 所有的断言方法都在[这里](https://rize.js.org/api/classes/_index_.rize.html)列出，它们都以 `assert` 开头。
+
+### 对于 Jest 用户
+
+我们推荐使用 Jest。您不需要修改任何配置。
+
+### 对于 Mocha 用户
+
+您不需要修改任何配置。
+
+不过，由于 Mocha 的限制，您不能同时使用 `done` 回调和 `async/await`。
+
+您应该像下面这样做：
+
+```javascript
+describe('some tests', () => {
+  it('a test', async () => {
+    const rize = new Rize()
+    // 做点别的……
+    await rize.end()
+  })
+})
+```
+
+下面是个反面例子：
+
+```javascript
+describe('some tests', () => {
+  it('a test', async done => {
+    const rize = new Rize()
+    // 做点别的……
+    rize.end(done)
+  })
+})
+```
+
+### 对于 AVA 用户
+
+您应该在 `package.json` 中把` failWithoutAssertions` 设为 `false`。

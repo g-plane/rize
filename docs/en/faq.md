@@ -62,3 +62,41 @@ rize.page     // This is equivalent to puppeteer.Page
 ## Can I integrated it with some testing framework (such as Jest, mocha...)?
 
 You can use any testing framework you like.
+
+### For Jest users
+
+Jest is recommended to be used. You don't need to configure anything.
+
+### For Mocha users
+
+You don't need to configure anything.
+
+However, because of the limitations of Mocha, you can't use `done` callback and `async/await` at the same time.
+
+So you should do it like this:
+
+```javascript
+describe('some tests', () => {
+  it('a test', async () => {
+    const rize = new Rize()
+    // do some stuff ...
+    await rize.end()
+  })
+})
+```
+
+The example below is invalid:
+
+```javascript
+describe('some tests', () => {
+  it('a test', async done => {
+    const rize = new Rize()
+    // do some stuff ...
+    rize.end(done)
+  })
+})
+```
+
+### For AVA users
+
+You should set `failWithoutAssertions` to be `false` in `package.json`.
