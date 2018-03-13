@@ -99,4 +99,4 @@ describe('some tests', () => {
 
 ### 对于 AVA 用户
 
-您应该在 `package.json` 中把` failWithoutAssertions` 设为 `false`。
+您应该在 `package.json` 中把 `failWithoutAssertions` 设为 `false`。
