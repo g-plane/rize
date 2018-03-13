@@ -18,7 +18,7 @@ Rize is a high-level, fluent and chainable API provided library which let you us
 
 [简体中文](https://rize.js.org/zh-CN/)
 
-You can help us to translate the docs!
+We need your help to translate the docs!
 
 ## Installation
 
