@@ -14,6 +14,12 @@ Rize is a high-level, fluent and chainable API provided library which let you us
 
 "Rize" is pronounced like /ɾize/, not /raɪzɪ/. "Rize" is one of characters in [*Is the Order a Rabbit?*](https://en.wikipedia.org/wiki/Is_the_Order_a_Rabbit%3F).
 
+### Translations
+
+[简体中文](https://rize.js.org/zh-CN/)
+
+You can help us to translate the docs!
+
 ## Installation
 
 You should install `puppeteer` at the same time.
