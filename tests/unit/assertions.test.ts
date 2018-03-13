@@ -41,6 +41,30 @@ test('assert url path starts with a specified string', async () => {
     .end()
 })
 
+test('assert url hash', async () => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end()).listen(port)
+  const instance = new Rize()
+  await instance
+    .goto(`http://localhost:${port}/#rize`)
+    .assertHashIs('rize')
+    .assertHashIs('#rize')
+    .execute(() => server.close())
+    .end()
+})
+
+test('assert url hash begins with a specified string', async () => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end()).listen(port)
+  const instance = new Rize()
+  await instance
+    .goto(`http://localhost:${port}/#rabbit-house`)
+    .assertHashBeginsWith('rabbit')
+    .assertHashBeginsWith('#rabbit')
+    .execute(() => server.close())
+    .end()
+})
+
 test('assert title', async () => {
   const instance = new Rize()
   await instance

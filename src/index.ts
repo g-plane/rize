@@ -846,6 +846,50 @@ export default class Rize
   }
 
   /**
+   * Assert that the current hash equals the given string.
+   *
+   * @param expected Expected hash.
+   *
+   * @since 0.5.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * // Suppose the URL is "http://localhost/#rize"
+   *
+   * const rize = new Rize()
+   * rize.assertHashIs('rize')
+   * rize.assertHashIs('#rize')
+   * ```
+   */
+  assertHashIs (expected: string) {
+    return this
+  }
+
+  /**
+   * Assert that the current hash begins with the given string.
+   *
+   * @param expected Expected string.
+   *
+   * @since 0.5.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * // Suppose the URL is "http://localhost/#rabbit-house"
+   *
+   * const rize = new Rize()
+   * rize.assertHashBeginsWith('rabbit')
+   * rize.assertHashBeginsWith('#rabbit')
+   * ```
+   */
+  assertHashBeginsWith (expected: string) {
+    return this
+  }
+
+  /**
    * Assert that current page title matches the given title.
    *
    * @param title Expected title.

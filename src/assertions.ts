@@ -70,6 +70,34 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
+  assertHashIs (expected: string) {
+    this.push(async () => {
+      const pageUrl = url.parse(await this.page.evaluate('location.href'))
+      const expectedHash = expected.startsWith('#') ? expected : `#${expected}`
+      assert.strictEqual(
+        pageUrl.hash,
+        expectedHash,
+        `Expected URL hash is "${greenify(expectedHash)}", ` +
+          `but received "${redify(pageUrl.hash + '')}".`
+      )
+    }, prepareStackTrace())
+
+    return this
+  }
+
+  assertHashBeginsWith (expected: string) {
+    this.push(async () => {
+      const pageUrl = url.parse(await this.page.evaluate('location.href'))
+      const expectedHash = expected.startsWith('#') ? expected : `#${expected}`
+      assert.ok(
+        pageUrl.hash!.startsWith(expectedHash),
+        `Expected URL hash starts with "${greenify(expectedHash)}".`
+      )
+    }, prepareStackTrace())
+
+    return this
+  }
+
   assertTitle (title: string) {
     this.push(async () => {
       const actual = await this.page.title()
