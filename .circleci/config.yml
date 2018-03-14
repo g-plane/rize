@@ -141,7 +141,11 @@ jobs:
             cd gh-pages
             git add .
             git commit --allow-empty -m "Build docs at $CIRCLE_SHA1 [skip ci]"
-            git push origin gh-pages
+            if [ $CIRCLE_PULL_REQUEST ]; then  
+              echo "\u001B[43m\u001B[30mThis is a pull request. Skip publishing docs.\u001B[39m\u001B[49m"
+            else
+              git push origin gh-pages
+            fi
 
 workflows:
   version: 2
