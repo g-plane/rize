@@ -9,6 +9,21 @@ import Retrieval from './retrieval'
 
 export interface RizeOptions {
   /**
+   * Use an existing puppeteer's browser instance.
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const browser = await puppeteer.launch()
+   *   const rize = new Rize({ browser })
+   * })()
+   * ```
+   */
+  browser?: puppeteer.Browser
+
+  /**
    * A lifecycle hook which you can do something before the browser launching.
    *
    * @example
@@ -114,7 +129,7 @@ export default class Rize
           : (options.args = ['--no-sandbox'])
       }
 
-      this._browser = await puppeteer.launch(options)
+      this._browser = options.browser || await puppeteer.launch(options)
       this.preservePage = (await this.browser.pages())[0]
       this.pages.push({ name: 'default', page: await this.browser.newPage() })
 
