@@ -114,7 +114,7 @@ export default class Rize
           : (options.args = ['--no-sandbox'])
       }
 
-      this.browser = await puppeteer.launch(options)
+      this._browser = await puppeteer.launch(options)
       this.preservePage = (await this.browser.pages())[0]
       this.pages.push({ name: 'default', page: await this.browser.newPage() })
 

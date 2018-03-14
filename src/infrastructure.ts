@@ -12,6 +12,7 @@ export default class Infrastructure {
     beforeExit () {/* placeholder */}
   }
 
+  protected _browser!: puppeteer.Browser
   protected currentPageIndex = 0
   protected preservePage!: puppeteer.Page
   protected pages: Array<{ name: string, page: puppeteer.Page }> = []
@@ -19,7 +20,9 @@ export default class Infrastructure {
   /**
    * Low-level instance of puppeteer's browser.
    */
-  public browser!: puppeteer.Browser
+  get browser () {
+    return this._browser
+  }
 
   /**
    * Low-level instance of puppeteer's current page.
