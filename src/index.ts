@@ -37,7 +37,7 @@ export interface RizeOptions {
    * })
    * ```
    */
-  beforeLaunch? (...args): void
+  beforeLaunch? (): void
 
   /**
    * A lifecycle hook which you can do something after the browser launched.
@@ -58,7 +58,7 @@ export interface RizeOptions {
    * })
    * ```
    */
-  afterLaunched? (this: Rize, ...args): void
+  afterLaunched? (this: Rize): void
 
   /**
    * A lifecycle hook which you can do something before each step.
@@ -121,7 +121,7 @@ export interface RizeOptions {
    * })
    * ```
    */
-  beforeExit? (this: Rize, ...args): void
+  beforeExit? (this: Rize): void
 
   /**
    * Width of viewport.
