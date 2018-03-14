@@ -5,7 +5,7 @@ export function prepareStackTrace () {
 }
 
 /**
- * @param fake The error which collects stack information
+ * @param fake The error which collects stack information.
  * @param real The real error which contains error message.
  */
 export function beautifyStack (fake: Error, real: Error) {
