@@ -62,7 +62,7 @@ export default class Assertions extends Infrastructure {
     this.push(() => {
       const pageUrl = url.parse(this.page.url())
       assert.ok(
-        pageUrl.path!.startsWith(expected),
+        (pageUrl.path + '').startsWith(expected),
         `Expected URL path starts with "${greenify(expected)}".`
       )
     }, prepareStackTrace())
@@ -90,7 +90,7 @@ export default class Assertions extends Infrastructure {
       const pageUrl = url.parse(await this.page.evaluate('location.href'))
       const expectedHash = expected.startsWith('#') ? expected : `#${expected}`
       assert.ok(
-        pageUrl.hash!.startsWith(expectedHash),
+        (pageUrl.hash + '').startsWith(expectedHash),
         `Expected URL hash starts with "${greenify(expectedHash)}".`
       )
     }, prepareStackTrace())
