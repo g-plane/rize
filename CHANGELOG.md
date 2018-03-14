@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New lifecycle hook: [`afterEachStep`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#aftereachstep)
 ### Fixed
 - Fix that Jest shows assertion message twice.
+- Fix missing `this` pointer of `beforeExit` hook.
 
 ## [0.4.0] - 2018-03-12
 ### Added

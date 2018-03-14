@@ -27,7 +27,7 @@ export default class Basic extends Infrastructure {
   end (callback: (...args) => any): void
 
   end (callback?: (...args) => any): Promise<void> | void {
-    this.push(this.hooks.beforeExit)
+    this.push(this.hooks.beforeExit.bind(this))
 
     if (callback) {
       this.push(async () => {
