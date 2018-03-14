@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New API: [`assertHashIs`](https://rize.js.org/api/classes/_index_.rize.html#asserthashis)
 - New API: [`assertHashBeginsWith`](https://rize.js.org/api/classes/_index_.rize.html#asserthashbeginswith)
 - New option: [`browser`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#browser)
+- New lifecycle hook: [`beforeEachStep`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#beforeeachstep)
+- New lifecycle hook: [`afterEachStep`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#aftereachstep)
 ### Fixed
 - Fix that Jest shows assertion message twice.
 

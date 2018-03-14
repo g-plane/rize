@@ -9,6 +9,8 @@ export default class Infrastructure {
   protected hooks = {
     beforeLaunch () {/* placeholder */},
     afterLaunched () {/* placeholder */},
+    beforeEachStep () {/* placeholder */},
+    afterEachStep () {/* placeholder */},
     beforeExit () {/* placeholder */}
   }
 
@@ -36,6 +38,7 @@ export default class Infrastructure {
     const unique = Symbol()
     this.queue.push(unique)
     this.eventBus.once(unique, async () => {
+      this.hooks.beforeEachStep.call(this)
       try {
         await fn()
       } catch (error) {
@@ -45,6 +48,7 @@ export default class Infrastructure {
           throw error
         }
       } finally {
+        this.hooks.afterEachStep.call(this)
         this.eventBus.emit(this.queue[this.queue.indexOf(unique) + 1])
         this.queue.shift()
       }

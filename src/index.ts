@@ -61,6 +61,48 @@ export interface RizeOptions {
   afterLaunched? (this: Rize, ...args): void
 
   /**
+   * A lifecycle hook which you can do something before each step.
+   *
+   * `this` context points to the `Rize` instance.
+   * So you can visit browser and page here.
+   * (Like `this.browser` or `this.page`)
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize({
+   *   beforeEachStep () {
+   *     this === rize  // true
+   *     console.log('I will be called before each step!')
+   *   }
+   * })
+   * ```
+   */
+  beforeEachStep? (this: Rize): void
+
+  /**
+   * A lifecycle hook which you can do something after each step.
+   *
+   * `this` context points to the `Rize` instance.
+   * So you can visit browser and page here.
+   * (Like `this.browser` or `this.page`)
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize({
+   *   afterEachStep () {
+   *     this === rize  // true
+   *     console.log('I will be called after each step!')
+   *   }
+   * })
+   * ```
+   */
+  afterEachStep? (this: Rize): void
+
+  /**
    * A lifecycle hook which you can do something before the browser exit.
    *
    * `this` context points to the `Rize` instance.
