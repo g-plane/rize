@@ -212,7 +212,7 @@ test('retrieve if an element is present', async () => {
   await expect(instance.isPresent('div')).resolves.toBe(true)
   await expect(instance.isPresent('span')).resolves.toBe(false)
   instance.execute(() => {
-    jest.spyOn(instance.page, 'evaluate').mockImplementation(
+    jest.spyOn(instance.page, '$').mockImplementation(
       () => Promise.reject(new Error())
     )
   })

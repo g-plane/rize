@@ -21,11 +21,11 @@ export default class Retrieval extends Infrastructure {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
-          const text: string = await this.page.evaluate(
+          const text: string = await this.page.$eval(
+            selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            sel => document.querySelector<HTMLElement>(sel)!.textContent,
-            selector
+            element => element.textContent
           )
           resolve(text)
         } catch (error) {
@@ -39,11 +39,11 @@ export default class Retrieval extends Infrastructure {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
-          const html: string = await this.page.evaluate(
+          const html: string = await this.page.$eval(
+            selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            sel => document.querySelector<HTMLElement>(sel)!.innerHTML,
-            selector
+            element => element.innerHTML
           )
           resolve(html)
         } catch (error) {
@@ -57,13 +57,11 @@ export default class Retrieval extends Infrastructure {
     return new Promise<string | null>((resolve, reject) => {
       this.push(async () => {
         try {
-          const value: string | null = await this.page.evaluate(
+          const value: string | null = await this.page.$eval(
+            selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            (sel, attr) => document
-              .querySelector<HTMLElement>(sel)!
-              .getAttribute(attr),
-            selector,
+            (element, attr: string) => element.getAttribute(attr),
             attribute
           )
           resolve(value)
@@ -78,13 +76,12 @@ export default class Retrieval extends Infrastructure {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
-          const value: string = await this.page.evaluate(
+          const value: string = await this.page.$eval(
+            selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            (sel, prop) => document
-              .querySelector<HTMLElement>(sel)!
-              .style.getPropertyValue(prop),
-            selector,
+            (element, prop: string) =>
+              (element as HTMLElement).style.getPropertyValue(prop),
             property
           )
           resolve(value)
@@ -102,13 +99,11 @@ export default class Retrieval extends Infrastructure {
   value (selector: string, newValue?: string): Promise<string | null> | this {
     if (newValue) {
       this.push(async () => {
-        await this.page.evaluate(
+        await this.page.$eval(
+          selector,
           /* Instrumenting cannot be executed in browser. */
           /* istanbul ignore next */
-          (sel, val) => document
-            .querySelector<HTMLInputElement>(sel)!
-            .value = val,
-          selector,
+          (element, val: string) => (element as HTMLInputElement).value = val,
           newValue
         )
       }, prepareStackTrace())
@@ -123,13 +118,11 @@ export default class Retrieval extends Infrastructure {
     return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
-          const exists: boolean = await this.page.evaluate(
+          const exists: boolean = await this.page.$eval(
+            selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            (sel, cls) => document
-              .querySelector<HTMLElement>(sel)!
-              .classList.contains(cls),
-            selector,
+            (element, cls: string) => element.classList.contains(cls),
             className
           )
           resolve(exists)
@@ -180,14 +173,14 @@ export default class Retrieval extends Infrastructure {
   }
 
   isVisible (selector: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
-          const result: string = await this.page.evaluate(
+          const result: string | null = await this.page.$eval(
+            selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            sel => document.querySelector<HTMLElement>(sel)!.style.display,
-            selector
+            element => (element as HTMLElement).style.display
           )
           resolve(result !== 'none')
         } catch (error) {
@@ -198,16 +191,11 @@ export default class Retrieval extends Infrastructure {
   }
 
   isPresent (selector: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
-          const element: HTMLElement | null = await this.page.evaluate(
-            /* Instrumenting cannot be executed in browser. */
-            /* istanbul ignore next */
-            sel => document.querySelector<HTMLElement>(sel),
-            selector
-          )
-          resolve(element !== null)
+          const element = await this.page.$(selector)
+          resolve(!!element)
         } catch (error) {
           reject(error)
         }
@@ -222,13 +210,11 @@ export default class Retrieval extends Infrastructure {
   ): T {
     const random = crypto.randomBytes(10).toString('hex')
     this.push(async () => {
-      await this.page.evaluate(
+      await this.page.$eval(
+        selector,
         /* Instrumenting cannot be executed in browser. */
         /* istanbul ignore next */
-        (sel: string, id: string) => document
-          .querySelector<HTMLElement>(sel)!
-          .setAttribute('data-rize', id),
-        selector,
+        (element, id: string) => element.setAttribute('data-rize', id),
         random
       )
     })
@@ -244,13 +230,12 @@ export default class Retrieval extends Infrastructure {
   ): T {
     const random = crypto.randomBytes(10).toString('hex')
     this.push(async () => {
-      await this.page.evaluate(
+      await this.page.$$eval(
+        selector,
         /* Instrumenting cannot be executed in browser. */
         /* istanbul ignore next */
-        (sel: string, i: number, id: string) => document
-          .querySelectorAll<HTMLElement>(sel)[i]
-          .setAttribute('data-rize', id),
-        selector,
+        (elements, i: number, id: string) =>
+          elements[i].setAttribute('data-rize', id),
         index,
         random
       )

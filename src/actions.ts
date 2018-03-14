@@ -75,22 +75,19 @@ export default class Actions extends Infrastructure {
 
   clear (selector: string) {
     this.push(async () => {
-      await this.page.evaluate(
+      await this.page.$eval(
+        selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        sel => {
-          const element: HTMLInputElement | HTMLTextAreaElement =
-            document.querySelector(sel)
-
+        element => {
           if (element.tagName === 'INPUT') {
-            element.value = ''
+            (element as HTMLInputElement).value = ''
           } else if (element.tagName === 'TEXTAREA') {
             element.textContent = ''
           } else {
             // Don't throw error.
             return
           }
-        },
-        selector
+        }
       )
     }, prepareStackTrace())
 
@@ -117,10 +114,10 @@ export default class Actions extends Infrastructure {
 
   check (selector: string) {
     this.push(async () => {
-      await this.page.evaluate(
+      await this.page.$eval(
+        selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        sel => document.querySelector<HTMLInputElement>(sel)!.checked = true,
-        selector
+        element => (element as HTMLInputElement).checked = true
       )
     }, prepareStackTrace())
 
@@ -129,10 +126,10 @@ export default class Actions extends Infrastructure {
 
   uncheck (selector: string) {
     this.push(async () => {
-      await this.page.evaluate(
+      await this.page.$eval(
+        selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        sel => document.querySelector<HTMLInputElement>(sel)!.checked = false,
-        selector
+        element => (element as HTMLInputElement).checked = false
       )
     }, prepareStackTrace())
 
@@ -141,13 +138,10 @@ export default class Actions extends Infrastructure {
 
   radio (selector: string, value: string) {
     this.push(async () => {
-      await this.page.evaluate(
+      await this.page.$eval(
+        `${selector}[value="${value}"]`,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        (sel, val) => document
-          .querySelector<HTMLInputElement>(`${sel}[value="${val}"]`)!
-          .checked = true,
-        selector,
-        value
+        element => (element as HTMLInputElement).checked = true
       )
     }, prepareStackTrace())
 
@@ -157,7 +151,15 @@ export default class Actions extends Infrastructure {
   press (key: string, selector?: string) {
     this.push(async () => {
       if (selector) {
-        await (await this.page.$(selector))!.press(key)
+        const element = await this.page.$(selector)
+        /* istanbul ignore else TODO */
+        if (element) {
+          await element.press(key)
+        } else {
+          throw new Error(
+            `Error: failed to find element matching selector "${selector}".`
+          )
+        }
       } else {
         await this.page.keyboard.press(key)
       }
@@ -216,7 +218,17 @@ export default class Actions extends Infrastructure {
 
   uploadFile (selector: string, path: string) {
     this.push(
-      async () => await (await this.page.$(selector))!.uploadFile(path),
+      async () => {
+        const element = await this.page.$(selector)
+        /* istanbul ignore else TODO */
+        if (element) {
+          await element.uploadFile(path)
+        } else {
+          throw new Error(
+            `Error: failed to find element matching selector "${selector}".`
+          )
+        }
+      },
       prepareStackTrace()
     )
 
@@ -225,11 +237,10 @@ export default class Actions extends Infrastructure {
 
   addClass (selector: string, className: string) {
     this.push(async () => {
-      await this.page.evaluate(
-        /* istanbul ignore next, instrumenting cannot be executed in browser */
-        (sel, cls) => document
-          .querySelector<HTMLElement>(sel)!.classList.add(cls),
+      await this.page.$eval(
         selector,
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (element, cls: string) => element.classList.add(cls),
         className
       )
     }, prepareStackTrace())
@@ -239,11 +250,10 @@ export default class Actions extends Infrastructure {
 
   removeClass (selector: string, className: string) {
     this.push(async () => {
-      await this.page.evaluate(
-        /* istanbul ignore next, instrumenting cannot be executed in browser */
-        (sel, cls) => document
-          .querySelector<HTMLElement>(sel)!.classList.remove(cls),
+      await this.page.$eval(
         selector,
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (element, cls: string) => element.classList.remove(cls),
         className
       )
     }, prepareStackTrace())
@@ -253,11 +263,10 @@ export default class Actions extends Infrastructure {
 
   toggleClass (selector: string, className: string) {
     this.push(async () => {
-      await this.page.evaluate(
-        /* istanbul ignore next, instrumenting cannot be executed in browser */
-        (sel, cls) => document
-          .querySelector<HTMLElement>(sel)!.classList.toggle(cls),
+      await this.page.$eval(
         selector,
+        /* istanbul ignore next, instrumenting cannot be executed in browser */
+        (element, cls: string) => element.classList.toggle(cls),
         className
       )
     }, prepareStackTrace())
