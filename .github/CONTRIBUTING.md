@@ -58,6 +58,7 @@ You can use the following scripts:
 - `yarn coverage` - Run unit tests and generate coverage report.
 - `yarn test:e2e` - Run E2E tests.
 - `yarn lint` - Lint the source files.
+- `yarn commit` - Commit your changes.
 
 ## Commit Messages
 
@@ -65,7 +66,7 @@ We use [cz-conventional-changelog](https://github.com/commitizen/cz-conventional
 
 ### Quick Start
 
-Install `cz-cli` globally. Then before you commit, run `git cz` instead of `git commit`.
+Before you commit, run `yarn commit` instead of `git commit`.
 
 ### Format
 
