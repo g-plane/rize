@@ -225,7 +225,7 @@ test('retrieve if an element is present', async () => {
 })
 
 test('find an element by CSS selector', async () => {
-  expect.assertions(2)
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div style="font-size: 5px">rize</div></body></html>
@@ -237,12 +237,16 @@ test('find an element by CSS selector', async () => {
   await expect(
     instance.find('div', instance.style, 'font-size')
   ).resolves.toBe('5px')
+  await expect(instance.page.$eval(
+    'div',
+    element => element.hasAttribute('data-rize')
+  )).resolves.toBe(false)
   server.close()
   await instance.end()
 })
 
 test('find elements with index by CSS selector', async () => {
-  expect.assertions(2)
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -259,12 +263,16 @@ test('find elements with index by CSS selector', async () => {
   await expect(
     instance.findAll('div', 0, instance.style, 'font-size')
   ).resolves.toBe('5px')
+  await expect(instance.page.$$eval(
+    'div',
+    divs => Array.from(divs).map(div => div.hasAttribute('data-rize'))
+  )).resolves.toEqual([false, false])
   server.close()
   await instance.end()
 })
 
 test('find elements with index by XPath', async () => {
-  expect.assertions(2)
+  expect.assertions(3)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
@@ -281,6 +289,10 @@ test('find elements with index by XPath', async () => {
   await expect(
     instance.findByXPath('/html/body//div', 0, instance.style, 'font-size')
   ).resolves.toBe('5px')
+  await expect(instance.page.$$eval(
+    'div',
+    divs => Array.from(divs).map(div => div.hasAttribute('data-rize'))
+  )).resolves.toEqual([false, false])
   server.close()
   await instance.end()
 })

@@ -222,7 +222,17 @@ export default class Retrieval extends Infrastructure {
       )
     })
 
-    return fn.call(this, `[data-rize="${random}"]`, ...args)
+    const returnValue: T = fn.call(this, `[data-rize="${random}"]`, ...args)
+
+    this.push(async () => {
+      await this.page.$eval(
+        `[data-rize="${random}"]`,
+        /* istanbul ignore next, Instrumenting cannot be executed in browser. */
+        element => element.removeAttribute('data-rize')
+      )
+    })
+
+    return returnValue
   }
 
   findAll <T> (
@@ -244,7 +254,19 @@ export default class Retrieval extends Infrastructure {
       )
     })
 
-    return fn.call(this, `[data-rize="${random}"]`, ...args)
+    const returnValue: T = fn.call(this, `[data-rize="${random}"]`, ...args)
+
+    this.push(async () => {
+      await this.page.$$eval(
+        `[data-rize="${random}"]`,
+        /* istanbul ignore next, Instrumenting cannot be executed in browser. */
+        elements => Array
+          .from(elements)
+          .forEach(element => element.removeAttribute('data-rize'))
+      )
+    })
+
+    return returnValue
   }
 
   findByXPath <T> (
@@ -280,7 +302,19 @@ export default class Retrieval extends Infrastructure {
       )
     })
 
-    return fn.call(this, `[data-rize="${random}"]`, ...args)
+    const returnValue: T = fn.call(this, `[data-rize="${random}"]`, ...args)
+
+    this.push(async () => {
+      await this.page.$$eval(
+        `[data-rize="${random}"]`,
+        /* istanbul ignore next, Instrumenting cannot be executed in browser. */
+        elements => Array
+          .from(elements)
+          .forEach(element => element.removeAttribute('data-rize'))
+      )
+    })
+
+    return returnValue
   }
 
   findWithText <T> (
@@ -308,7 +342,17 @@ export default class Retrieval extends Infrastructure {
       )
     })
 
-    return fn.call(this, `[data-rize="${random}"]`, ...args)
+    const returnValue: T = fn.call(this, `[data-rize="${random}"]`, ...args)
+
+    this.push(async () => {
+      await this.page.$eval(
+        `[data-rize="${random}"]`,
+        /* istanbul ignore next, Instrumenting cannot be executed in browser. */
+        element => element.removeAttribute('data-rize')
+      )
+    })
+
+    return returnValue
   }
 
   viewport () {
