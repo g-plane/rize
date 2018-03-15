@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New option: [`browser`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#browser)
 - New lifecycle hook: [`beforeEachStep`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#beforeeachstep)
 - New lifecycle hook: [`afterEachStep`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#aftereachstep)
+- Added a new parameter for [`html`](https://rize.js.org/api/classes/_index_.rize.html#html) method to determine retrieve inner or outer HTML.
 ### Changed
 - Hooks now do not support passing arguments to function
 ### Fixed

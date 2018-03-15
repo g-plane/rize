@@ -38,7 +38,7 @@ test('retrieve text', async () => {
 })
 
 test('retrieve html', async () => {
-  expect.assertions(3)
+  expect.assertions(4)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html><body><div>rize</div></body></html>
@@ -49,6 +49,9 @@ test('retrieve html', async () => {
     '<head></head><body><div>rize</div>\n  </body>'
   )
   await expect(instance.html('body')).resolves.toBe('<div>rize</div>\n  ')
+  await expect(instance.html('body', 'outer')).resolves.toBe(
+    '<body><div>rize</div>\n  </body>'
+  )
   await expect(instance.html('span')).rejects.toThrowError()
   server.close()
   await instance.end()

@@ -2198,6 +2198,7 @@ export default class Rize
    * Retrieve *inner* HTML content.
    *
    * @param selector CSS selector. Default is `html`.
+   * @param range Determines retrieve inner HTML or outer HTML.
    *
    * @since 0.1.0
    *
@@ -2209,10 +2210,11 @@ export default class Rize
    *   const rize = new Rize()
    *   const html = await rize.html()
    *   const divHtml = await rize.html('div')
+   *   const outer = await rize.html('div', 'outer')
    * })()
    * ```
    */
-  html (selector = 'html') {
+  html (selector = 'html', range: 'inner' | 'outer' = 'inner') {
     return Promise.resolve('')
   }
 

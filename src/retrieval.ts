@@ -35,7 +35,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  html (selector = 'html') {
+  html (selector = 'html', range: 'inner' | 'outer' = 'inner') {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -43,7 +43,10 @@ export default class Retrieval extends Infrastructure {
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            element => element.innerHTML
+            (element, r: 'inner' | 'outer') => r === 'outer'
+              ? element.outerHTML
+              : element.innerHTML,
+            range
           )
           resolve(html)
         } catch (error) {
