@@ -44,7 +44,7 @@ PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev
 
 On Windows:
 
-```batch
+```shell
 SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
 ```
 
