@@ -98,6 +98,10 @@ All available APIs are listed [here](https://rize.js.org/api/classes/_index_.riz
 
 Please visit [rize.js.org](https://rize.js.org)
 
+## Contribution
+
+Before you contribute to Rize, please read [Contributing Guide](./.github/CONTRIBUTING.md).
+
 ## License
 
 MIT License
