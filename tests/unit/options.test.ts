@@ -2,8 +2,10 @@ import puppeteer from 'puppeteer'
 import Rize from '../../src'
 
 test('pass an existing puppeteer browser', async () => {
+  expect.assertions(1)
   const browser = await puppeteer.launch()
   const instance = new Rize({ browser })
+  instance.execute(() => expect(instance.browser).toBe(browser))
   await instance.end()
 }, process.env.CI ? 8000 : 5000)
 
