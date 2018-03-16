@@ -146,7 +146,7 @@ Test coverage should be keep 100% as possible.
 
 ## Code Style
 
-This project use TSLint and `tslint-config-gplane`. Before you commit, please run `yarn lint`.
+This project uses TSLint and `tslint-config-gplane`.
 
 There are some additional code style requirements.
 
