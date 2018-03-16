@@ -292,6 +292,25 @@ export default class Rize
     return
   }
 
+  /**
+   * Return an empty Promise object.
+   *
+   * @since 0.6.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   await rize.awaitPromise()
+   * })()
+   * ```
+   */
+  awaitPromise () {
+    return Promise.resolve()
+  }
+
   /* basic END */
 
   /* page START */

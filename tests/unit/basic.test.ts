@@ -39,3 +39,11 @@ test('exit browser', async done => {
     done()
   })
 })
+
+test('await promise', async () => {
+  expect.assertions(1)
+  const instance = new Rize()
+  await instance.awaitPromise()
+  expect(instance.browser).toBeDefined()
+  await instance.end()
+})

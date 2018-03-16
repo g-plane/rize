@@ -49,4 +49,8 @@ export default class Basic extends Infrastructure {
       })
     }
   }
+
+  awaitPromise () {
+    return new Promise<void>(fulfill => this.push(fulfill))
+  }
 }
