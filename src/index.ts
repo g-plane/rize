@@ -642,8 +642,14 @@ class Rize
    * If you pass `content` to argument `type`,
    * you should pass pure JavaScript code in argument `value`.
    *
+   * Additional Notes:
+   *
+   * If your script is written in ES module,
+   * you can pass `esModule: true` to the `options` argument.
+   *
    * @param type Can be `url`, `path` or `content`.
    * @param value
+   * @param options
    *
    * @since 0.1.0
    *
@@ -657,7 +663,11 @@ class Rize
    * rize.addScriptTag('content', 'console.log("Pure JS code.")')
    * ```
    */
-  addScriptTag (type: keyof puppeteer.ScriptTagOptions, value: string) {
+  addScriptTag (
+    type: 'url' | 'path' | 'content',
+    value: string,
+    options: { esModule: boolean } = { esModule: false }
+  ) {
     return this
   }
 

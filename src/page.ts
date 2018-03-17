@@ -211,9 +211,16 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  addScriptTag (type: keyof puppeteer.ScriptTagOptions, value: string) {
+  addScriptTag (
+    type: 'url' | 'path' | 'content',
+    value: string,
+    options: { esModule: boolean } = { esModule: false }
+  ) {
     this.push(
-      async () => await this.page.addScriptTag({ [type]: value }),
+      async () => await this.page.addScriptTag({
+        [type]: value,
+        type: options.esModule ? 'module' : undefined
+      }),
       prepareStackTrace()
     )
 

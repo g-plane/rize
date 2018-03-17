@@ -355,13 +355,23 @@ test('set headers', async () => {
 })
 
 test('add script tag', async () => {
-  expect.assertions(1)
+  expect.assertions(2)
   const instance = new Rize()
   await instance
     .addScriptTag('content', 'document.body.textContent = "rize"')
     .execute(async (browser, page) => {
       const text = await page.evaluate('document.body.textContent')
       expect(text).toBe('rize')
+    })
+    .addScriptTag('content', '', { esModule: true })
+    .execute(async (browser, page) => {
+      const hasTag: boolean = await page.$$eval(
+        'script',
+        tags => Array
+          .from(tags)
+          .some(tag => tag.getAttribute('type') === 'module')
+      )
+      expect(hasTag).toBe(true)
     })
     .end()
 })
