@@ -1,7 +1,6 @@
 import http from 'http'
-import puppeteer from 'puppeteer'
 import { getPortPromise as getPort } from 'portfinder'
-import Rize from '../../src'
+import Rize from 'rize'
 
 test('click on an element', async () => {
   expect.assertions(1)
@@ -112,8 +111,9 @@ test('click a link', async () => {
     .goto(`http://localhost:${port}/`)
     .clickLink('click me')
     .execute(async (browser, page) => {
-      const text = await page.evaluate(
-        () => document.querySelector('a').textContent
+      const text = await page.$eval(
+        'a',
+        element => element.textContent
       )
       expect(text).toBe('clicked')
       server.close()
@@ -218,16 +218,19 @@ test('clear text on an element', async () => {
     .clear('textarea')
     .clear('div')  // Should no errors threw.
     .execute(async () => {
-      const input: string = await instance.page.evaluate(
-        () => document.querySelector('input').value
+      const input: string = await instance.page.$eval(
+        'input',
+        element => (element as HTMLInputElement).value
       )
       expect(input).toBe('')
-      const textarea: string = await instance.page.evaluate(
-        () => document.querySelector('textarea').textContent
+      const textarea: string = await instance.page.$eval(
+        'textarea',
+        element => element.textContent
       )
       expect(textarea).toBe('')
-      const div: string = await instance.page.evaluate(
-        () => document.querySelector('div').textContent
+      const div: string = await instance.page.$eval(
+        'div',
+        element => element.textContent
       )
       expect(div).toBe('rize')  // Text should not be modified.
       server.close()
@@ -324,15 +327,17 @@ test('check a checkbox', async () => {
   await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
-      const checked = await page.evaluate(
-        () => document.querySelector('input').checked
+      const checked = await page.$eval(
+        'input',
+        element => (element as HTMLInputElement).checked
       )
       expect(checked).toBe(false)
     })
     .check('input')
     .execute(async (browser, page) => {
-      const checked = await page.evaluate(
-        () => document.querySelector('input').checked
+      const checked = await page.$eval(
+        'input',
+        element => (element as HTMLInputElement).checked
       )
       expect(checked).toBe(true)
       server.close()
@@ -352,15 +357,17 @@ test('uncheck a checkbox', async () => {
   await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
-      const checked = await page.evaluate(
-        () => document.querySelector('input').checked
+      const checked = await page.$eval(
+        'input',
+        element => (element as HTMLInputElement).checked
       )
       expect(checked).toBe(true)
     })
     .uncheck('input')
     .execute(async (browser, page) => {
-      const checked = await page.evaluate(
-        () => document.querySelector('input').checked
+      const checked = await page.$eval(
+        'input',
+        element => (element as HTMLInputElement).checked
       )
       expect(checked).toBe(false)
       server.close()
@@ -380,15 +387,17 @@ test('check a radio', async () => {
   await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
-      const checked = await page.evaluate(
-        () => document.querySelector('input').checked
+      const checked = await page.$eval(
+        'input',
+        element => (element as HTMLInputElement).checked
       )
       expect(checked).toBe(false)
     })
     .radio('input', 'val')
     .execute(async (browser, page) => {
-      const checked = await page.evaluate(
-        () => document.querySelector('input').checked
+      const checked = await page.$eval(
+        'input',
+        element => (element as HTMLInputElement).checked
       )
       expect(checked).toBe(true)
       server.close()
@@ -465,8 +474,9 @@ test('key down on an element', async () => {
     ))
     .keyDown('a')
     .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('body').textContent
+      const text: string = await instance.page.$eval(
+        'body',
+        element => element.textContent
       )
       expect(text).toBe('key down')
       server.close()
@@ -496,8 +506,9 @@ test('key up on an element', async () => {
     ))
     .keyUp('a')
     .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('body').textContent
+      const text: string = await instance.page.$eval(
+        'body',
+        element => element.textContent
       )
       expect(text).toBe('key up')
       server.close()

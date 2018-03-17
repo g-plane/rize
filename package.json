@@ -37,7 +37,7 @@
     "test": "jest",
     "test:e2e": "jest --config tests/e2e/jest.config.json",
     "coverage": "jest --coverage",
-    "lint": "tslint -p .",
+    "lint": "tslint -p . && tslint -p ./tests",
     "prepublish": "yarn build",
     "commit": "git-cz"
   },
@@ -48,6 +48,15 @@
     "verbose": true,
     "transform": {
       "^.+\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "./tests/tsconfig.json"
+      }
+    },
+    "moduleNameMapper": {
+      "^rize$": "<rootDir>/src/index.ts",
+      "^rize/(.*)$": "<rootDir>/src/$1.ts"
     },
     "setupFiles": [
       "<rootDir>/tests/unit/tools/setup.ts"

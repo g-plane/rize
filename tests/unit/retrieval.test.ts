@@ -1,7 +1,6 @@
 import http from 'http'
-import puppeteer from 'puppeteer'
 import { getPortPromise as getPort } from 'portfinder'
-import Rize from '../../src'
+import Rize from 'rize'
 
 test('retrieve title', async () => {
   expect.assertions(2)
@@ -99,8 +98,9 @@ test('retrieve value', async () => {
   await instance
     .value('input', 'rabbit-house')
     .execute(async (browser, page) => {
-      const value: string = await page.evaluate(
-        () => document.querySelector('input').value
+      const value: string = await page.$eval(
+        'input',
+        element => (element as HTMLInputElement).value
       )
       expect(value).toBe('rabbit-house')
       server.close()

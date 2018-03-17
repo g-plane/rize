@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer'
 import http from 'http'
 import { getPortPromise as getPort } from 'portfinder'
-import Rize from '../../src'
+import Rize from 'rize'
 
 test('go to a specified url', async () => {
   expect.assertions(1)
@@ -176,25 +176,33 @@ test('evaluate a function', async () => {
   await instance
     .evaluate(text => document.write(`<div>${text}</div>`), 'rize')
     .execute(async (browser, page) => {
-      const text: string = await page.evaluate(
-        () => document.querySelector('div').textContent
+      const text: string = await page.$eval(
+        'div',
+        element => element.textContent
       )
       expect(text).toBe('rize')
     })
     .evaluate(
-      () => (document.querySelector('div').textContent = 'syaro'),
-      undefined
+      () => {
+        const element = document.querySelector('div')
+        if (element) {
+          element.textContent = 'syaro'
+        }
+      },
+      undefined   // Don't remove it. It is for test coverage.
     )
     .execute(async (browser, page) => {
-      const text: string = await page.evaluate(
-        () => document.querySelector('div').textContent
+      const text: string = await page.$eval(
+        'div',
+        element => element.textContent
       )
       expect(text).toBe('syaro')
     })
     .evaluate('document.querySelector("div").textContent = "maya"')
     .execute(async (browser, page) => {
-      const text: string = await page.evaluate(
-        () => document.querySelector('div').textContent
+      const text: string = await page.$eval(
+        'div',
+        element => element.textContent
       )
       expect(text).toBe('maya')
     })
@@ -285,7 +293,8 @@ test('wait for navigation', async () => {
   await instance
     .goto(`http://localhost:${port1}`)
     .execute(async (browser, page) => {
-      await page.evaluate(() => document.querySelector('a').click())
+      // Please use `!` operator. Do not use `page.$eval` or `page.click`.
+      await page.evaluate(() => document.querySelector('a')!.click())
     })
     .waitForNavigation()
     .execute((browser, page) => {

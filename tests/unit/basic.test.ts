@@ -1,5 +1,4 @@
-import puppeteer from 'puppeteer'
-import Rize from '../../src'
+import Rize from 'rize'
 
 test('sleep for a short time', async () => {
   expect.assertions(1)

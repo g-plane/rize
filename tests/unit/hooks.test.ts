@@ -1,4 +1,4 @@
-import Rize from '../../src'
+import Rize from 'rize'
 
 test('call a function before browser launch', async () => {
   expect.assertions(1)
@@ -12,7 +12,7 @@ test('call a function before browser launch', async () => {
 }, process.env.CI ? 8000 : 5000)
 
 test('call a function after browser launched', async () => {
-  const fn = jest.fn(function () {
+  const fn = jest.fn(function (this: any) {
     expect(Object.getPrototypeOf(this)).toBe(Rize.prototype)
   })
   const instance = new Rize({ afterLaunched: fn })
@@ -24,7 +24,7 @@ test('call a function after browser launched', async () => {
 })
 
 test('call a function before each step', async () => {
-  const fn = jest.fn(function () {
+  const fn = jest.fn(function (this: any) {
     expect(Object.getPrototypeOf(this)).toBe(Rize.prototype)
   })
   const instance = new Rize({ beforeEachStep: fn })
@@ -34,7 +34,7 @@ test('call a function before each step', async () => {
 })
 
 test('call a function after each step', async () => {
-  const fn = jest.fn(function () {
+  const fn = jest.fn(function (this: any) {
     expect(Object.getPrototypeOf(this)).toBe(Rize.prototype)
   })
   const instance = new Rize({ afterEachStep: fn })
@@ -45,7 +45,7 @@ test('call a function after each step', async () => {
 })
 
 test('call a function before browser exit', async () => {
-  const fn = jest.fn(function () {
+  const fn = jest.fn(function (this: any) {
     expect(Object.getPrototypeOf(this)).toBe(Rize.prototype)
   })
   const instance = new Rize({ beforeExit: fn })

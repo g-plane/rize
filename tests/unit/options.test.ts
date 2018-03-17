@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-import Rize from '../../src'
+import Rize from 'rize'
 
 test('pass an existing puppeteer browser', async () => {
   expect.assertions(1)
