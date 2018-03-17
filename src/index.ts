@@ -7,153 +7,14 @@ import Basic from './basic'
 import Page from './page'
 import Retrieval from './retrieval'
 
-export interface RizeOptions {
-  /**
-   * Use an existing puppeteer's browser instance.
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * (async () => {
-   *   const browser = await puppeteer.launch()
-   *   const rize = new Rize({ browser })
-   * })()
-   * ```
-   */
-  browser?: puppeteer.Browser
-
-  /**
-   * A lifecycle hook which you can do something before the browser launching.
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize({
-   *   beforeLaunch () {
-   *     console.log('The browser is going to launch.')
-   *   }
-   * })
-   * ```
-   */
-  beforeLaunch? (): void
-
-  /**
-   * A lifecycle hook which you can do something after the browser launched.
-   *
-   * `this` context points to the `Rize` instance.
-   * So you can visit browser and page here.
-   * (Like `this.browser` or `this.page`)
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize({
-   *   afterLaunched () {
-   *     this === rize  // true
-   *     console.log('The browser has launched.')
-   *   }
-   * })
-   * ```
-   */
-  afterLaunched? (this: Rize): void
-
-  /**
-   * A lifecycle hook which you can do something before each step.
-   *
-   * `this` context points to the `Rize` instance.
-   * So you can visit browser and page here.
-   * (Like `this.browser` or `this.page`)
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize({
-   *   beforeEachStep () {
-   *     this === rize  // true
-   *     console.log('I will be called before each step!')
-   *   }
-   * })
-   * ```
-   */
-  beforeEachStep? (this: Rize): void
-
-  /**
-   * A lifecycle hook which you can do something after each step.
-   *
-   * `this` context points to the `Rize` instance.
-   * So you can visit browser and page here.
-   * (Like `this.browser` or `this.page`)
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize({
-   *   afterEachStep () {
-   *     this === rize  // true
-   *     console.log('I will be called after each step!')
-   *   }
-   * })
-   * ```
-   */
-  afterEachStep? (this: Rize): void
-
-  /**
-   * A lifecycle hook which you can do something before the browser exit.
-   *
-   * `this` context points to the `Rize` instance.
-   * So you can visit browser and page here.
-   * (Like `this.browser` or `this.page`)
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize({
-   *   beforeExit () {
-   *     this === rize  // true
-   *     console.log('The browser is going to exit.')
-   *   }
-   * })
-   * ```
-   */
-  beforeExit? (this: Rize): void
-
-  /**
-   * Width of viewport.
-   */
-  width?: number
-
-  /**
-   * Height of viewport.
-   */
-  height?: number
-
-  /**
-   * This setting will change the default maximum navigation time of 30 seconds
-   * for the following methods:
-   *
-   * - Rize#goto(url)
-   * - Rize#forward()
-   * - Rize#back()
-   * - Rize#refresh()
-   * - Rize#waitForNavigation(timeout?)
-   */
-  defaultNavigationTimeout?: number
-}
-
-export default class Rize
+class Rize
   extends Infrastructure
   implements Actions, Assertions, Basic, Page, Retrieval {
 
   /**
    * Creates an instance of `Rize`.
    */
-  constructor (options: puppeteer.LaunchOptions & RizeOptions = {}) {
+  constructor (options: puppeteer.LaunchOptions & Rize.RizeOptions = {}) {
     super()
 
     Object.keys(this.hooks).forEach(method => {
@@ -2918,6 +2779,147 @@ export default class Rize
   /* retrieval END */
 }
 
+namespace Rize {
+  export interface RizeOptions {
+    /**
+     * Use an existing puppeteer's browser instance.
+     *
+     * @example
+     *
+     * ```javascript
+     *
+     * (async () => {
+     *   const browser = await puppeteer.launch()
+     *   const rize = new Rize({ browser })
+     * })()
+     * ```
+     */
+    browser?: puppeteer.Browser
+
+    /**
+     * A lifecycle hook which you can do something before the browser launching.
+     *
+     * @example
+     *
+     * ```javascript
+     *
+     * const rize = new Rize({
+     *   beforeLaunch () {
+     *     console.log('The browser is going to launch.')
+     *   }
+     * })
+     * ```
+     */
+    beforeLaunch? (): void
+
+    /**
+     * A lifecycle hook which you can do something after the browser launched.
+     *
+     * `this` context points to the `Rize` instance.
+     * So you can visit browser and page here.
+     * (Like `this.browser` or `this.page`)
+     *
+     * @example
+     *
+     * ```javascript
+     *
+     * const rize = new Rize({
+     *   afterLaunched () {
+     *     this === rize  // true
+     *     console.log('The browser has launched.')
+     *   }
+     * })
+     * ```
+     */
+    afterLaunched? (this: Rize): void
+
+    /**
+     * A lifecycle hook which you can do something before each step.
+     *
+     * `this` context points to the `Rize` instance.
+     * So you can visit browser and page here.
+     * (Like `this.browser` or `this.page`)
+     *
+     * @example
+     *
+     * ```javascript
+     *
+     * const rize = new Rize({
+     *   beforeEachStep () {
+     *     this === rize  // true
+     *     console.log('I will be called before each step!')
+     *   }
+     * })
+     * ```
+     */
+    beforeEachStep? (this: Rize): void
+
+    /**
+     * A lifecycle hook which you can do something after each step.
+     *
+     * `this` context points to the `Rize` instance.
+     * So you can visit browser and page here.
+     * (Like `this.browser` or `this.page`)
+     *
+     * @example
+     *
+     * ```javascript
+     *
+     * const rize = new Rize({
+     *   afterEachStep () {
+     *     this === rize  // true
+     *     console.log('I will be called after each step!')
+     *   }
+     * })
+     * ```
+     */
+    afterEachStep? (this: Rize): void
+
+    /**
+     * A lifecycle hook which you can do something before the browser exit.
+     *
+     * `this` context points to the `Rize` instance.
+     * So you can visit browser and page here.
+     * (Like `this.browser` or `this.page`)
+     *
+     * @example
+     *
+     * ```javascript
+     *
+     * const rize = new Rize({
+     *   beforeExit () {
+     *     this === rize  // true
+     *     console.log('The browser is going to exit.')
+     *   }
+     * })
+     * ```
+     */
+    beforeExit? (this: Rize): void
+
+    /**
+     * Width of viewport.
+     */
+    width?: number
+
+    /**
+     * Height of viewport.
+     */
+    height?: number
+
+    /**
+     * This setting will change the default maximum navigation
+     * time of 30 seconds for the following methods:
+     *
+     * - Rize#goto(url)
+     * - Rize#forward()
+     * - Rize#back()
+     * - Rize#refresh()
+     * - Rize#waitForNavigation(timeout?)
+     */
+    defaultNavigationTimeout?: number
+  }
+}
+
 /**
  * @private
  */
@@ -2937,5 +2939,7 @@ mixin(Rize, [
   Retrieval
 ])
 
-// @ts-ignore. This is for compatibility with CommonJS users.
 export = Rize
+
+Object.defineProperty(exports, '__esModule', { value: true })
+Object.defineProperty(exports, 'default', { value: Rize })

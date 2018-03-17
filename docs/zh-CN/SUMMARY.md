@@ -10,6 +10,6 @@
 - [FAQ](faq.md)
 - [API](https://rize.js.org/api/modules/_index_.html)
   - [可用的方法](https://rize.js.org/api/classes/_index_.rize.html)
-  - [选项](https://rize.js.org/api/interfaces/_index_.rizeoptions.html)
+  - [选项](https://rize.js.org/api/interfaces/_index_.rize.rizeoptions.html)
 
 

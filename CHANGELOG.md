@@ -15,9 +15,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New API: [`clickLink`](https://rize.js.org/api/classes/_index_.rize.html#clicklink)
 - New API: [`assertHashIs`](https://rize.js.org/api/classes/_index_.rize.html#asserthashis)
 - New API: [`assertHashBeginsWith`](https://rize.js.org/api/classes/_index_.rize.html#asserthashbeginswith)
-- New option: [`browser`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#browser)
-- New lifecycle hook: [`beforeEachStep`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#beforeeachstep)
-- New lifecycle hook: [`afterEachStep`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#aftereachstep)
+- New option: [`browser`](https://rize.js.org/api/interfaces/_index_.rize.rizeoptions.html#browser)
+- New lifecycle hook: [`beforeEachStep`](https://rize.js.org/api/interfaces/_index_.rize.rizeoptions.html#beforeeachstep)
+- New lifecycle hook: [`afterEachStep`](https://rize.js.org/api/interfaces/_index_.rize.rizeoptions.html#aftereachstep)
 - Added a new parameter for [`html`](https://rize.js.org/api/classes/_index_.rize.html#html) method to determine retrieve inner or outer HTML.
 ### Changed
 - Hooks now do not support passing arguments to function
@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.4.0] - 2018-03-12
 ### Added
-- New lifecycle hook: [`beforeExit`](https://rize.js.org/api/interfaces/_index_.rizeoptions.html#beforeexit)
+- New lifecycle hook: [`beforeExit`](https://rize.js.org/api/interfaces/_index_.rize.rizeoptions.html#beforeexit)
 ### Changed
 - Improved error stack trace
 
