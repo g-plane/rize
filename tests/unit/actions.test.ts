@@ -267,6 +267,41 @@ test('focus on an element', async () => {
     .end()
 })
 
+test('blur an element', async () => {
+  expect.assertions(1)
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end(`
+    <html>
+      <body><button></button></body>
+    </html>
+  `)).listen(port)
+  const instance = new Rize()
+  await instance
+    .goto(`http://localhost:${port}/`)
+    .execute(async () => {
+      await instance.page.evaluate(
+        () => (
+          document
+            .querySelector('button')!
+            .onblur = function () { this.textContent = 'blured' }
+        )
+      )
+      await instance.page.$eval(
+        'button',
+        element => (element as HTMLElement).focus()
+      )
+    })
+    .blur('button')
+    .execute(async () => {
+      const text: string = await instance.page.evaluate(
+        () => document.querySelector('button')!.textContent
+      )
+      expect(text).toBe('blured')
+      server.close()
+    })
+    .end()
+})
+
 test('select values on an element', async () => {
   expect.assertions(2)
   const port = await getPort()

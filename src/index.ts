@@ -1659,6 +1659,25 @@ class Rize
   }
 
   /**
+   * Blur an element.
+   *
+   * @param selector CSS selector.
+   *
+   * @since 0.6.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.blur('a')
+   * ```
+   */
+  blur (selector: string) {
+    return this
+  }
+
+  /**
    * Select one or more values on an `<select>` element.
    *
    * @param selector CSS selector.

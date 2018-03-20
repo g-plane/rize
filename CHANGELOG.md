@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - New API: [`awaitPromise`](https://rize.js.org/api/classes/_index_.rize.html#awaitpromise)
 - The [`addScriptTag`](https://rize.js.org/api/classes/_index_.rize.html#addscripttag) method now supports passing ES module with an option.
+- New API: [`blur`](https://rize.js.org/api/classes/_index_.rize.html#blur)
 ### Fixed
 - Remove `data-rize` attribute after calling `find` or `findAll` or `findByXPath` method.
 

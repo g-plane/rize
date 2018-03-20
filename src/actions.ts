@@ -100,6 +100,16 @@ export default class Actions extends Infrastructure {
     return this
   }
 
+  blur (selector: string) {
+    this.push(async () => await this.page.$eval(
+      selector,
+      /* istanbul ignore next, instrumenting cannot be executed in browser */
+      element => (element as HTMLElement).blur()
+    ))
+
+    return this
+  }
+
   select (selector: string, values: string | string[]) {
     this.push(async () => {
       if (Array.isArray(values)) {
