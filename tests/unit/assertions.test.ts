@@ -180,7 +180,7 @@ test('do not see some text in an element', async () => {
     </html>
   `)).listen(port)
   const instance = new Rize()
-   await instance
+  await instance
     .goto(`http://localhost:${port}/`)
     .assertDontSeeIn('div', 'cocoa')
     .execute(() => server.close())
