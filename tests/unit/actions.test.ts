@@ -13,17 +13,19 @@ test('click on an element', async () => {
   const instance = new Rize()
   await instance
     .goto(`http://localhost:${port}/`)
-    .execute(() => instance.page.evaluate(
-      () => (
-        document
-          .querySelector('button')!
-          .onclick = function () { this.textContent = 'clicked' }
+    .execute(async (browser, page) => {
+      await page.$eval(
+        'button',
+        element => (element as HTMLElement).onclick = function () {
+          this.textContent = 'clicked'
+        }
       )
-    ))
+    })
     .click('button')
-    .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('button')!.textContent
+    .execute(async (browser, page) => {
+      const text: string = await page.$eval(
+        'button',
+        element => element.textContent
       )
       expect(text).toBe('clicked')
       server.close()
@@ -42,17 +44,17 @@ test('double click on an element', async () => {
   const instance = new Rize()
   await instance
     .goto(`http://localhost:${port}/`)
-    .execute(() => instance.page.evaluate(
-      () => (
-        document
-          .querySelector('button')!
-          .ondblclick = function () { this.textContent = 'double clicked' }
-      )
+    .execute(async () => await instance.page.$eval(
+      'button',
+      element => (element as HTMLElement).ondblclick = function () {
+        this.textContent = 'double clicked'
+      }
     ))
     .doubleClick('button')
     .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('button')!.textContent
+      const text: string = await instance.page.$eval(
+        'button',
+        element => element.textContent
       )
       expect(text).toBe('double clicked')
       server.close()
@@ -71,19 +73,17 @@ test('right click on an element', async () => {
   const instance = new Rize()
   await instance
     .goto(`http://localhost:${port}/`)
-    .execute(() => instance.page.evaluate(
-      () => (
-        document
-          .querySelector('button')!
-          .onmouseup = function (e) {
-            if (e.button === 2) { this.textContent = 'right clicked' }
-          }
-      )
+    .execute(async () => await instance.page.$eval(
+      'button',
+      element => (element as HTMLElement).onmouseup = function (e) {
+        if (e.button === 2) { this.textContent = 'right clicked' }
+      }
     ))
     .rightClick('button')
     .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('button')!.textContent
+      const text: string = await instance.page.$eval(
+        'button',
+        element => element.textContent
       )
       expect(text).toBe('right clicked')
       server.close()
@@ -132,17 +132,17 @@ test('hover on an element', async () => {
   const instance = new Rize()
   await instance
     .goto(`http://localhost:${port}/`)
-    .execute(() => instance.page.evaluate(
-      () => (
-        document
-          .querySelector('button')!
-          .onmouseenter = function () { this.textContent = 'hovered' }
-      )
+    .execute(async () => await instance.page.$eval(
+      'button',
+      element => (element as HTMLElement).onmouseenter = function () {
+        this.textContent = 'hovered'
+      }
     ))
     .hover('button')
     .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('button')!.textContent
+      const text: string = await instance.page.$eval(
+        'button',
+        element => element.textContent
       )
       expect(text).toBe('hovered')
       server.close()
@@ -163,8 +163,9 @@ test('type text to an element', async () => {
     .goto(`http://localhost:${port}/`)
     .type('input', 'rize')
     .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('input')!.value
+      const text: string = await await instance.page.$eval(
+        'input',
+        element => (element as HTMLInputElement).value
       )
       expect(text).toBe('rize')
       server.close()
@@ -249,17 +250,17 @@ test('focus on an element', async () => {
   const instance = new Rize()
   await instance
     .goto(`http://localhost:${port}/`)
-    .execute(() => instance.page.evaluate(
-      () => (
-        document
-          .querySelector('button')!
-          .onfocus = function () { this.textContent = 'focused' }
-      )
+    .execute(async () => await instance.page.$eval(
+      'button',
+      element => (element as HTMLElement).onfocus = function () {
+        this.textContent = 'focused'
+      }
     ))
     .focus('button')
     .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('button')!.textContent
+      const text: string = await instance.page.$eval(
+        'button',
+        element => element.textContent
       )
       expect(text).toBe('focused')
       server.close()
@@ -279,12 +280,11 @@ test('blur an element', async () => {
   await instance
     .goto(`http://localhost:${port}/`)
     .execute(async () => {
-      await instance.page.evaluate(
-        () => (
-          document
-            .querySelector('button')!
-            .onblur = function () { this.textContent = 'blured' }
-        )
+      await instance.page.$eval(
+        'button',
+        element => (element as HTMLElement).onblur = function () {
+          this.textContent = 'blured'
+        }
       )
       await instance.page.$eval(
         'button',
@@ -293,8 +293,9 @@ test('blur an element', async () => {
     })
     .blur('button')
     .execute(async () => {
-      const text: string = await instance.page.evaluate(
-        () => document.querySelector('button')!.textContent
+      const text: string = await instance.page.$eval(
+        'button',
+        element => element.textContent
       )
       expect(text).toBe('blured')
       server.close()
@@ -325,22 +326,21 @@ test('select values on an element', async () => {
     .goto(`http://localhost:${port}/`)
     .select('#single', 'rize')
     .execute(async () => {
-      const selectedIndex: number = await instance.page.evaluate(
-        () =>
-          document.querySelector<HTMLSelectElement>('#single')!.selectedIndex
+      const selectedIndex: number = await instance.page.$eval(
+        '#single',
+        element => (element as HTMLSelectElement).selectedIndex
       )
       expect(selectedIndex).toBe(0)
     })
     .select('#multiple', ['chino', 'rize'])
     .execute(async () => {
-      const selected = await instance.page.evaluate(
-        () => {
-          const first: HTMLOptionElement = document
-            .querySelector<HTMLSelectElement>('#multiple')!.item(0)
-          const second: HTMLOptionElement = document
-            .querySelector<HTMLSelectElement>('#multiple')!.item(1)
-          const third: HTMLOptionElement = document
-            .querySelector<HTMLSelectElement>('#multiple')!.item(2)
+      const selected = await instance.page.$eval(
+        '#multiple',
+        element => {
+          const el = element as HTMLSelectElement
+          const first: HTMLOptionElement = el.item(0)
+          const second: HTMLOptionElement = el.item(1)
+          const third: HTMLOptionElement = el.item(2)
           return [first.selected, second.selected, third.selected]
         }
       )
@@ -452,34 +452,37 @@ test('press a key on an element', async () => {
   const instance = new Rize()
   await instance
     .goto(`http://localhost:${port}/`)
-    .execute(() => instance.page.evaluate(
+    .execute(async () => await instance.page.evaluate(
       () => {
         document.body.onkeypress = function (event) {
           if (event.key === 'a') {
             this.querySelector('div')!.textContent = 'pressed `a`'
           }
         }
-        document
-          .querySelector('button')!
-          .onkeypress = function (event) {
-            event.stopPropagation()
-            if (event.key === 'b') {
-              this.textContent = 'pressed `b`'
-            }
-          }
+      }
+    ))
+    .execute(async () => await instance.page.$eval(
+      'button',
+      element => (element as HTMLElement).onkeypress = function (event) {
+        event.stopPropagation()
+        if (event.key === 'b') {
+          this.textContent = 'pressed `b`'
+        }
       }
     ))
     .press('a')
     .execute(async () => {
-      const divText: string = await instance.page.evaluate(
-        () => document.querySelector('div')!.textContent
+      const divText: string = await instance.page.$eval(
+        'div',
+        element => element.textContent
       )
       expect(divText).toBe('pressed `a`')
     })
     .press('b', 'button')
     .execute(async () => {
-      const buttonText: string = await instance.page.evaluate(
-        () => document.querySelector('button')!.textContent
+      const buttonText: string = await instance.page.$eval(
+        'button',
+        element => element.textContent
       )
       expect(buttonText).toBe('pressed `b`')
       server.close()
@@ -630,9 +633,7 @@ test('upload file', async () => {
   await instance
     .goto(`http://localhost:${port}/`)
     .uploadFile('input', 'file')
-    .execute(async () => {
-      server.close()
-    })
+    .execute(() => server.close())
     .end()
 })
 
