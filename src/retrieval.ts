@@ -5,7 +5,7 @@ import Infrastructure from './infrastructure'
 import { prepareStackTrace } from './utils/error'
 
 export default class Retrieval extends Infrastructure {
-  title () {
+  title() {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -17,7 +17,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  text (selector = 'body') {
+  text(selector = 'body') {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -35,7 +35,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  html (selector = 'html', range: 'inner' | 'outer' = 'inner') {
+  html(selector = 'html', range: 'inner' | 'outer' = 'inner') {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -56,7 +56,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  attribute (selector: string, attribute: string) {
+  attribute(selector: string, attribute: string) {
     return new Promise<string | null>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -75,7 +75,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  style (selector: string, property: string) {
+  style(selector: string, property: string) {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -95,11 +95,11 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  value (selector: string): Promise<string | null>
+  value(selector: string): Promise<string | null>
 
-  value (selector: string, newValue: string): this
+  value(selector: string, newValue: string): this
 
-  value (selector: string, newValue?: string): Promise<string | null> | this {
+  value(selector: string, newValue?: string): Promise<string | null> | this {
     if (newValue) {
       this.push(async () => {
         await this.page.$eval(
@@ -117,7 +117,7 @@ export default class Retrieval extends Infrastructure {
     }
   }
 
-  hasClass (selector: string, className: string) {
+  hasClass(selector: string, className: string) {
     return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -136,13 +136,13 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  url () {
+  url() {
     return new Promise(fulfill => {
       this.push(() => fulfill(this.page.url()))
     })
   }
 
-  queryString (key: string): Promise<string | string[] | undefined> {
+  queryString(key: string): Promise<string | string[] | undefined> {
     return new Promise(fulfill => {
       this.push(() => {
         const { query } = url.parse(this.page.url(), true)
@@ -151,7 +151,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  cookie () {
+  cookie() {
     return new Promise((resolve, reject) => {
       this.push(async () => {
         try {
@@ -163,7 +163,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  cookies () {
+  cookies() {
     return new Promise((resolve, reject) => {
       this.push(async () => {
         try {
@@ -175,7 +175,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  isVisible (selector: string) {
+  isVisible(selector: string) {
     return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -193,7 +193,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  isPresent (selector: string) {
+  isPresent(selector: string) {
     return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
@@ -206,7 +206,7 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  find <T> (
+  find <T>(
     selector: string,
     fn: ((selector: string, ...args) => T),
     ...args
@@ -235,7 +235,7 @@ export default class Retrieval extends Infrastructure {
     return returnValue
   }
 
-  findAll <T> (
+  findAll <T>(
     selector: string,
     index: number,
     fn: ((selector: string, ...args) => T),
@@ -269,7 +269,7 @@ export default class Retrieval extends Infrastructure {
     return returnValue
   }
 
-  findByXPath <T> (
+  findByXPath <T>(
     expression: string,
     index: number,
     fn: ((selector: string, ...args) => T),
@@ -317,7 +317,7 @@ export default class Retrieval extends Infrastructure {
     return returnValue
   }
 
-  findWithText <T> (
+  findWithText <T>(
     selector: string,
     text: string,
     index: number,
@@ -355,7 +355,7 @@ export default class Retrieval extends Infrastructure {
     return returnValue
   }
 
-  viewport () {
+  viewport() {
     return new Promise<puppeteer.Viewport>(
       fulfill => this.push(() => fulfill(this.page.viewport()))
     )

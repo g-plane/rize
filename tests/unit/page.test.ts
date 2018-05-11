@@ -6,7 +6,7 @@ import Rize from 'rize'
 test('go to a specified url', async () => {
   expect.assertions(1)
   const instance = new Rize({
-    afterLaunched () {
+    afterLaunched() {
       jest.spyOn(instance.page, 'goto').mockImplementation(() => true)
     }
   })
@@ -101,7 +101,7 @@ test('count pages', async () => {
 test('go forward', async () => {
   expect.assertions(2)
   const instance = new Rize({
-    afterLaunched () {
+    afterLaunched() {
       jest.spyOn(instance.page, 'goForward').mockImplementation(() => true)
     }
   })
@@ -125,7 +125,7 @@ test('go forward', async () => {
 test('go back', async () => {
   expect.assertions(2)
   const instance = new Rize({
-    afterLaunched () {
+    afterLaunched() {
       jest.spyOn(instance.page, 'goBack').mockImplementation(() => true)
     }
   })
@@ -149,7 +149,7 @@ test('go back', async () => {
 test('refresh page', async () => {
   expect.assertions(2)
   const instance = new Rize({
-    afterLaunched () {
+    afterLaunched() {
       jest.spyOn(instance.page, 'reload').mockImplementation(() => true)
     }
   })
@@ -240,7 +240,7 @@ test('use user agent', async () => {
 test('generate a screenshot', async () => {
   expect.assertions(2)
   const instance = new Rize({
-    afterLaunched () {
+    afterLaunched() {
       jest.spyOn(instance.page, 'screenshot').mockImplementation(() => true)
     }
   })
@@ -260,7 +260,7 @@ test('generate a screenshot', async () => {
 test('generate a PDF', async () => {
   expect.assertions(2)
   const instance = new Rize({
-    afterLaunched () {
+    afterLaunched() {
       jest.spyOn(instance.page, 'pdf').mockImplementation(() => true)
     }
   })
@@ -273,9 +273,9 @@ test('generate a PDF', async () => {
     .execute(() => {
       expect(instance.page.pdf as (typeof instance.page.pdf) &
         jest.MockInstance<any>).toBeCalledWith({
-        path: 'file2',
-        format: 'Letter'
-      })
+          path: 'file2',
+          format: 'Letter'
+        })
     })
     .end()
 })
@@ -332,7 +332,7 @@ test('wait for a function and an expression', async () => {
 test('authentication', async () => {
   expect.assertions(1)
   const instance = new Rize({
-    afterLaunched () {
+    afterLaunched() {
       this.page.authenticate = jest.fn()
     }
   })

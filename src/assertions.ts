@@ -3,16 +3,16 @@ import url from 'url'
 import Infrastructure from './infrastructure'
 import { prepareStackTrace } from './utils/error'
 
-function greenify (text: string | undefined | null) {
+function greenify(text: string | undefined | null) {
   return `\u001B[32m${text}\u001B[39m`
 }
 
-function redify (text: string | undefined | null) {
+function redify(text: string | undefined | null) {
   return `\u001B[31m${text}\u001B[39m`
 }
 
 export default class Assertions extends Infrastructure {
-  assertUrlIs (expected: string) {
+  assertUrlIs(expected: string) {
     this.push(() => assert.strictEqual(
       this.page.url(),
       expected,
@@ -23,7 +23,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertUrlMatch (regex: RegExp | string) {
+  assertUrlMatch(regex: RegExp | string) {
     this.push(() => {
       const pageUrl = this.page.url()
       if (typeof regex === 'string') {
@@ -44,7 +44,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertPathIs (expected: string) {
+  assertPathIs(expected: string) {
     this.push(() => {
       const pageUrl = url.parse(this.page.url())
       assert.strictEqual(
@@ -58,7 +58,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertPathBeginsWith (expected: string) {
+  assertPathBeginsWith(expected: string) {
     this.push(() => {
       const pageUrl = url.parse(this.page.url())
       assert.ok(
@@ -70,7 +70,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertHashIs (expected: string) {
+  assertHashIs(expected: string) {
     this.push(async () => {
       const pageUrl = url.parse(await this.page.evaluate('location.href'))
       const expectedHash = expected.startsWith('#') ? expected : `#${expected}`
@@ -85,7 +85,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertHashBeginsWith (expected: string) {
+  assertHashBeginsWith(expected: string) {
     this.push(async () => {
       const pageUrl = url.parse(await this.page.evaluate('location.href'))
       const expectedHash = expected.startsWith('#') ? expected : `#${expected}`
@@ -98,7 +98,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertTitle (title: string) {
+  assertTitle(title: string) {
     this.push(async () => {
       const actual = await this.page.title()
       assert.strictEqual(
@@ -112,7 +112,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertTitleContains (title: string) {
+  assertTitleContains(title: string) {
     this.push(async () => {
       const actual = await this.page.title()
       assert.ok(
@@ -124,7 +124,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertTitleMatch (regex: RegExp | string) {
+  assertTitleMatch(regex: RegExp | string) {
     this.push(async () => {
       const title = await this.page.title()
       if (typeof regex === 'string') {
@@ -144,7 +144,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertQueryStringHas (key: string, value?: string) {
+  assertQueryStringHas(key: string, value?: string) {
     this.push(() => {
       const { query } = url.parse(this.page.url(), true)
 
@@ -166,7 +166,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertQueryStringMissing (key: string) {
+  assertQueryStringMissing(key: string) {
     this.push(() => {
       const { query } = url.parse(this.page.url(), true)
 
@@ -179,7 +179,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertCookieHas (name: string, value?: string) {
+  assertCookieHas(name: string, value?: string) {
     this.push(async () => {
       const cookie = (await this.page.cookies())[0]
 
@@ -204,7 +204,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertSee (text: string) {
+  assertSee(text: string) {
     this.push(async () => {
       const html = await this.page.content()
       assert.ok(
@@ -216,7 +216,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertDontSee (text: string) {
+  assertDontSee(text: string) {
     this.push(async () => {
       const html = await this.page.content()
       assert.ok(
@@ -228,7 +228,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertSeeIn (selector: string, text: string) {
+  assertSeeIn(selector: string, text: string) {
     this.push(async () => {
       const textContent: string = await this.page.$eval(
         selector,
@@ -245,7 +245,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertDontSeeIn (selector: string, text: string) {
+  assertDontSeeIn(selector: string, text: string) {
     this.push(async () => {
       const textContent: string = await this.page.$eval(
         selector,
@@ -262,7 +262,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertAttribute (selector: string, attribute: string, value: string) {
+  assertAttribute(selector: string, attribute: string, value: string) {
     this.push(async () => {
       const actual: string | null = await this.page.$eval(
         selector,
@@ -282,7 +282,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertClassHas (selector: string, className: string) {
+  assertClassHas(selector: string, className: string) {
     this.push(async () => {
       const result: boolean = await this.page.$eval(
         selector,
@@ -300,7 +300,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertClassMissing (selector: string, className: string) {
+  assertClassMissing(selector: string, className: string) {
     this.push(async () => {
       const result: boolean = await this.page.$eval(
         selector,
@@ -318,7 +318,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertStyleHas (selector: string, property: string, value: string) {
+  assertStyleHas(selector: string, property: string, value: string) {
     this.push(async () => {
       const actual: string = await this.page.$eval(
         selector,
@@ -340,7 +340,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertValueIs (selector: string, value: string) {
+  assertValueIs(selector: string, value: string) {
     this.push(async () => {
       const actual: string = await this.page.$eval(
         selector,
@@ -359,7 +359,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertValueIsNot (selector: string, value: string) {
+  assertValueIsNot(selector: string, value: string) {
     this.push(async () => {
       const actual: string = await this.page.$eval(
         selector,
@@ -378,7 +378,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertValueContains (selector: string, value: string) {
+  assertValueContains(selector: string, value: string) {
     this.push(async () => {
       const actual: string = await this.page.$eval(
         selector,
@@ -395,7 +395,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertChecked (selector: string) {
+  assertChecked(selector: string) {
     this.push(async () => {
       const actual: boolean = await this.page.$eval(
         selector,
@@ -409,7 +409,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertNotChecked (selector: string) {
+  assertNotChecked(selector: string) {
     this.push(async () => {
       const actual: boolean = await this.page.$eval(
         selector,
@@ -423,7 +423,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertRadioSelected (selector: string, value: string) {
+  assertRadioSelected(selector: string, value: string) {
     this.push(async () => {
       const actual: boolean = await this.page.$eval(
         `${selector}[value=${value}]`,
@@ -437,7 +437,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertRadioNotSelected (selector: string, value: string) {
+  assertRadioNotSelected(selector: string, value: string) {
     this.push(async () => {
       const actual: boolean = await this.page.$eval(
         `${selector}[value=${value}]`,
@@ -451,7 +451,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertSelected (selector: string, value: string) {
+  assertSelected(selector: string, value: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, `Element "${selector}" cannot be found.`)
@@ -474,7 +474,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertNotSelected (selector: string, value: string) {
+  assertNotSelected(selector: string, value: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(element, `Element "${selector}" cannot be found.`)
@@ -497,7 +497,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertElementVisible (selector: string) {
+  assertElementVisible(selector: string) {
     this.push(async () => {
       const display: string = await this.page.$eval(
         selector,
@@ -515,7 +515,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertElementHidden (selector: string) {
+  assertElementHidden(selector: string) {
     this.push(async () => {
       const display: string = await this.page.$eval(
         selector,
@@ -533,7 +533,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertElementPresent (selector: string) {
+  assertElementPresent(selector: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(
@@ -545,7 +545,7 @@ export default class Assertions extends Infrastructure {
     return this
   }
 
-  assertElementMissing (selector: string) {
+  assertElementMissing(selector: string) {
     this.push(async () => {
       const element = await this.page.$(selector)
       assert.ok(

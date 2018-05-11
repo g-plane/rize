@@ -7,11 +7,11 @@ export default class Infrastructure {
   protected eventBus = new EventEmitter()
 
   protected hooks = {
-    beforeLaunch () {/* placeholder */},
-    afterLaunched () {/* placeholder */},
-    beforeEachStep () {/* placeholder */},
-    afterEachStep () {/* placeholder */},
-    beforeExit () {/* placeholder */}
+    beforeLaunch() {/* placeholder */},
+    afterLaunched() {/* placeholder */},
+    beforeEachStep() {/* placeholder */},
+    afterEachStep() {/* placeholder */},
+    beforeExit() {/* placeholder */}
   }
 
   protected _browser!: puppeteer.Browser
@@ -22,19 +22,19 @@ export default class Infrastructure {
   /**
    * Low-level instance of puppeteer's browser.
    */
-  get browser () {
+  get browser() {
     return this._browser
   }
 
   /**
    * Low-level instance of puppeteer's current page.
    */
-  get page () {
+  get page() {
     const currentPage = this.pages[this.currentPageIndex]
     return currentPage ? currentPage.page : this.preservePage
   }
 
-  protected push (fn: () => any, trace?: Error) {
+  protected push(fn: () => any, trace?: Error) {
     const unique = Symbol()
     this.queue.push(unique)
     this.eventBus.once(unique, async () => {
@@ -61,13 +61,13 @@ export default class Infrastructure {
     return this
   }
 
-  protected clearQueue () {
+  protected clearQueue() {
     this.push(() => (this.queue = []))
 
     return this
   }
 
-  protected clearQueueNow () {
+  protected clearQueueNow() {
     this.queue = []
 
     return this

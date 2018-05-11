@@ -504,10 +504,10 @@ test('key down on an element', async () => {
     .execute(() => instance.page.evaluate(
       () => {
         document.body.onkeydown = function (event) {
-            if (event.key === 'a') {
-              this.textContent = 'key down'
-            }
+          if (event.key === 'a') {
+            this.textContent = 'key down'
           }
+        }
       }
     ))
     .keyDown('a')
@@ -536,10 +536,10 @@ test('key up on an element', async () => {
     .execute(() => instance.page.evaluate(
       () => {
         document.body.onkeyup = function (event) {
-            if (event.key === 'a') {
-              this.textContent = 'key up'
-            }
+          if (event.key === 'a') {
+            this.textContent = 'key up'
           }
+        }
       }
     ))
     .keyUp('a')

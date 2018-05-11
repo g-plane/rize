@@ -1,6 +1,6 @@
 import { AssertionError } from 'assert'
 
-export function prepareStackTrace () {
+export function prepareStackTrace() {
   return new Error()
 }
 
@@ -8,7 +8,7 @@ export function prepareStackTrace () {
  * @param fake The error which collects stack information.
  * @param real The real error which contains error message.
  */
-export function beautifyStack (fake: Error, real: Error) {
+export function beautifyStack(fake: Error, real: Error) {
   const stack = fake.stack!.split('\n')
   stack.splice(1, 2)
   stack[0] = real.message
@@ -21,7 +21,7 @@ export function beautifyStack (fake: Error, real: Error) {
   return real
 }
 
-export function throwError (error: Error) {
+export function throwError(error: Error) {
   throw error
 }
 

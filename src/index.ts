@@ -14,7 +14,7 @@ class Rize
   /**
    * Creates an instance of `Rize`.
    */
-  constructor (options: puppeteer.LaunchOptions & Rize.RizeOptions = {}) {
+  constructor(options: puppeteer.LaunchOptions & Rize.RizeOptions = {}) {
     super()
 
     Object.keys(this.hooks).forEach(method => {
@@ -74,7 +74,7 @@ class Rize
    * rize.sleep(500)  // stop for 500ms
    * ```
    */
-  sleep (ms: number) {
+  sleep(ms: number) {
     return this
   }
 
@@ -106,7 +106,7 @@ class Rize
    * })
    * ```
    */
-  execute (fn: (
+  execute(fn: (
     this: Rize,
     browser: puppeteer.Browser,
     page: puppeteer.Page,
@@ -128,7 +128,7 @@ class Rize
    * rize.end().then(() => console.log('Browser has exited.'))
    * ```
    */
-  end (): Promise<void>
+  end(): Promise<void>
 
   /**
    * Exit browser.
@@ -147,9 +147,9 @@ class Rize
    * rize.end(() => console.log('Browser has exited.'))
    * ```
    */
-  end (callback: (...args) => any): void
+  end(callback: (...args) => any): void
 
-  end (callback?: (...args) => any): Promise<void> | void {
+  end(callback?: (...args) => any): Promise<void> | void {
     return
   }
 
@@ -168,7 +168,7 @@ class Rize
    * })()
    * ```
    */
-  awaitPromise () {
+  awaitPromise() {
     return Promise.resolve()
   }
 
@@ -192,7 +192,7 @@ class Rize
    * rize.goto('https://github.com/')
    * ```
    */
-  goto (url: string) {
+  goto(url: string) {
     return this
   }
 
@@ -227,7 +227,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  newPage (
+  newPage(
     name = '',
     options: { force?: boolean, stayCurrent?: boolean } = {}
   ) {
@@ -256,7 +256,7 @@ class Rize
    * rize.switchPage('page1')
    * ```
    */
-  switchPage (name: string | number) {
+  switchPage(name: string | number) {
     return this
   }
 
@@ -278,7 +278,7 @@ class Rize
    * rize.closePage('page1')  // Close a specified page.
    * ```
    */
-  closePage (name?: string) {
+  closePage(name?: string) {
     return this
   }
 
@@ -297,7 +297,7 @@ class Rize
    * })()
    * ```
    */
-  pagesCount () {
+  pagesCount() {
     return Promise.resolve(1)
   }
 
@@ -320,7 +320,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  forward (options?: puppeteer.NavigationOptions) {
+  forward(options?: puppeteer.NavigationOptions) {
     return this
   }
 
@@ -343,7 +343,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  back (options?: puppeteer.NavigationOptions) {
+  back(options?: puppeteer.NavigationOptions) {
     return this
   }
 
@@ -362,7 +362,7 @@ class Rize
    * rize.refresh()
    * ```
    */
-  refresh (options?: puppeteer.NavigationOptions) {
+  refresh(options?: puppeteer.NavigationOptions) {
     return this
   }
 
@@ -397,7 +397,7 @@ class Rize
    * rize.evaluate('document.querySelector("div")')
    * ```
    */
-  evaluate (fn: Function | string, ...args) {
+  evaluate(fn: Function | string, ...args) {
     return this
   }
 
@@ -430,7 +430,7 @@ class Rize
    * })()
    * ```
    */
-  evaluateWithReturn <T = any> (
+  evaluateWithReturn <T = any>(
     fn: ((...args) => T) | string,
     ...args
   ): Promise<T> {
@@ -454,7 +454,7 @@ class Rize
    * rize.withUserAgent('Chrome')
    * ```
    */
-  withUserAgent (userAgent: string) {
+  withUserAgent(userAgent: string) {
     return this
   }
 
@@ -477,7 +477,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  saveScreenshot (path: string, options?: puppeteer.ScreenshotOptions) {
+  saveScreenshot(path: string, options?: puppeteer.ScreenshotOptions) {
     return this
   }
 
@@ -500,7 +500,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  savePDF (path: string, options?: puppeteer.PDFOptions) {
+  savePDF(path: string, options?: puppeteer.PDFOptions) {
     return this
   }
 
@@ -523,7 +523,7 @@ class Rize
    * rize.waitForNavigation(500)  // Timeout is 500ms
    * ```
    */
-  waitForNavigation (timeout?: number) {
+  waitForNavigation(timeout?: number) {
     return this
   }
 
@@ -544,7 +544,7 @@ class Rize
    * rize.waitForElement('div', 500)  // Timeout is 500ms
    * ```
    */
-  waitForElement (selector: string, timeout?: number) {
+  waitForElement(selector: string, timeout?: number) {
     return this
   }
 
@@ -584,7 +584,7 @@ class Rize
    * rize.waitForEvaluation(width => window.innerWidth < width, 30000, 100)
    * ```
    */
-  waitForEvaluation (fn: string | Function, timeout?: number, ...args) {
+  waitForEvaluation(fn: string | Function, timeout?: number, ...args) {
     return this
   }
 
@@ -601,7 +601,7 @@ class Rize
    * rize.withAuth('yourname', 'secret')
    * ```
    */
-  withAuth (username: string, password: string) {
+  withAuth(username: string, password: string) {
     return this
   }
 
@@ -625,7 +625,7 @@ class Rize
    * rize.withHeaders({ 'X-Requested-With': 'XMLHttpRequest' })
    * ```
    */
-  withHeaders (headers: puppeteer.Headers) {
+  withHeaders(headers: puppeteer.Headers) {
     return this
   }
 
@@ -663,7 +663,7 @@ class Rize
    * rize.addScriptTag('content', 'console.log("Pure JS code.")')
    * ```
    */
-  addScriptTag (
+  addScriptTag(
     type: 'url' | 'path' | 'content',
     value: string,
     options: { esModule: boolean } = { esModule: false }
@@ -699,7 +699,7 @@ class Rize
    * rize.addStyleTag('content', 'div { font-size: 5px; }')
    * ```
    */
-  addStyleTag (type: keyof puppeteer.StyleTagOptions, value: string) {
+  addStyleTag(type: keyof puppeteer.StyleTagOptions, value: string) {
     return this
   }
 
@@ -724,7 +724,7 @@ class Rize
    * rize.assertUrlIs('http://localhost/')
    * ```
    */
-  assertUrlIs (expected: string) {
+  assertUrlIs(expected: string) {
     return this
   }
 
@@ -746,7 +746,7 @@ class Rize
    * rize.assertUrlMatch(/^http/)
    * ```
    */
-  assertUrlMatch (regex: RegExp | string) {
+  assertUrlMatch(regex: RegExp | string) {
     return this
   }
 
@@ -767,7 +767,7 @@ class Rize
    * rize.assertPathIs('/rabbit-house/rize')
    * ```
    */
-  assertPathIs (expected: string) {
+  assertPathIs(expected: string) {
     return this
   }
 
@@ -788,7 +788,7 @@ class Rize
    * rize.assertPathBeginsWith('/rabbit-house')
    * ```
    */
-  assertPathBeginsWith (expected: string) {
+  assertPathBeginsWith(expected: string) {
     return this
   }
 
@@ -810,7 +810,7 @@ class Rize
    * rize.assertHashIs('#rize')
    * ```
    */
-  assertHashIs (expected: string) {
+  assertHashIs(expected: string) {
     return this
   }
 
@@ -832,7 +832,7 @@ class Rize
    * rize.assertHashBeginsWith('#rabbit')
    * ```
    */
-  assertHashBeginsWith (expected: string) {
+  assertHashBeginsWith(expected: string) {
     return this
   }
 
@@ -853,7 +853,7 @@ class Rize
    * rize.assertTitle('Tedeza Rize')
    * ```
    */
-  assertTitle (title: string) {
+  assertTitle(title: string) {
     return this
   }
 
@@ -874,7 +874,7 @@ class Rize
    * rize.assertTitleContains('Rize')
    * ```
    */
-  assertTitleContains (title: string) {
+  assertTitleContains(title: string) {
     return this
   }
 
@@ -896,7 +896,7 @@ class Rize
    * rize.assertTitleMatch(/Rize$/)
    * ```
    */
-  assertTitleMatch (regex: RegExp | string) {
+  assertTitleMatch(regex: RegExp | string) {
     return this
   }
 
@@ -922,7 +922,7 @@ class Rize
    * rize.assertQueryStringHas('key', 'value')
    * ```
    */
-  assertQueryStringHas (key: string, value?: string) {
+  assertQueryStringHas(key: string, value?: string) {
     return this
   }
 
@@ -943,7 +943,7 @@ class Rize
    * rize.assertQueryStringMissing('nope')
    * ```
    */
-  assertQueryStringMissing (key: string) {
+  assertQueryStringMissing(key: string) {
     return this
   }
 
@@ -967,7 +967,7 @@ class Rize
    * rize.assertCookieHas('name', 'value')
    * ```
    */
-  assertCookieHas (name: string, value?: string) {
+  assertCookieHas(name: string, value?: string) {
     return this
   }
 
@@ -988,7 +988,7 @@ class Rize
    * rize.assertSee('some text in HTML.')
    * ```
    */
-  assertSee (text: string) {
+  assertSee(text: string) {
     return this
   }
 
@@ -1007,7 +1007,7 @@ class Rize
    * rize.assertDontSee('Nothing in HTML.')
    * ```
    */
-  assertDontSee (text: string) {
+  assertDontSee(text: string) {
     return this
   }
 
@@ -1032,7 +1032,7 @@ class Rize
    * rize.assertSeeIn('.my-class', 'some text in HTML')
    * ```
    */
-  assertSeeIn (selector: string, text: string) {
+  assertSeeIn(selector: string, text: string) {
     return this
   }
 
@@ -1057,7 +1057,7 @@ class Rize
    * rize.assertDontSeeIn('.my-class', 'nothing')
    * ```
    */
-  assertDontSeeIn (selector: string, text: string) {
+  assertDontSeeIn(selector: string, text: string) {
     return this
   }
 
@@ -1084,7 +1084,7 @@ class Rize
    * rize.assertAttribute('div', 'class', 'rabbit-house')
    * ```
    */
-  assertAttribute (selector: string, attribute: string, value: string) {
+  assertAttribute(selector: string, attribute: string, value: string) {
     return this
   }
 
@@ -1109,7 +1109,7 @@ class Rize
    * rize.assertClassHas('div', 'rabbit-house')
    * ```
    */
-  assertClassHas (selector: string, className: string) {
+  assertClassHas(selector: string, className: string) {
     return this
   }
 
@@ -1134,7 +1134,7 @@ class Rize
    * rize.assertClassMissing('div', 'rabbit')
    * ```
    */
-  assertClassMissing (selector: string, className: string) {
+  assertClassMissing(selector: string, className: string) {
     return this
   }
 
@@ -1160,7 +1160,7 @@ class Rize
    * rize.assertStyleHas('div', 'font-size', '5px')
    * ```
    */
-  assertStyleHas (selector: string, property: string, value: string) {
+  assertStyleHas(selector: string, property: string, value: string) {
     return this
   }
 
@@ -1185,7 +1185,7 @@ class Rize
    * rize.assertValueIs('input', 'val')
    * ```
    */
-  assertValueIs (selector: string, value: string) {
+  assertValueIs(selector: string, value: string) {
     return this
   }
 
@@ -1210,7 +1210,7 @@ class Rize
    * rize.assertValueIsNot('input', 'value')
    * ```
    */
-  assertValueIsNot (selector: string, value: string) {
+  assertValueIsNot(selector: string, value: string) {
     return this
   }
 
@@ -1235,7 +1235,7 @@ class Rize
    * rize.assertValueContains('input', 'val')
    * ```
    */
-  assertValueContains (selector: string, value: string) {
+  assertValueContains(selector: string, value: string) {
     return this
   }
 
@@ -1259,7 +1259,7 @@ class Rize
    * rize.assertChecked('input')
    * ```
    */
-  assertChecked (selector: string) {
+  assertChecked(selector: string) {
     return this
   }
 
@@ -1283,7 +1283,7 @@ class Rize
    * rize.assertNotChecked('input')
    * ```
    */
-  assertNotChecked (selector: string) {
+  assertNotChecked(selector: string) {
     return this
   }
 
@@ -1309,7 +1309,7 @@ class Rize
    * rize.assertRadioSelected('input', 'rize')
    * ```
    */
-  assertRadioSelected (selector: string, value: string) {
+  assertRadioSelected(selector: string, value: string) {
     return this
   }
 
@@ -1335,7 +1335,7 @@ class Rize
    * rize.assertRadioNotSelected('input', 'chino')
    * ```
    */
-  assertRadioNotSelected (selector: string, value: string) {
+  assertRadioNotSelected(selector: string, value: string) {
     return this
   }
 
@@ -1366,7 +1366,7 @@ class Rize
    * rize.assertSelected('select', 'rize')
    * ```
    */
-  assertSelected (selector: string, value: string) {
+  assertSelected(selector: string, value: string) {
     return this
   }
 
@@ -1397,7 +1397,7 @@ class Rize
    * rize.assertNotSelected('select', 'chino')
    * ```
    */
-  assertNotSelected (selector: string, value: string) {
+  assertNotSelected(selector: string, value: string) {
     return this
   }
 
@@ -1416,7 +1416,7 @@ class Rize
    * rize.assertElementVisible('div')
    * ```
    */
-  assertElementVisible (selector: string) {
+  assertElementVisible(selector: string) {
     return this
   }
 
@@ -1435,7 +1435,7 @@ class Rize
    * rize.assertElementHidden('div')
    * ```
    */
-  assertElementHidden (selector: string) {
+  assertElementHidden(selector: string) {
     return this
   }
 
@@ -1454,7 +1454,7 @@ class Rize
    * rize.assertElementPresent('div')
    * ```
    */
-  assertElementPresent (selector: string) {
+  assertElementPresent(selector: string) {
     return this
   }
 
@@ -1473,7 +1473,7 @@ class Rize
    * rize.assertElementMissing('.nope')
    * ```
    */
-  assertElementMissing (selector: string) {
+  assertElementMissing(selector: string) {
     return this
   }
 
@@ -1496,7 +1496,7 @@ class Rize
    * rize.click('button')
    * ```
    */
-  click (selector: string) {
+  click(selector: string) {
     return this
   }
 
@@ -1515,7 +1515,7 @@ class Rize
    * rize.doubleClick('button')
    * ```
    */
-  doubleClick (selector: string) {
+  doubleClick(selector: string) {
     return this
   }
 
@@ -1534,7 +1534,7 @@ class Rize
    * rize.rightClick('body')
    * ```
    */
-  rightClick (selector: string) {
+  rightClick(selector: string) {
     return this
   }
 
@@ -1553,7 +1553,7 @@ class Rize
    * rize.clickLink('click me')
    * ```
    */
-  clickLink (text: string) {
+  clickLink(text: string) {
     return this
   }
 
@@ -1572,7 +1572,7 @@ class Rize
    * rize.hover('a')
    * ```
    */
-  hover (selector: string) {
+  hover(selector: string) {
     return this
   }
 
@@ -1595,7 +1595,7 @@ class Rize
    * rize.type('input', 'text')
    * ```
    */
-  type (selector: string, text: string) {
+  type(selector: string, text: string) {
     return this
   }
 
@@ -1615,7 +1615,7 @@ class Rize
    * rize.sendChar('呵')
    * ```
    */
-  sendChar (char: string) {
+  sendChar(char: string) {
     return this
   }
 
@@ -1635,7 +1635,7 @@ class Rize
    * rize.clear('textarea')
    * ```
    */
-  clear (selector: string) {
+  clear(selector: string) {
     return this
   }
 
@@ -1654,7 +1654,7 @@ class Rize
    * rize.focus('a')
    * ```
    */
-  focus (selector: string) {
+  focus(selector: string) {
     return this
   }
 
@@ -1673,7 +1673,7 @@ class Rize
    * rize.blur('a')
    * ```
    */
-  blur (selector: string) {
+  blur(selector: string) {
     return this
   }
 
@@ -1709,7 +1709,7 @@ class Rize
    * rize.select('#multiple', ['chino', 'rize'])  // Multiple choices
    * ```
    */
-  select (selector: string, values: string | string[]) {
+  select(selector: string, values: string | string[]) {
     return this
   }
 
@@ -1728,7 +1728,7 @@ class Rize
    * rize.check('input[type="checkbox"]')
    * ```
    */
-  check (selector: string) {
+  check(selector: string) {
     return this
   }
 
@@ -1747,7 +1747,7 @@ class Rize
    * rize.uncheck('input[type="checkbox"]')
    * ```
    */
-  uncheck (selector: string) {
+  uncheck(selector: string) {
     return this
   }
 
@@ -1767,7 +1767,7 @@ class Rize
    * rize.radio('input[name="who"]', 'you')
    * ```
    */
-  radio (selector: string, value: string) {
+  radio(selector: string, value: string) {
     return this
   }
 
@@ -1792,7 +1792,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  press (key: string, selector?: string) {
+  press(key: string, selector?: string) {
     return this
   }
 
@@ -1815,7 +1815,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  keyDown (key: string) {
+  keyDown(key: string) {
     return this
   }
 
@@ -1838,7 +1838,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  keyUp (key: string) {
+  keyUp(key: string) {
     return this
   }
 
@@ -1858,7 +1858,7 @@ class Rize
    * rize.mouseMoveTo(1, 1)
    * ```
    */
-  mouseMoveTo (x: number, y: number) {
+  mouseMoveTo(x: number, y: number) {
     return this
   }
 
@@ -1886,7 +1886,7 @@ class Rize
    * ```
    */
   /* tslint:enable max-line-length */
-  mouseClick (x: number, y: number, options?: puppeteer.MousePressOptions) {
+  mouseClick(x: number, y: number, options?: puppeteer.MousePressOptions) {
     return this
   }
 
@@ -1910,7 +1910,7 @@ class Rize
    * rize.mouseDown('right', 2)
    * ```
    */
-  mouseDown (button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
+  mouseDown(button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
     return this
   }
 
@@ -1934,7 +1934,7 @@ class Rize
    * rize.mouseUp('right', 2)
    * ```
    */
-  mouseUp (button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
+  mouseUp(button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
     return this
   }
 
@@ -1954,7 +1954,7 @@ class Rize
    * rize.uploadFile('input[type="file"]', '/path/to/file')
    * ```
    */
-  uploadFile (selector: string, path: string) {
+  uploadFile(selector: string, path: string) {
     return this
   }
 
@@ -1974,7 +1974,7 @@ class Rize
    * rize.addClass('div', 'class-you-want-to-add')
    * ```
    */
-  addClass (selector: string, className: string) {
+  addClass(selector: string, className: string) {
     return this
   }
 
@@ -1994,7 +1994,7 @@ class Rize
    * rize.removeClass('div', 'class-already-existed')
    * ```
    */
-  removeClass (selector: string, className: string) {
+  removeClass(selector: string, className: string) {
     return this
   }
 
@@ -2016,7 +2016,7 @@ class Rize
    * rize.toggleClass('div', 'class-name')
    * ```
    */
-  toggleClass (selector: string, className: string) {
+  toggleClass(selector: string, className: string) {
     return this
   }
 
@@ -2035,7 +2035,7 @@ class Rize
    * rize.setCookie({ name: 'name', value: 'value' })
    * ```
    */
-  setCookie (...cookies: puppeteer.SetCookie[]) {
+  setCookie(...cookies: puppeteer.SetCookie[]) {
     return this
   }
 
@@ -2054,7 +2054,7 @@ class Rize
    * rize.deleteCookie({ name: 'name' })
    * ```
    */
-  deleteCookie (...cookies: puppeteer.DeleteCookie[]) {
+  deleteCookie(...cookies: puppeteer.DeleteCookie[]) {
     return this
   }
 
@@ -2077,7 +2077,7 @@ class Rize
    * })()
    * ```
    */
-  title () {
+  title() {
     return Promise.resolve('')
   }
 
@@ -2099,7 +2099,7 @@ class Rize
    * })()
    * ```
    */
-  text (selector = 'body') {
+  text(selector = 'body') {
     return Promise.resolve('')
   }
 
@@ -2123,7 +2123,7 @@ class Rize
    * })()
    * ```
    */
-  html (selector = 'html', range: 'inner' | 'outer' = 'inner') {
+  html(selector = 'html', range: 'inner' | 'outer' = 'inner') {
     return Promise.resolve('')
   }
 
@@ -2146,7 +2146,7 @@ class Rize
    * })()
    * ```
    */
-  attribute (selector: string, attribute: string): Promise<string | null> {
+  attribute(selector: string, attribute: string): Promise<string | null> {
     return Promise.resolve('')
   }
 
@@ -2168,7 +2168,7 @@ class Rize
    * })()
    * ```
    */
-  style (selector: string, property: string) {
+  style(selector: string, property: string) {
     return Promise.resolve('')
   }
 
@@ -2189,7 +2189,7 @@ class Rize
    * })()
    * ```
    */
-  value (selector: string): Promise<string | null>
+  value(selector: string): Promise<string | null>
 
   /**
    * Set a value of an `<input>` element.
@@ -2207,9 +2207,9 @@ class Rize
    * rize.value('input', 'new-value')
    * ```
    */
-  value (selector: string, newValue: string): this
+  value(selector: string, newValue: string): this
 
-  value (selector: string, newValue?: string): Promise<string | null> | this {
+  value(selector: string, newValue?: string): Promise<string | null> | this {
     return Promise.resolve('')
   }
 
@@ -2231,7 +2231,7 @@ class Rize
    * })()
    * ```
    */
-  hasClass (selector: string, className: string) {
+  hasClass(selector: string, className: string) {
     return Promise.resolve(false)
   }
 
@@ -2250,7 +2250,7 @@ class Rize
    * })()
    * ```
    */
-  url () {
+  url() {
     return Promise.resolve('')
   }
 
@@ -2271,7 +2271,7 @@ class Rize
    * })()
    * ```
    */
-  queryString (key: string): Promise<string | string[] | undefined> {
+  queryString(key: string): Promise<string | string[] | undefined> {
     return Promise.resolve('')
   }
 
@@ -2290,7 +2290,7 @@ class Rize
    * })()
    * ```
    */
-  cookie () {
+  cookie() {
     return Promise.resolve({} as puppeteer.Cookie)
   }
 
@@ -2309,7 +2309,7 @@ class Rize
    * })()
    * ```
    */
-  cookies () {
+  cookies() {
     return Promise.resolve([] as puppeteer.Cookie[])
   }
 
@@ -2330,7 +2330,7 @@ class Rize
    * })()
    * ```
    */
-  isVisible (selector: string) {
+  isVisible(selector: string) {
     return Promise.resolve(false)
   }
 
@@ -2351,7 +2351,7 @@ class Rize
    * })()
    * ```
    */
-  isPresent (selector: string) {
+  isPresent(selector: string) {
     return Promise.resolve(false)
   }
 
@@ -2379,7 +2379,7 @@ class Rize
    * })()
    * ```
    */
-  find <T> (
+  find <T>(
     selector: string,
     fn: (selector: string) => T
   ): T
@@ -2409,7 +2409,7 @@ class Rize
    * })()
    * ```
    */
-  find <T, U1> (
+  find <T, U1>(
     selector: string,
     fn: (selector: string, arg1: U1) => T,
     arg1: U1
@@ -2434,14 +2434,14 @@ class Rize
    * rize.find('div#message', rize.assertAttribute, 'id', 'message')
    * ```
    */
-  find <T, U1, U2> (
+  find <T, U1, U2>(
     selector: string,
     fn: (selector: string, arg1: U1, arg2: U2) => T,
     arg1: U1,
     arg2: U2
   ): T
 
-  find <T> (
+  find <T>(
     selector: string,
     fn: (selector: string, ...args) => T,
     ...args
@@ -2474,7 +2474,7 @@ class Rize
    * })()
    * ```
    */
-  findAll <T> (
+  findAll <T>(
     selector: string,
     index: number,
     fn: (selector: string) => T
@@ -2506,7 +2506,7 @@ class Rize
    * })()
    * ```
    */
-  findAll <T, U1> (
+  findAll <T, U1>(
     selector: string,
     index: number,
     fn: (selector: string, arg1: U1) => T,
@@ -2533,7 +2533,7 @@ class Rize
    * rize.findAll('div', 2, rize.assertAttribute, 'id', 'message')
    * ```
    */
-  findAll <T, U1, U2> (
+  findAll <T, U1, U2>(
     selector: string,
     index: number,
     fn: (selector: string, arg1: U1, arg2: U2) => T,
@@ -2541,7 +2541,7 @@ class Rize
     arg2: U2
   ): T
 
-  findAll <T> (
+  findAll <T>(
     selector: string,
     index: number,
     fn: (selector: string, ...args) => T,
@@ -2575,7 +2575,7 @@ class Rize
    * })()
    * ```
    */
-  findByXPath <T> (
+  findByXPath <T>(
     expression: string,
     index: number,
     fn: (selector: string) => T
@@ -2612,7 +2612,7 @@ class Rize
    * })()
    * ```
    */
-  findByXPath <T, U1> (
+  findByXPath <T, U1>(
     expression: string,
     index: number,
     fn: (selector: string, arg1: U1) => T,
@@ -2645,7 +2645,7 @@ class Rize
    * )
    * ```
    */
-  findByXPath <T, U1, U2> (
+  findByXPath <T, U1, U2>(
     expression: string,
     index: number,
     fn: (selector: string, arg1: U1, arg2: U2) => T,
@@ -2653,7 +2653,7 @@ class Rize
     arg2: U2
   ): T
 
-  findByXPath <T> (
+  findByXPath <T>(
     expression: string,
     index: number,
     fn: (selector: string, ...args) => T,
@@ -2689,7 +2689,7 @@ class Rize
    * })()
    * ```
    */
-  findWithText <T> (
+  findWithText <T>(
     selector: string,
     text: string,
     index: number,
@@ -2730,7 +2730,7 @@ class Rize
    * })()
    * ```
    */
-  findWithText <T, U1> (
+  findWithText <T, U1>(
     selector: string,
     text: string,
     index: number,
@@ -2767,7 +2767,7 @@ class Rize
    * )
    * ```
    */
-  findWithText <T, U1, U2> (
+  findWithText <T, U1, U2>(
     selector: string,
     text: string,
     index: number,
@@ -2776,7 +2776,7 @@ class Rize
     arg2: U2
   ): T
 
-  findWithText <T> (
+  findWithText <T>(
     selector: string,
     text: string,
     index: number,
@@ -2801,7 +2801,7 @@ class Rize
    * })()
    * ```
    */
-  viewport () {
+  viewport() {
     return Promise.resolve({} as puppeteer.Viewport)
   }
 
@@ -2839,7 +2839,7 @@ namespace Rize {
      * })
      * ```
      */
-    beforeLaunch? (): void
+    beforeLaunch?(): void
 
     /**
      * A lifecycle hook which you can do something after the browser launched.
@@ -2860,7 +2860,7 @@ namespace Rize {
      * })
      * ```
      */
-    afterLaunched? (this: Rize): void
+    afterLaunched?(this: Rize): void
 
     /**
      * A lifecycle hook which you can do something before each step.
@@ -2881,7 +2881,7 @@ namespace Rize {
      * })
      * ```
      */
-    beforeEachStep? (this: Rize): void
+    beforeEachStep?(this: Rize): void
 
     /**
      * A lifecycle hook which you can do something after each step.
@@ -2902,7 +2902,7 @@ namespace Rize {
      * })
      * ```
      */
-    afterEachStep? (this: Rize): void
+    afterEachStep?(this: Rize): void
 
     /**
      * A lifecycle hook which you can do something before the browser exit.
@@ -2923,7 +2923,7 @@ namespace Rize {
      * })
      * ```
      */
-    beforeExit? (this: Rize): void
+    beforeExit?(this: Rize): void
 
     /**
      * Width of viewport.

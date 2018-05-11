@@ -3,13 +3,13 @@ import Infrastructure from './infrastructure'
 import { prepareStackTrace } from './utils/error'
 
 export default class Basic extends Infrastructure {
-  sleep (ms: number) {
+  sleep(ms: number) {
     this.push(async () => await this.page.waitFor(ms), prepareStackTrace())
 
     return this
   }
 
-  execute (
+  execute(
     fn: (
       this: Infrastructure,
       browser: puppeteer.Browser,
@@ -22,11 +22,11 @@ export default class Basic extends Infrastructure {
     return this
   }
 
-  end (): Promise<void>
+  end(): Promise<void>
 
-  end (callback: (...args) => any): void
+  end(callback: (...args) => any): void
 
-  end (callback?: (...args) => any): Promise<void> | void {
+  end(callback?: (...args) => any): Promise<void> | void {
     this.push(this.hooks.beforeExit.bind(this))
 
     if (callback) {
@@ -50,7 +50,7 @@ export default class Basic extends Infrastructure {
     }
   }
 
-  awaitPromise () {
+  awaitPromise() {
     return new Promise<void>(fulfill => this.push(fulfill))
   }
 }

@@ -3,13 +3,13 @@ import Infrastructure from './infrastructure'
 import { prepareStackTrace } from './utils/error'
 
 export default class Actions extends Infrastructure {
-  click (selector: string) {
+  click(selector: string) {
     this.push(async () => await this.page.click(selector), prepareStackTrace())
 
     return this
   }
 
-  doubleClick (selector: string) {
+  doubleClick(selector: string) {
     this.push(
       async () => await this.page.click(selector, { clickCount: 2 }),
       prepareStackTrace()
@@ -18,7 +18,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  rightClick (selector: string) {
+  rightClick(selector: string) {
     this.push(
       async () => await this.page.click(selector, { button: 'right' }),
       prepareStackTrace()
@@ -27,7 +27,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  clickLink (text: string) {
+  clickLink(text: string) {
     this.push(async () => {
       await this.page.evaluate(
         /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -49,13 +49,13 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  hover (selector: string) {
+  hover(selector: string) {
     this.push(async () => await this.page.hover(selector), prepareStackTrace())
 
     return this
   }
 
-  type (selector: string, text: string) {
+  type(selector: string, text: string) {
     this.push(
       async () => await this.page.type(selector, text),
       prepareStackTrace()
@@ -64,7 +64,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  sendChar (char: string) {
+  sendChar(char: string) {
     this.push(
       async () => await this.page.keyboard.sendCharacter(char),
       prepareStackTrace()
@@ -73,7 +73,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  clear (selector: string) {
+  clear(selector: string) {
     this.push(async () => {
       await this.page.$eval(
         selector,
@@ -94,13 +94,13 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  focus (selector: string) {
+  focus(selector: string) {
     this.push(async () => await this.page.focus(selector), prepareStackTrace())
 
     return this
   }
 
-  blur (selector: string) {
+  blur(selector: string) {
     this.push(async () => await this.page.$eval(
       selector,
       /* istanbul ignore next, instrumenting cannot be executed in browser */
@@ -110,7 +110,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  select (selector: string, values: string | string[]) {
+  select(selector: string, values: string | string[]) {
     this.push(async () => {
       if (Array.isArray(values)) {
         await this.page.select(selector, ...values)
@@ -122,7 +122,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  check (selector: string) {
+  check(selector: string) {
     this.push(async () => {
       await this.page.$eval(
         selector,
@@ -134,7 +134,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  uncheck (selector: string) {
+  uncheck(selector: string) {
     this.push(async () => {
       await this.page.$eval(
         selector,
@@ -146,7 +146,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  radio (selector: string, value: string) {
+  radio(selector: string, value: string) {
     this.push(async () => {
       await this.page.$eval(
         `${selector}[value="${value}"]`,
@@ -158,7 +158,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  press (key: string, selector?: string) {
+  press(key: string, selector?: string) {
     this.push(async () => {
       if (selector) {
         const element = await this.page.$(selector)
@@ -178,7 +178,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  keyDown (key: string) {
+  keyDown(key: string) {
     this.push(
       async () => await this.page.keyboard.down(key),
       prepareStackTrace()
@@ -187,19 +187,19 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  keyUp (key: string) {
+  keyUp(key: string) {
     this.push(async () => await this.page.keyboard.up(key), prepareStackTrace())
 
     return this
   }
 
-  mouseMoveTo (x: number, y: number) {
+  mouseMoveTo(x: number, y: number) {
     this.push(async () => await this.page.mouse.move(x, y), prepareStackTrace())
 
     return this
   }
 
-  mouseClick (x: number, y: number, options?: puppeteer.MousePressOptions) {
+  mouseClick(x: number, y: number, options?: puppeteer.MousePressOptions) {
     this.push(
       async () => await this.page.mouse.click(x, y, options),
       prepareStackTrace()
@@ -208,7 +208,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  mouseDown (button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
+  mouseDown(button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
     this.push(
       async () => await this.page.mouse.down({ button, clickCount }),
       prepareStackTrace()
@@ -217,7 +217,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  mouseUp (button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
+  mouseUp(button: puppeteer.MouseButtons = 'left', clickCount: number = 1) {
     this.push(
       async () => await this.page.mouse.up({ button, clickCount }),
       prepareStackTrace()
@@ -226,7 +226,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  uploadFile (selector: string, path: string) {
+  uploadFile(selector: string, path: string) {
     this.push(
       async () => {
         const element = await this.page.$(selector)
@@ -245,7 +245,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  addClass (selector: string, className: string) {
+  addClass(selector: string, className: string) {
     this.push(async () => {
       await this.page.$eval(
         selector,
@@ -258,7 +258,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  removeClass (selector: string, className: string) {
+  removeClass(selector: string, className: string) {
     this.push(async () => {
       await this.page.$eval(
         selector,
@@ -271,7 +271,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  toggleClass (selector: string, className: string) {
+  toggleClass(selector: string, className: string) {
     this.push(async () => {
       await this.page.$eval(
         selector,
@@ -284,7 +284,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  setCookie (...cookies: puppeteer.SetCookie[]) {
+  setCookie(...cookies: puppeteer.SetCookie[]) {
     this.push(
       async () => await this.page.setCookie(...cookies),
       prepareStackTrace()
@@ -293,7 +293,7 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  deleteCookie (...cookies: puppeteer.DeleteCookie[]) {
+  deleteCookie(...cookies: puppeteer.DeleteCookie[]) {
     this.push(
       async () => await this.page.deleteCookie(...cookies),
       prepareStackTrace()

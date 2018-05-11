@@ -15,8 +15,8 @@ test('set viewport', async () => {
   await instance
     .execute((browser, page) => {
       expect(page.viewport()).toEqual(expect.objectContaining({
-         width: 1920,
-         height: 1080
+        width: 1920,
+        height: 1080
       }))
     })
     .end()
