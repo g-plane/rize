@@ -38,7 +38,7 @@
     "test:e2e": "jest --config tests/e2e/jest.config.json",
     "coverage": "jest --coverage",
     "lint": "tslint -p . && tslint -p ./tests",
-    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
     "commit": "git-cz"
   },
   "engines": {
