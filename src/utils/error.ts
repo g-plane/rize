@@ -21,10 +21,8 @@ export function beautifyStack (fake: Error, real: Error) {
   return real
 }
 
-export function throwAssertionError (error: Error) {
-  if (error instanceof AssertionError) {
-    throw error
-  }
+export function throwError (error: Error) {
+  throw error
 }
 
-process.on('unhandledRejection', throwAssertionError)
+process.on('unhandledRejection', throwError)

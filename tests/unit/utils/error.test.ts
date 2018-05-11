@@ -16,10 +16,6 @@ test('beautify error stack', () => {
 
 test('throw assertion error', () => {
   expect(() => {
-    error.throwAssertionError(new AssertionError({}))
-  }).toThrow(AssertionError)
-
-  expect(() => {
-    error.throwAssertionError(new Error())
-  }).not.toThrow()
+    error.throwError(new Error())
+  }).toThrow()
 })
