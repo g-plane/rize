@@ -1,3 +1,4 @@
+import { AssertionError } from 'assert'
 import * as error from 'rize/utils/error'
 
 test('beautify error stack', () => {
@@ -15,6 +16,18 @@ test('beautify error stack', () => {
 
 test('throw assertion error', () => {
   expect(() => {
-    error.throwError(new Error())
+    const e = new Error()
+    e.stack = e.stack!.replace(/rize/g, '')
+    error.throwError(e)
+  }).not.toThrow()
+
+  expect(() => {
+    error.throwError(new AssertionError())
+  }).toThrow()
+
+  expect(() => {
+    const e = new Error()
+    e.stack = 'from rize'
+    error.throwError(e)
   }).toThrow()
 })

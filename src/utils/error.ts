@@ -22,7 +22,13 @@ export function beautifyStack(fake: Error, real: Error) {
 }
 
 export function throwError(error: Error) {
-  throw error
+  /* istanbul ignore if, but it's actually tested */
+  if (error instanceof AssertionError) {
+    throw error
+  }
+  if (error.stack && error.stack.includes('rize')) {
+    throw error
+  }
 }
 
 process.on('unhandledRejection', throwError)
