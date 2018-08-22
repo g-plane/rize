@@ -24,28 +24,6 @@ jobs:
           paths:
             - .
 
-  test_on_node6:
-    <<: *defaults
-    docker:
-      - image: circleci/node:6-browsers
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Test
-          command: yarn test
-
-  test_on_node7:
-    <<: *defaults
-    docker:
-      - image: circleci/node:7-browsers
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Test
-          command: yarn test
-
   test_on_node8:
     <<: *defaults
     docker:
@@ -61,10 +39,10 @@ jobs:
           paths:
             - .
 
-  test_on_node9:
+  test_on_node10:
     <<: *defaults
     docker:
-      - image: circleci/node:9-browsers
+      - image: circleci/node:10-browsers
     steps:
       - attach_workspace:
           at: ~/repo
@@ -75,7 +53,7 @@ jobs:
   test_e2e:
     <<: *defaults
     docker:
-      - image: circleci/node:9-browsers
+      - image: circleci/node:10-browsers
     steps:
       - attach_workspace:
           at: ~/repo
@@ -86,7 +64,7 @@ jobs:
   lint:
     <<: *defaults
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -98,7 +76,7 @@ jobs:
   coverage:
     <<: *defaults
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -108,7 +86,7 @@ jobs:
   docs:
     <<: *defaults
     docker:
-      - image: circleci/node:9
+      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - add_ssh_keys:
@@ -141,7 +119,7 @@ jobs:
             cd gh-pages
             git add .
             git commit --allow-empty -m "Build docs at $CIRCLE_SHA1 [skip ci]"
-            if [ $CIRCLE_PULL_REQUEST ]; then  
+            if [ $CIRCLE_PULL_REQUEST ]; then
               echo "\u001B[43m\u001B[30mThis is a pull request. Skip publishing docs.\u001B[39m\u001B[49m"
             else
               git push origin gh-pages
@@ -156,16 +134,10 @@ workflows:
             branches:
               ignore:
                 - gh-pages
-      - test_on_node6:
-          requires:
-            - install
-      - test_on_node7:
-          requires:
-            - install
       - test_on_node8:
           requires:
             - install
-      - test_on_node9:
+      - test_on_node10:
           requires:
             - install
       - test_e2e:
