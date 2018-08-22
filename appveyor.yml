@@ -1,7 +1,6 @@
 environment:
   matrix:
     - node_version: "8"
-    - node_version: "10"
 
 install:
   - ps: Install-Product node $env:node_version
