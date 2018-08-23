@@ -2359,69 +2359,8 @@ class Rize
    * Find an element by CSS selector and execute an operation.
    *
    * @param selector CSS selector.
-   * @param fn One of available `Rize` APIs.
-   * @returns Return value of the operation.
-   *
-   * @since 0.1.0
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.find('button#greeting', rize.click)
-   *
-   * // or
-   *
-   * ;(async () => {
-   *   const rize = new Rize()
-   *   const text = await rize.find('span#greeting', rize.text)
-   * })()
-   * ```
-   */
-  find <T>(
-    selector: string,
-    fn: (selector: string) => T
-  ): T
-
-  /**
-   * Find an element by CSS selector and execute an operation.
-   *
-   * @param selector CSS selector.
-   * @param fn One of available `Rize` APIs.
-   * @param arg1 The first argument of the operation.
-   * @returns Return value of the operation.
-   *
-   * @since 0.1.0
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.find('input#name', rize.type, 'my-name')
-   *
-   * // or
-   *
-   * ;(async () => {
-   *   const rize = new Rize()
-   *   const font = await rize.find('span#greeting', rize.style, 'font-size')
-   * })()
-   * ```
-   */
-  find <T, U1>(
-    selector: string,
-    fn: (selector: string, arg1: U1) => T,
-    arg1: U1
-  ): T
-
-  /**
-   * Find an element by CSS selector and execute an operation.
-   *
-   * @param selector CSS selector.
-   * @param fn One of available `Rize` APIs.
-   * @param arg1 The first argument of the operation.
-   * @param arg2 The second argument of the operation.
+   * @param fn One of available `Rize` APIs or your custom function.
+   * @param args Arguments of the previous function you gave.
    * @returns Return value of the operation.
    *
    * @since 0.1.0
@@ -2434,93 +2373,22 @@ class Rize
    * rize.find('div#message', rize.assertAttribute, 'id', 'message')
    * ```
    */
-  find <T, U1, U2>(
+  find <T, U extends any[]>(
     selector: string,
-    fn: (selector: string, arg1: U1, arg2: U2) => T,
-    arg1: U1,
-    arg2: U2
-  ): T
-
-  find <T>(
-    selector: string,
-    fn: (selector: string, ...args) => T,
-    ...args
+    fn: (selector: string, ...args: U) => T,
+    ...args: U
   ): T {
     return fn('')
   }
 
-  /**
-   * Find all elements by CSS selector and pick one to execute an operation.
-   *
-   * @param selector CSS selector.
-   * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @returns Return value of the operation.
-   *
-   * @since 0.1.0
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.findAll('button', 2, rize.click)
-   *
-   * // or
-   *
-   * ;(async () => {
-   *   const rize = new Rize()
-   *   const text = await rize.findAll('span', 2, rize.text)
-   * })()
-   * ```
-   */
-  findAll <T>(
-    selector: string,
-    index: number,
-    fn: (selector: string) => T
-  ): T
 
   /**
    * Find all elements by CSS selector and pick one to execute an operation.
    *
    * @param selector CSS selector.
    * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @param arg1 The first argument of the operation.
-   * @returns Return value of the operation.
-   *
-   * @since 0.1.0
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.findAll('input', 1, rize.type, 'my-name')
-   *
-   * // or
-   *
-   * ;(async () => {
-   *   const rize = new Rize()
-   *   const font = await rize.findAll('span', 1, rize.style, 'font-size')
-   * })()
-   * ```
-   */
-  findAll <T, U1>(
-    selector: string,
-    index: number,
-    fn: (selector: string, arg1: U1) => T,
-    arg1: U1
-  ): T
-
-  /**
-   * Find all elements by CSS selector and pick one to execute an operation.
-   *
-   * @param selector CSS selector.
-   * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @param arg1 The first argument of the operation.
-   * @param arg2 The second argument of the operation.
+   * @param fn One of available `Rize` APIs or your custom function.
+   * @param args Arguments of the previous function you gave.
    * @returns Return value of the operation.
    *
    * @since 0.1.0
@@ -2533,100 +2401,23 @@ class Rize
    * rize.findAll('div', 2, rize.assertAttribute, 'id', 'message')
    * ```
    */
-  findAll <T, U1, U2>(
+  findAll <T, U extends any[]>(
     selector: string,
     index: number,
-    fn: (selector: string, arg1: U1, arg2: U2) => T,
-    arg1: U1,
-    arg2: U2
-  ): T
-
-  findAll <T>(
-    selector: string,
-    index: number,
-    fn: (selector: string, ...args) => T,
-    ...args
+    fn: (selector: string, ...args: U) => T,
+    ...args: U
   ): T {
     return fn('')
   }
 
-  /**
-   * Find all elements by XPath and pick one to execute an operation.
-   *
-   * @param expression XPath expression.
-   * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @returns Return value of the operation.
-   *
-   * @since 0.1.0
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.findByXPath('/html/body//div', 2, rize.click)
-   *
-   * // or
-   *
-   * ;(async () => {
-   *   const rize = new Rize()
-   *   const text = await rize.findByXPath('/html/body//span', 2, rize.text)
-   * })()
-   * ```
-   */
-  findByXPath <T>(
-    expression: string,
-    index: number,
-    fn: (selector: string) => T
-  ): T
 
   /**
    * Find all elements by XPath and pick one to execute an operation.
    *
    * @param expression XPath expression.
    * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @param arg1 The first argument of the operation.
-   * @returns Return value of the operation.
-   *
-   * @since 0.1.0
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.findByXPath('/html/body//input', 1, rize.type, 'my-name')
-   *
-   * // or
-   *
-   * ;(async () => {
-   *   const rize = new Rize()
-   *   const font = await rize.findByXPath(
-   *     '/html/body//span',
-   *     1,
-   *     rize.style,
-   *     'font-size'
-   *   )
-   * })()
-   * ```
-   */
-  findByXPath <T, U1>(
-    expression: string,
-    index: number,
-    fn: (selector: string, arg1: U1) => T,
-    arg1: U1
-  ): T
-
-  /**
-   * Find all elements by XPath and pick one to execute an operation.
-   *
-   * @param expression XPath expression.
-   * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @param arg1 The first argument of the operation.
-   * @param arg2 The second argument of the operation.
+   * @param fn One of available `Rize` APIs or your custom function.
+   * @param args Arguments of the previous function you gave.
    * @returns Return value of the operation.
    *
    * @since 0.1.0
@@ -2645,56 +2436,15 @@ class Rize
    * )
    * ```
    */
-  findByXPath <T, U1, U2>(
+  findByXPath <T, U extends any[]>(
     expression: string,
     index: number,
-    fn: (selector: string, arg1: U1, arg2: U2) => T,
-    arg1: U1,
-    arg2: U2
-  ): T
-
-  findByXPath <T>(
-    expression: string,
-    index: number,
-    fn: (selector: string, ...args) => T,
-    ...args
+    fn: (selector: string, ...args: U) => T,
+    ...args: U
   ): T {
     return fn('')
   }
 
-  /**
-   * Find all elements by the given selector and given text
-   * and pick one to execute an operation.
-   *
-   * @param selector CSS selector.
-   * @param text Expected text that should be in a element,
-   * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @returns Return value of the operation.
-   *
-   * @since 0.3.0
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.findWithText('button', 'some-text', 2, rize.click)
-   *
-   * // or
-   *
-   * ;(async () => {
-   *   const rize = new Rize()
-   *   const text = await rize.findWithText('span', 'some-text', 2, rize.text)
-   * })()
-   * ```
-   */
-  findWithText <T>(
-    selector: string,
-    text: string,
-    index: number,
-    fn: (selector: string) => T
-  ): T
 
   /**
    * Find all elements by the given selector and given text
@@ -2703,51 +2453,8 @@ class Rize
    * @param selector CSS selector.
    * @param text Expected text that should be in a element,
    * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @param arg1 The first argument of the operation.
-   * @returns Return value of the operation.
-   *
-   * @since 0.3.0
-   *
-   * @example
-   *
-   * ```javascript
-   *
-   * const rize = new Rize()
-   * rize.findWithText('input', 'some-text', 1, rize.type, 'my-name')
-   *
-   * // or
-   *
-   * ;(async () => {
-   *   const rize = new Rize()
-   *   const font = await rize.findWithText(
-   *     'span',
-   *     'some-text',
-   *     1,
-   *     rize.style,
-   *     'font-size'
-   *   )
-   * })()
-   * ```
-   */
-  findWithText <T, U1>(
-    selector: string,
-    text: string,
-    index: number,
-    fn: (selector: string, arg1: U1) => T,
-    arg1: U1
-  ): T
-
-  /**
-   * Find all elements by the given selector and given text
-   * and pick one to execute an operation.
-   *
-   * @param selector CSS selector.
-   * @param text Expected text that should be in a element,
-   * @param index Index of the array of result. It starts from 0.
-   * @param fn One of available `Rize` APIs.
-   * @param arg1 The first argument of the operation.
-   * @param arg2 The second argument of the operation.
+   * @param fn One of available `Rize` APIs or your custom function.
+   * @param args Arguments of the previous function you gave.
    * @returns Return value of the operation.
    *
    * @since 0.3.0
@@ -2767,21 +2474,12 @@ class Rize
    * )
    * ```
    */
-  findWithText <T, U1, U2>(
+  findWithText <T, U extends any[]>(
     selector: string,
     text: string,
     index: number,
-    fn: (selector: string, arg1: U1, arg2: U2) => T,
-    arg1: U1,
-    arg2: U2
-  ): T
-
-  findWithText <T>(
-    selector: string,
-    text: string,
-    index: number,
-    fn: (selector: string, ...args) => T,
-    ...args
+    fn: (selector: string, ...args: U) => T,
+    ...args: U
   ): T {
     return fn('')
   }

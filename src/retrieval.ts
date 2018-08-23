@@ -206,10 +206,10 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
-  find <T>(
+  find <T, U extends any[]>(
     selector: string,
-    fn: ((selector: string, ...args) => T),
-    ...args
+    fn: ((selector: string, ...args: U) => T),
+    ...args: U
   ): T {
     const random = crypto.randomBytes(10).toString('hex')
     this.push(async () => {
@@ -235,11 +235,11 @@ export default class Retrieval extends Infrastructure {
     return returnValue
   }
 
-  findAll <T>(
+  findAll <T, U extends any[]>(
     selector: string,
     index: number,
-    fn: ((selector: string, ...args) => T),
-    ...args
+    fn: ((selector: string, ...args: U) => T),
+    ...args: U
   ): T {
     const random = crypto.randomBytes(10).toString('hex')
     this.push(async () => {
@@ -269,11 +269,11 @@ export default class Retrieval extends Infrastructure {
     return returnValue
   }
 
-  findByXPath <T>(
+  findByXPath <T, U extends any[]>(
     expression: string,
     index: number,
-    fn: ((selector: string, ...args) => T),
-    ...args
+    fn: ((selector: string, ...args: U) => T),
+    ...args: U
   ): T {
     const random = crypto.randomBytes(10).toString('hex')
     this.push(async () => {
@@ -317,12 +317,12 @@ export default class Retrieval extends Infrastructure {
     return returnValue
   }
 
-  findWithText <T>(
+  findWithText <T, U extends any[]>(
     selector: string,
     text: string,
     index: number,
-    fn: ((selector: string, ...args) => T),
-    ...args
+    fn: ((selector: string, ...args: U) => T),
+    ...args: U
   ): T {
     const random = crypto.randomBytes(10).toString('hex')
     this.push(async () => {
