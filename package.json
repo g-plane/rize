@@ -33,7 +33,7 @@
     "build": "tsc -p .",
     "build:docs": "yarn docs:guide && yarn docs:api",
     "docs:api": "typedoc --excludeExternals --excludePrivate --excludeProtected --name \"Rize API Documentation\" --theme minimal --out ./docs/dist/api ./src/index.ts",
-    "docs:guide": "gitbook install docs && gitbook build docs docs/dist",
+    "docs:guide": "vuepress build docs",
     "test": "jest",
     "test:e2e": "jest --config tests/e2e/jest.config.json",
     "coverage": "jest --coverage",
@@ -98,7 +98,8 @@
     "ts-jest": "^23.1.4",
     "ts-node": "^5.0.1",
     "typedoc": "^0.11.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "vuepress": "^0.14.2"
   },
   "peerDependencies": {
     "puppeteer": "^1.2.0"

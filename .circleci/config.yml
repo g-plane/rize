@@ -109,13 +109,11 @@ jobs:
             cd ..
       - run:
           name: Generate docs
-          command: |
-            yarn add --dev gitbook-cli
-            yarn build:docs
+          command: yarn build:docs
       - run:
           name: Publish
           command: |
-            cp -r docs/dist/** gh-pages
+            cp -r docs/.vuepress/dist/** gh-pages
             cd gh-pages
             git add .
             git commit --allow-empty -m "Build docs at $CIRCLE_SHA1 [skip ci]"
