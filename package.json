@@ -97,7 +97,7 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^23.1.4",
     "ts-node": "^5.0.1",
-    "typedoc": "^0.11.0",
+    "typedoc": "^0.12.0",
     "typescript": "^3.0.1",
     "vuepress": "^0.14.2"
   },
