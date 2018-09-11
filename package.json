@@ -32,7 +32,6 @@
     "docs:api": "typedoc --excludeExternals --excludePrivate --excludeProtected --name \"Rize API Documentation\" --theme minimal --out ./docs/dist/api ./src/index.ts",
     "docs:guide": "vuepress build docs",
     "test": "jest",
-    "test:e2e": "jest --config tests/e2e/jest.config.json",
     "coverage": "jest --coverage",
     "lint": "tslint --formatters-dir ./node_modules/tslint-formatter-beauty -t beauty -p .",
     "prepublishOnly": "yarn build",
@@ -56,7 +55,7 @@
       "^rize/(.*)$": "<rootDir>/src/$1.ts"
     },
     "setupFiles": [
-      "<rootDir>/tests/unit/tools/setup.ts"
+      "<rootDir>/tests/tools/setup.ts"
     ],
     "testEnvironment": "node",
     "moduleFileExtensions": [
@@ -65,11 +64,10 @@
       "json",
       "node"
     ],
-    "testRegex": "(/tests/unit/.*|(\\.|/)(test|spec))\\.ts$",
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/tests/unit/tools",
-      "<rootDir>/tests/e2e/"
+      "<rootDir>/tests/tools"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
@@ -78,20 +76,16 @@
     ]
   },
   "devDependencies": {
-    "@types/execa": "^0.8.1",
     "@types/jest": "^22.2.0",
     "@types/puppeteer": "^1.2.0",
     "codecov": "^3.0.0",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.1.0",
-    "execa": "^0.9.0",
     "jest": "^23.5.0",
-    "mocha": "^5.0.4",
     "portfinder": "^1.0.13",
     "puppeteer": "^1.2.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.1.4",
-    "ts-node": "^5.0.1",
     "tslint": "^5.11.0",
     "tslint-config-gplane": "^3.1.0",
     "tslint-formatter-beauty": "^3.0.0",

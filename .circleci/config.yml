@@ -50,17 +50,6 @@ jobs:
           name: Test
           command: yarn test
 
-  test_e2e:
-    <<: *defaults
-    docker:
-      - image: circleci/node:10-browsers
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Test
-          command: yarn test:e2e
-
   lint:
     <<: *defaults
     docker:
@@ -136,9 +125,6 @@ workflows:
           requires:
             - install
       - test_on_node10:
-          requires:
-            - install
-      - test_e2e:
           requires:
             - install
       - lint:

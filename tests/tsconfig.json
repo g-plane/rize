@@ -2,9 +2,5 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "noEmit": true
-  },
-  "include": [
-    "./unit",
-    "./e2e"
-  ]
+  }
 }
