@@ -1,13 +1,11 @@
 <h1 align="center">Rize</h1>
 
 <p align="center">
-  <a href="https://circleci.com/gh/g-plane/rize/"><img src="https://img.shields.io/circleci/project/github/g-plane/rize.svg?style=flat-square" alt="Circle CI Build Status"></a>
-  <a href="https://travis-ci.org/g-plane/rize"><img src="https://img.shields.io/travis/g-plane/rize.svg?style=flat-square" alt="Travis Build Status"></a>
-  <a href="https://ci.appveyor.com/project/g-plane/rize"><img src="https://img.shields.io/appveyor/ci/g-plane/rize.svg?style=flat-square&logo=appveyor" alt="AppVeyor Build Status"></a>
-  <a href="https://codecov.io/gh/g-plane/rize"><img src="https://img.shields.io/codecov/c/github/g-plane/rize.svg?style=flat-square" alt="Coverage"></a>
-  <a href="https://github.com/g-plane/rize/blob/master/LICENSE"><img src="https://img.shields.io/github/license/g-plane/rize.svg?style=flat-square" alt="License"></a>
-  <a href="https://www.npmjs.com/package/rize"><img src="https://img.shields.io/npm/v/rize.svg?style=flat-square" alt="NPM Version"></a>
-  <a href="https://www.npmjs.com/package/rize"><img src="https://img.shields.io/npm/dm/rize.svg?style=flat-square" alt="NPM Downloads"></a>
+  <a href="https://circleci.com/gh/g-plane/rize/"><img src="https://flat.badgen.net/circleci/github/g-plane/rize" alt="Circle CI Build Status"></a>
+  <a href="https://codecov.io/gh/g-plane/rize"><img src="https://flat.badgen.net/codecov/c/github/g-plane/rize" alt="Coverage"></a>
+  <a href="https://github.com/g-plane/rize/blob/master/LICENSE"><img src="https://flat.badgen.net/github/license/g-plane/rize" alt="License"></a>
+  <a href="https://www.npmjs.com/package/rize"><img src="https://flat.badgen.net/npm/v/rize" alt="NPM Version"></a>
+  <a href="https://www.npmjs.com/package/rize"><img src="https://flat.badgen.net/npm/dm/rize" alt="NPM Downloads"></a>
 </p>
 
 Rize is a high-level, fluent and chainable API provided library which let you use puppeteer simply.
@@ -92,7 +90,7 @@ rize
   .end()  // Don't forget to call `end` function to exit browser!
 ```
 
-All available APIs are listed [here](https://rize.js.org/api/classes/_index_.rize.html). 
+All available APIs are listed [here](https://rize.js.org/api/classes/_index_.rize.html).
 
 ## Documentation
 
