@@ -18,10 +18,10 @@ export default class Retrieval extends Infrastructure {
   }
 
   text(selector = 'body') {
-    return new Promise<string>((resolve, reject) => {
+    return new Promise<string | null>((resolve, reject) => {
       this.push(async () => {
         try {
-          const text: string = await this.page.$eval(
+          const text = await this.page.$eval(
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */

@@ -230,14 +230,14 @@ export default class Assertions extends Infrastructure {
 
   assertSeeIn(selector: string, text: string) {
     this.push(async () => {
-      const textContent: string = await this.page.$eval(
+      const textContent = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => element.textContent
       )
 
       assert.ok(
-        textContent.includes(text),
+        textContent && textContent.includes(text),
         `Expected text "${text}" cannot be found in element "${selector}".`
       )
     }, prepareStackTrace())
@@ -247,14 +247,14 @@ export default class Assertions extends Infrastructure {
 
   assertDontSeeIn(selector: string, text: string) {
     this.push(async () => {
-      const textContent: string = await this.page.$eval(
+      const textContent = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => element.textContent
       )
 
       assert.ok(
-        !textContent.includes(text),
+        textContent === null || !textContent.includes(text),
         `Unexpected text "${redify(text)}" was found in element "${selector}".`
       )
     }, prepareStackTrace())
@@ -499,7 +499,7 @@ export default class Assertions extends Infrastructure {
 
   assertElementVisible(selector: string) {
     this.push(async () => {
-      const display: string = await this.page.$eval(
+      const display = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLElement).style.display
@@ -517,7 +517,7 @@ export default class Assertions extends Infrastructure {
 
   assertElementHidden(selector: string) {
     this.push(async () => {
-      const display: string = await this.page.$eval(
+      const display = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLElement).style.display
