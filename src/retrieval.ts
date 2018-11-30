@@ -95,6 +95,21 @@ export default class Retrieval extends Infrastructure {
     })
   }
 
+  boxModel(selector: string) {
+    return new Promise<puppeteer.BoxModel | null>((resolve, reject) => {
+      this.push(async () => {
+        const element = await this.page.$(selector)
+        if (element) {
+          resolve(element.boxModel())
+        } else {
+          reject(new Error(
+            `Error: failed to find element matching selector "${selector}".`
+          ))
+        }
+      })
+    })
+  }
+
   value(selector: string): Promise<string | null>
 
   value(selector: string, newValue: string): this

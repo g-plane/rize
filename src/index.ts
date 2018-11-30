@@ -2283,6 +2283,27 @@ class Rize
   }
 
   /**
+   * Retrieve box model of an element.
+   *
+   * @param selector CSS selector.
+   *
+   * @since 0.9.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
+   *   const model = await rize.boxModel('div')
+   * })()
+   * ```
+   */
+  boxModel(selector: string) {
+    return Promise.resolve({} as puppeteer.BoxModel | null)
+  }
+
+  /**
    * Retrieve value of an `<input>` element.
    *
    * @param selector CSS selector.

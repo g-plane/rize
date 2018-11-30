@@ -85,6 +85,23 @@ test('retrieve style', async () => {
   await instance.end()
 })
 
+test('retrieve box model', async () => {
+  const port = await getPort()
+  const server = http.createServer((req, res) => res.end`
+    <html><body>
+      <div class="visible"></div>
+      <div class="invisible" style="display: none;"></div>
+    </body></html>
+  `).listen(port)
+  const instance = new Rize()
+  instance.goto(`http://localhost:${port}/`)
+  await expect(instance.boxModel('.visible')).resolves.not.toBeNull()
+  await expect(instance.boxModel('.invisible')).resolves.toBeNull()
+  await expect(instance.boxModel('.nope')).rejects.toThrowError()
+  server.close()
+  await instance.end()
+})
+
 test('retrieve value', async () => {
   expect.assertions(3)
   const port = await getPort()
