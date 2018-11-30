@@ -22,7 +22,7 @@ class Rize
       this.hooks[method] = options[method] || this.hooks[method]
     })
 
-    ;(async () => {
+    ; (async () => {
       this.hooks.beforeLaunch()
 
       if (process.env.TRAVIS && process.platform === 'linux') {
@@ -2757,7 +2757,7 @@ namespace Rize {
   }
 }
 
-void [
+[
   Actions,
   Assertions,
   Basic,
