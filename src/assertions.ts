@@ -264,7 +264,7 @@ export default class Assertions extends Infrastructure {
 
   assertAttribute(selector: string, attribute: string, value: string) {
     this.push(async () => {
-      const actual: string | null = await this.page.$eval(
+      const actual = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (element, attr: string) => element.getAttribute(attr),
@@ -284,7 +284,7 @@ export default class Assertions extends Infrastructure {
 
   assertClassHas(selector: string, className: string) {
     this.push(async () => {
-      const result: boolean = await this.page.$eval(
+      const result = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (element, name: string) => element.classList.contains(name),
@@ -320,7 +320,7 @@ export default class Assertions extends Infrastructure {
 
   assertStyleHas(selector: string, property: string, value: string) {
     this.push(async () => {
-      const actual: string = await this.page.$eval(
+      const actual = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         (element, prop: string) =>
@@ -342,7 +342,7 @@ export default class Assertions extends Infrastructure {
 
   assertValueIs(selector: string, value: string) {
     this.push(async () => {
-      const actual: string = await this.page.$eval(
+      const actual = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLInputElement).value
@@ -361,7 +361,7 @@ export default class Assertions extends Infrastructure {
 
   assertValueIsNot(selector: string, value: string) {
     this.push(async () => {
-      const actual: string = await this.page.$eval(
+      const actual = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLInputElement).value
@@ -380,7 +380,7 @@ export default class Assertions extends Infrastructure {
 
   assertValueContains(selector: string, value: string) {
     this.push(async () => {
-      const actual: string = await this.page.$eval(
+      const actual = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLInputElement).value
@@ -397,7 +397,7 @@ export default class Assertions extends Infrastructure {
 
   assertChecked(selector: string) {
     this.push(async () => {
-      const actual: boolean = await this.page.$eval(
+      const actual = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLInputElement).checked
@@ -411,7 +411,7 @@ export default class Assertions extends Infrastructure {
 
   assertNotChecked(selector: string) {
     this.push(async () => {
-      const actual: boolean = await this.page.$eval(
+      const actual = await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLInputElement).checked
@@ -425,7 +425,7 @@ export default class Assertions extends Infrastructure {
 
   assertRadioSelected(selector: string, value: string) {
     this.push(async () => {
-      const actual: boolean = await this.page.$eval(
+      const actual = await this.page.$eval(
         `${selector}[value=${value}]`,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLInputElement).checked
@@ -439,7 +439,7 @@ export default class Assertions extends Infrastructure {
 
   assertRadioNotSelected(selector: string, value: string) {
     this.push(async () => {
-      const actual: boolean = await this.page.$eval(
+      const actual = await this.page.$eval(
         `${selector}[value=${value}]`,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
         element => (element as HTMLInputElement).checked

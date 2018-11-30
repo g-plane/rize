@@ -176,7 +176,7 @@ test('evaluate a function', async () => {
   await instance
     .evaluate(text => document.write(`<div>${text}</div>`), 'rize')
     .execute(async (browser, page) => {
-      const text: string = await page.$eval(
+      const text = await page.$eval(
         'div',
         element => element.textContent
       )
@@ -192,7 +192,7 @@ test('evaluate a function', async () => {
       undefined   // Don't remove it. It is for test coverage.
     )
     .execute(async (browser, page) => {
-      const text: string = await page.$eval(
+      const text = await page.$eval(
         'div',
         element => element.textContent
       )
@@ -200,7 +200,7 @@ test('evaluate a function', async () => {
     })
     .evaluate('document.querySelector("div").textContent = "maya"')
     .execute(async (browser, page) => {
-      const text: string = await page.$eval(
+      const text = await page.$eval(
         'div',
         element => element.textContent
       )

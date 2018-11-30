@@ -39,7 +39,7 @@ export default class Retrieval extends Infrastructure {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
-          const html: string = await this.page.$eval(
+          const html = await this.page.$eval(
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
@@ -60,7 +60,7 @@ export default class Retrieval extends Infrastructure {
     return new Promise<string | null>((resolve, reject) => {
       this.push(async () => {
         try {
-          const value: string | null = await this.page.$eval(
+          const value = await this.page.$eval(
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
@@ -79,7 +79,7 @@ export default class Retrieval extends Infrastructure {
     return new Promise<string>((resolve, reject) => {
       this.push(async () => {
         try {
-          const value: string = await this.page.$eval(
+          const value = await this.page.$eval(
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
@@ -121,7 +121,7 @@ export default class Retrieval extends Infrastructure {
     return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
-          const exists: boolean = await this.page.$eval(
+          const exists = await this.page.$eval(
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
@@ -179,7 +179,7 @@ export default class Retrieval extends Infrastructure {
     return new Promise<boolean>((resolve, reject) => {
       this.push(async () => {
         try {
-          const result: string | null = await this.page.$eval(
+          const result = await this.page.$eval(
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */

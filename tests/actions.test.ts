@@ -23,7 +23,7 @@ test('click on an element', async () => {
     })
     .click('button')
     .execute(async (browser, page) => {
-      const text: string = await page.$eval(
+      const text = await page.$eval(
         'button',
         element => element.textContent
       )
@@ -52,7 +52,7 @@ test('double click on an element', async () => {
     ))
     .doubleClick('button')
     .execute(async () => {
-      const text: string = await instance.page.$eval(
+      const text = await instance.page.$eval(
         'button',
         element => element.textContent
       )
@@ -83,7 +83,7 @@ test('right click on an element', async () => {
     ))
     .rightClick('button')
     .execute(async () => {
-      const text: string = await instance.page.$eval(
+      const text = await instance.page.$eval(
         'button',
         element => element.textContent
       )
@@ -142,7 +142,7 @@ test('hover on an element', async () => {
     ))
     .hover('button')
     .execute(async () => {
-      const text: string = await instance.page.$eval(
+      const text = await instance.page.$eval(
         'button',
         element => element.textContent
       )
@@ -226,12 +226,12 @@ test('clear text on an element', async () => {
         element => (element as HTMLInputElement).value
       )
       expect(input).toBe('')
-      const textarea: string = await instance.page.$eval(
+      const textarea = await instance.page.$eval(
         'textarea',
         element => element.textContent
       )
       expect(textarea).toBe('')
-      const div: string = await instance.page.$eval(
+      const div = await instance.page.$eval(
         'div',
         element => element.textContent
       )
@@ -260,7 +260,7 @@ test('focus on an element', async () => {
     ))
     .focus('button')
     .execute(async () => {
-      const text: string = await instance.page.$eval(
+      const text = await instance.page.$eval(
         'button',
         element => element.textContent
       )
@@ -295,7 +295,7 @@ test('blur an element', async () => {
     })
     .blur('button')
     .execute(async () => {
-      const text: string = await instance.page.$eval(
+      const text = await instance.page.$eval(
         'button',
         element => element.textContent
       )
@@ -476,7 +476,7 @@ test('press a key on an element', async () => {
     ))
     .press('a')
     .execute(async () => {
-      const divText: string = await instance.page.$eval(
+      const divText = await instance.page.$eval(
         'div',
         element => element.textContent
       )
@@ -484,7 +484,7 @@ test('press a key on an element', async () => {
     })
     .press('b', 'button')
     .execute(async () => {
-      const buttonText: string = await instance.page.$eval(
+      const buttonText = await instance.page.$eval(
         'button',
         element => element.textContent
       )
@@ -516,7 +516,7 @@ test('key down on an element', async () => {
     ))
     .keyDown('a')
     .execute(async () => {
-      const text: string = await instance.page.$eval(
+      const text = await instance.page.$eval(
         'body',
         element => element.textContent
       )
@@ -548,7 +548,7 @@ test('key up on an element', async () => {
     ))
     .keyUp('a')
     .execute(async () => {
-      const text: string = await instance.page.$eval(
+      const text = await instance.page.$eval(
         'body',
         element => element.textContent
       )
