@@ -2,11 +2,11 @@ import puppeteer from 'puppeteer'
 import Infrastructure from './infrastructure'
 import { prepareStackTrace } from './utils/error'
 
-function serializeArg(arg) {
+function serializeArg(arg: any) {
   return arg === undefined ? 'undefined' : JSON.stringify(arg)
 }
 
-function serializeFunc(func: Function, ...rest) {
+function serializeFunc(func: Function, ...rest: any[]) {
   return `(${func})(${rest.map(serializeArg).join(',')})`
 }
 
@@ -115,7 +115,10 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  evaluate(fn: Function | string, ...args) {
+  evaluate<Arg extends any[]>(
+    fn: ((...args: Arg) => void) | string,
+    ...args: Arg
+  ) {
     const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
 
     this.push(
@@ -126,15 +129,15 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  evaluateWithReturn <T = any>(
-    fn: ((...args) => T) | string,
-    ...args
+  evaluateWithReturn<Arg extends any[], Ret = any>(
+    fn: ((...args: Arg) => Ret) | string,
+    ...args: Arg
   ) {
     const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
 
-    return new Promise<T>(resolve => {
+    return new Promise<Ret>(resolve => {
       this.push(async () => {
-        const returnValue: T = await this.page.evaluate(stringified)
+        const returnValue: Ret = await this.page.evaluate(stringified)
         resolve(returnValue)
       })
     })
@@ -182,7 +185,11 @@ export default class Page extends Infrastructure {
     return this
   }
 
-  waitForEvaluation(fn: string | Function, timeout?: number, ...args) {
+  waitForEvaluation<Arg extends any[]>(
+    fn: string | ((...args: Arg) => void),
+    timeout?: number,
+    ...args: Arg
+  ) {
     const stringified = typeof fn === 'string' ? fn : serializeFunc(fn, ...args)
 
     this.push(

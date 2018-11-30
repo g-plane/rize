@@ -13,8 +13,7 @@ export default class Basic extends Infrastructure {
     fn: (
       this: Infrastructure,
       browser: puppeteer.Browser,
-      page: puppeteer.Page,
-      ...args
+      page: puppeteer.Page
     ) => void
   ) {
     this.push(() => fn.call(this, this.browser, this.page), prepareStackTrace())
@@ -24,9 +23,9 @@ export default class Basic extends Infrastructure {
 
   end(): Promise<void>
 
-  end(callback: (...args) => any): void
+  end(callback: () => void): void
 
-  end(callback?: (...args) => any): Promise<void> | void {
+  end(callback?: () => void): Promise<void> | void {
     this.push(this.hooks.beforeExit.bind(this))
 
     if (callback) {

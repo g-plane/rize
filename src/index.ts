@@ -21,7 +21,7 @@ class Rize
       this.hooks[method] = options[method] || this.hooks[method]
     })
 
-    void (async () => {
+    ;(async () => {
       this.hooks.beforeLaunch()
 
       if (process.env.TRAVIS && process.platform === 'linux') {
@@ -110,7 +110,7 @@ class Rize
     this: Rize,
     browser: puppeteer.Browser,
     page: puppeteer.Page,
-    ...args
+    ...args: any[]
   ) => void) {
     return this
   }
@@ -147,9 +147,9 @@ class Rize
    * rize.end(() => console.log('Browser has exited.'))
    * ```
    */
-  end(callback: (...args) => any): void
+  end(callback: (...args: any[]) => void): void
 
-  end(callback?: (...args) => any): Promise<void> | void {
+  end(callback?: (...args: any[]) => void): Promise<void> | void {
     return
   }
 
@@ -382,7 +382,7 @@ class Rize
    * If you want to execute a function in Node.js environment,
    * please use `execute` method instead.
    *
-   * @param fn Function or expression.
+   * @param fn Function to be evaluted.
    * @param args Arguments of function.
    *
    * @since 0.1.0
@@ -394,10 +394,44 @@ class Rize
    * const rize = new Rize()
    * rize.evaluate(() => document.querySelector('div'))
    * rize.evaluate(selector => document.querySelector(selector), 'div')
+   * ```
+   */
+  evaluate<Args extends any[]>(fn: (...args: Args) => void, ...args: Args): this
+
+  /**
+   * Evaluate a function or an expression in browser.
+   *
+   * This method will *not* retrieve the return value and
+   * this method returns `this` to make API chainable.
+   * If you want to retrieve the return value,
+   * please use `evaluateWithReturn` method.
+   *
+   * Note that this function or expression will be evaluated
+   * in browser environment, not in Node.js environment.
+   * So you *can* visit variables in browser also
+   * you *cannot* visit variables in Node.js.
+   *
+   * If you want to execute a function in Node.js environment,
+   * please use `execute` method instead.
+   *
+   * @param expression Expression to be evaluated.
+   *
+   * @since 0.1.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
    * rize.evaluate('document.querySelector("div")')
    * ```
    */
-  evaluate(fn: Function | string, ...args) {
+  evaluate(expression: string): this
+
+  evaluate<Args extends any[]>(
+    fn: ((...args: Args) => void) | string,
+    ...args: Args
+  ) {
     return this
   }
 
@@ -413,7 +447,7 @@ class Rize
    * If you want to execute a function in Node.js environment,
    * please use `execute` method instead.
    *
-   * @param fn Function or expression.
+   * @param fn Function.
    * @param args Arguments of function.
    * @returns Promise-wrapped return value of the given function.
    *
@@ -426,15 +460,48 @@ class Rize
    * (async () => {
    *   const rize = new Rize()
    *   const title = await rize.evaluateWithReturn(() => document.title)
+   * })()
+   * ```
+   */
+  evaluateWithReturn<Args extends any[], Ret = any>(
+    fn: (...args: Args) => Ret,
+    ...args: Args
+  ): Promise<Ret>
+
+  /**
+   * Evaluate a function or an expression in browser
+   * and retrieve return value.
+   *
+   * Note that this function or expression will be evaluated
+   * in browser environment, not in Node.js environment.
+   * So you *can* visit variables in browser also
+   * you *cannot* visit variables in Node.js.
+   *
+   * If you want to execute a function in Node.js environment,
+   * please use `execute` method instead.
+   *
+   * @param expression Expression.
+   * @returns Promise-wrapped value of the evaluted expression.
+   *
+   * @since 0.1.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * (async () => {
+   *   const rize = new Rize()
    *   const text = await rize.evaluateWithReturn('document.body.textContent')
    * })()
    * ```
    */
-  evaluateWithReturn <T = any>(
-    fn: ((...args) => T) | string,
-    ...args
-  ): Promise<T> {
-    return Promise.resolve((fn as (...args) => T)())
+  evaluateWithReturn(expression: string): any
+
+  evaluateWithReturn<Args extends any[], Ret = any>(
+    fn: ((...args: Args[]) => Ret) | string,
+    ...args: Args
+  ): Promise<Ret> {
+    return Promise.resolve<any>(undefined)
   }
 
   /**
@@ -566,7 +633,7 @@ class Rize
    * That is, your function or expression will be evaluated in a loop until
    * the result or return value is a truthy value.
    *
-   * @param fn Expression (you should pass it as string) or function.
+   * @param fn Function.
    * @param timeout Maximum time to wait for in milliseconds.
    * @param args Arguments of function. No need for expression.
    *
@@ -578,13 +645,55 @@ class Rize
    *
    * const rize = new Rize()
    * rize.waitForEvaluation(() => window.innerWidth < 100)
-   * rize.waitForEvaluation('window.innerWidth < 100')
    * rize.waitForEvaluation(() => window.innerWidth < 100, 30000)
-   * rize.waitForEvaluation('window.innerWidth < 100', 30000)
    * rize.waitForEvaluation(width => window.innerWidth < width, 30000, 100)
    * ```
    */
-  waitForEvaluation(fn: string | Function, timeout?: number, ...args) {
+  waitForEvaluation<Args extends any[]>(
+    fn: (...args: Args) => any,
+    timeout?: number,
+    ...args: Args
+  ): this
+
+  /**
+   * Pause and wait for evaluating an expression or a function.
+   *
+   * The function or expression you given will be evaluated
+   * in *browser* not in *Node.js* environment.
+   *
+   * **NOTE**:
+   *
+   * The function or expression will be evaluated many times and puppeteer
+   * will check the result of expression or the return value of function.
+   * If the result or return value is a falsy value,
+   * your function or expression will be evaluated again.
+   * And if the result or return value is a truthy value,
+   * your function or expression won't be evaulated any more and then go ahead.
+   *
+   * That is, your function or expression will be evaluated in a loop until
+   * the result or return value is a truthy value.
+   *
+   * @param expression Expression (you should pass it as string).
+   * @param timeout Maximum time to wait for in milliseconds.
+   *
+   * @since 0.1.0
+   *
+   * @example
+   *
+   * ```javascript
+   *
+   * const rize = new Rize()
+   * rize.waitForEvaluation('window.innerWidth < 100')
+   * rize.waitForEvaluation('window.innerWidth < 100', 30000)
+   * ```
+   */
+  waitForEvaluation(expression: string, timeout?: number): this
+
+  waitForEvaluation<Args extends any[]>(
+    fn: string | ((...args: Args) => any),
+    timeout?: number,
+    ...args: Args
+  ) {
     return this
   }
 
@@ -2373,12 +2482,12 @@ class Rize
    * rize.find('div#message', rize.assertAttribute, 'id', 'message')
    * ```
    */
-  find <T, U extends any[]>(
+  find<T, U extends any[]>(
     selector: string,
     fn: (selector: string, ...args: U) => T,
     ...args: U
   ): T {
-    return fn('')
+    return fn('', ...args)
   }
 
 
@@ -2407,7 +2516,7 @@ class Rize
     fn: (selector: string, ...args: U) => T,
     ...args: U
   ): T {
-    return fn('')
+    return fn('', ...args)
   }
 
 
@@ -2442,7 +2551,7 @@ class Rize
     fn: (selector: string, ...args: U) => T,
     ...args: U
   ): T {
-    return fn('')
+    return fn('', ...args)
   }
 
 
@@ -2474,14 +2583,14 @@ class Rize
    * )
    * ```
    */
-  findWithText <T, U extends any[]>(
+  findWithText<T, U extends any[]>(
     selector: string,
     text: string,
     index: number,
     fn: (selector: string, ...args: U) => T,
     ...args: U
   ): T {
-    return fn('')
+    return fn('', ...args)
   }
 
   /**
