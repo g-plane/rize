@@ -16,8 +16,8 @@ test('click on an element', async () => {
     .execute(async (browser, page) => {
       await page.$eval(
         'button',
-        element => (element as HTMLElement).onclick = function () {
-          this.textContent = 'clicked'
+        element => (element as HTMLElement).onclick = event => {
+          (event.currentTarget as HTMLElement).textContent = 'clicked'
         }
       )
     })
@@ -46,8 +46,8 @@ test('double click on an element', async () => {
     .goto(`http://localhost:${port}/`)
     .execute(async () => await instance.page.$eval(
       'button',
-      element => (element as HTMLElement).ondblclick = function () {
-        this.textContent = 'double clicked'
+      element => (element as HTMLElement).ondblclick = event => {
+        (event.currentTarget as HTMLElement).textContent = 'double clicked'
       }
     ))
     .doubleClick('button')
@@ -75,8 +75,10 @@ test('right click on an element', async () => {
     .goto(`http://localhost:${port}/`)
     .execute(async () => await instance.page.$eval(
       'button',
-      element => (element as HTMLElement).onmouseup = function (e) {
-        if (e.button === 2) { this.textContent = 'right clicked' }
+      element => (element as HTMLElement).onmouseup = event => {
+        if (event.button === 2) {
+          (event.currentTarget as HTMLElement).textContent = 'right clicked'
+        }
       }
     ))
     .rightClick('button')
@@ -134,8 +136,8 @@ test('hover on an element', async () => {
     .goto(`http://localhost:${port}/`)
     .execute(async () => await instance.page.$eval(
       'button',
-      element => (element as HTMLElement).onmouseenter = function () {
-        this.textContent = 'hovered'
+      element => (element as HTMLElement).onmouseenter = event => {
+        (event.currentTarget as HTMLElement).textContent = 'hovered'
       }
     ))
     .hover('button')
@@ -252,8 +254,8 @@ test('focus on an element', async () => {
     .goto(`http://localhost:${port}/`)
     .execute(async () => await instance.page.$eval(
       'button',
-      element => (element as HTMLElement).onfocus = function () {
-        this.textContent = 'focused'
+      element => (element as HTMLElement).onfocus = event => {
+        (event.currentTarget as HTMLElement).textContent = 'focused'
       }
     ))
     .focus('button')
@@ -282,8 +284,8 @@ test('blur an element', async () => {
     .execute(async () => {
       await instance.page.$eval(
         'button',
-        element => (element as HTMLElement).onblur = function () {
-          this.textContent = 'blured'
+        element => (element as HTMLElement).onblur = event => {
+          (event.currentTarget as HTMLElement).textContent = 'blured'
         }
       )
       await instance.page.$eval(
@@ -338,9 +340,9 @@ test('select values on an element', async () => {
         '#multiple',
         element => {
           const el = element as HTMLSelectElement
-          const first: HTMLOptionElement = el.item(0)
-          const second: HTMLOptionElement = el.item(1)
-          const third: HTMLOptionElement = el.item(2)
+          const first = el.item(0) as HTMLOptionElement
+          const second = el.item(1) as HTMLOptionElement
+          const third = el.item(2) as HTMLOptionElement
           return [first.selected, second.selected, third.selected]
         }
       )
@@ -454,19 +456,21 @@ test('press a key on an element', async () => {
     .goto(`http://localhost:${port}/`)
     .execute(async () => await instance.page.evaluate(
       () => {
-        document.body.onkeypress = function (event) {
+        document.body.onkeypress = event => {
           if (event.key === 'a') {
-            this.querySelector('div')!.textContent = 'pressed `a`'
+            (event.currentTarget as HTMLElement)
+              .querySelector('div')!
+              .textContent = 'pressed `a`'
           }
         }
       }
     ))
     .execute(async () => await instance.page.$eval(
       'button',
-      element => (element as HTMLElement).onkeypress = function (event) {
+      element => (element as HTMLElement).onkeypress = event => {
         event.stopPropagation()
         if (event.key === 'b') {
-          this.textContent = 'pressed `b`'
+          (event.currentTarget as HTMLElement).textContent = 'pressed `b`'
         }
       }
     ))
@@ -503,9 +507,9 @@ test('key down on an element', async () => {
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => {
-        document.body.onkeydown = function (event) {
+        document.body.onkeydown = event => {
           if (event.key === 'a') {
-            this.textContent = 'key down'
+            (event.currentTarget as HTMLElement).textContent = 'key down'
           }
         }
       }
@@ -535,9 +539,9 @@ test('key up on an element', async () => {
     .goto(`http://localhost:${port}/`)
     .execute(() => instance.page.evaluate(
       () => {
-        document.body.onkeyup = function (event) {
+        document.body.onkeyup = event => {
           if (event.key === 'a') {
-            this.textContent = 'key up'
+            (event.currentTarget as HTMLElement).textContent = 'key up'
           }
         }
       }
