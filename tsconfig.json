@@ -15,7 +15,6 @@
     "declaration": true,
     "outDir": "./dist",
     "strict": true,
-    "noImplicitAny": false,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {

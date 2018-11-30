@@ -18,6 +18,7 @@ class Rize
     super()
 
     Object.keys(this.hooks).forEach(method => {
+      // @ts-ignore
       this.hooks[method] = options[method] || this.hooks[method]
     })
 
@@ -2764,6 +2765,7 @@ void [
   Retrieval
 ].forEach(module => {
   Object.getOwnPropertyNames(module.prototype).forEach(name => {
+    // @ts-ignore
     Rize.prototype[name] = module.prototype[name]
   })
 })
