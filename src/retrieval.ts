@@ -106,7 +106,7 @@ export default class Retrieval extends Infrastructure {
             `Error: failed to find element matching selector "${selector}".`
           ))
         }
-      })
+      }, prepareStackTrace())
     })
   }
 
