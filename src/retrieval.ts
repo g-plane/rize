@@ -43,7 +43,7 @@ export default class Retrieval extends Infrastructure {
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            (element, r: 'inner' | 'outer') => r === 'outer'
+            (element, r) => r === 'outer'
               ? element.outerHTML
               : element.innerHTML,
             range
@@ -64,7 +64,7 @@ export default class Retrieval extends Infrastructure {
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            (element, attr: string) => element.getAttribute(attr),
+            (element, attr) => element.getAttribute(attr),
             attribute
           )
           resolve(value)
@@ -83,7 +83,7 @@ export default class Retrieval extends Infrastructure {
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            (element, prop: string) =>
+            (element, prop) =>
               (element as HTMLElement).style.getPropertyValue(prop),
             property
           )
@@ -121,7 +121,7 @@ export default class Retrieval extends Infrastructure {
           selector,
           /* Instrumenting cannot be executed in browser. */
           /* istanbul ignore next */
-          (element, val: string) => (element as HTMLInputElement).value = val,
+          (element, val) => (element as HTMLInputElement).value = val,
           newValue
         )
       }, prepareStackTrace())
@@ -140,7 +140,7 @@ export default class Retrieval extends Infrastructure {
             selector,
             /* Instrumenting cannot be executed in browser. */
             /* istanbul ignore next */
-            (element, cls: string) => element.classList.contains(cls),
+            (element, cls) => element.classList.contains(cls),
             className
           )
           resolve(exists)
@@ -232,7 +232,7 @@ export default class Retrieval extends Infrastructure {
         selector,
         /* Instrumenting cannot be executed in browser. */
         /* istanbul ignore next */
-        (element, id: string) => element.setAttribute('data-rize', id),
+        (element, id) => element.setAttribute('data-rize', id),
         random
       )
     })
@@ -262,7 +262,7 @@ export default class Retrieval extends Infrastructure {
         selector,
         /* Instrumenting cannot be executed in browser. */
         /* istanbul ignore next */
-        (elements, i: number, id: string) =>
+        (elements, i, id) =>
           elements[i].setAttribute('data-rize', id),
         index,
         random

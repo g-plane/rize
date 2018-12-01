@@ -250,7 +250,7 @@ export default class Actions extends Infrastructure {
       await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        (element, cls: string) => element.classList.add(cls),
+        (element, cls) => element.classList.add(cls),
         className
       )
     }, prepareStackTrace())
@@ -263,7 +263,7 @@ export default class Actions extends Infrastructure {
       await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        (element, cls: string) => element.classList.remove(cls),
+        (element, cls) => element.classList.remove(cls),
         className
       )
     }, prepareStackTrace())
@@ -276,7 +276,7 @@ export default class Actions extends Infrastructure {
       await this.page.$eval(
         selector,
         /* istanbul ignore next, instrumenting cannot be executed in browser */
-        (element, cls: string) => element.classList.toggle(cls),
+        (element, cls) => element.classList.toggle(cls),
         className
       )
     }, prepareStackTrace())
