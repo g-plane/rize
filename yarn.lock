@@ -6498,9 +6498,9 @@ punycode@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
 
-puppeteer@^1.11.0:
-  version "1.11.0"
-  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-1.11.0.tgz#63cdbe12b07275cd6e0b94bce41f3fcb20305770"
+puppeteer@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-1.10.0.tgz#63cdbe12b07275cd6e0b94bce41f3fcb20305770"
   integrity sha512-iG4iMOHixc2EpzqRV+pv7o3GgmU2dNYEMkvKwSaQO/vMZURakwSOn/EYJ6OIRFYOque1qorzIBvrytPIQB3YzQ==
   dependencies:
     debug "^4.1.0"
