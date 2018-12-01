@@ -87,12 +87,12 @@ test('retrieve style', async () => {
 
 test('retrieve box model', async () => {
   const port = await getPort()
-  const server = http.createServer((req, res) => res.end`
+  const server = http.createServer((req, res) => res.end(`
     <html><body>
       <div class="visible"></div>
       <div class="invisible" style="display: none;"></div>
     </body></html>
-  `).listen(port)
+  `)).listen(port)
   const instance = new Rize()
   instance.goto(`http://localhost:${port}/`)
   await expect(instance.boxModel('.visible')).resolves.not.toBeNull()
