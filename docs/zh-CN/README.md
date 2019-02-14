@@ -35,13 +35,13 @@ npm install --save-dev puppeteer rize
 对于 Linux 或 macOS 用户：
 
 ```bash
-PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+PUPPETEER_DOWNLOAD_HOST=https://npm.taobao.org/mirrors yarn add --dev puppeteer rize
 ```
 
 Windows 用户：
 
 ```batch
-SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+SET PUPPETEER_DOWNLOAD_HOST=https://npm.taobao.org/mirrors yarn add --dev puppeteer rize
 ```
 
 对于 TypeScript 用户，您可能需要安装 `puppeteer` 的类型定义文件。这是可选的。如果您需要直接访问 puppeteer 的 API，推荐您安装它：

@@ -35,13 +35,13 @@ If you are in China, you may specify Chromium binary mirror.
 On Linux or macOS:
 
 ```bash
-PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+PUPPETEER_DOWNLOAD_HOST=https://npm.taobao.org/mirrors yarn add --dev puppeteer rize
 ```
 
 On Windows:
 
 ```batch
-SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+SET PUPPETEER_DOWNLOAD_HOST=https://npm.taobao.org/mirrors yarn add --dev puppeteer rize
 ```
 
 For TypeScript users, you may install type declarations of `puppeteer`. This is optional and it is recommended to install it if you are going to visit puppeteer's API directly:
@@ -50,7 +50,7 @@ For TypeScript users, you may install type declarations of `puppeteer`. This is 
 yarn add --dev @types/puppeteer
 ```
 
-or 
+or
 
 ```bash
 npm install --save-dev @types/puppeteer

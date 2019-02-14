@@ -37,13 +37,13 @@ If you are in China, you may specify Chromium binary mirror.
 On Linux or macOS:
 
 ```bash
-PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+PUPPETEER_DOWNLOAD_HOST=https://npm.taobao.org/mirrors yarn add --dev puppeteer rize
 ```
 
 On Windows:
 
 ```shell
-SET PUPPETEER_DOWNLOAD_HOST=https://storage.googleapis.com.cnpmjs.org yarn add --dev puppeteer rize
+SET PUPPETEER_DOWNLOAD_HOST=https://npm.taobao.org/mirrors yarn add --dev puppeteer rize
 ```
 
 ## Basic Usage
