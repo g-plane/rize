@@ -189,6 +189,7 @@ test('evaluate a function', async () => {
           element.textContent = 'syaro'
         }
       },
+      // @ts-ignore
       undefined   // Don't remove it. It is for test coverage.
     )
     .execute(async (browser, page) => {

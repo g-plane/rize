@@ -19,6 +19,7 @@
       "rize/*": ["./src/*"]
     },
     "strictFunctionTypes": false,
+    "noImplicitAny": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false
   },
