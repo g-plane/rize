@@ -6500,8 +6500,7 @@ punycode@^2.1.0:
 
 puppeteer@^1.10.0:
   version "1.10.0"
-  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-1.10.0.tgz#63cdbe12b07275cd6e0b94bce41f3fcb20305770"
-  integrity sha512-iG4iMOHixc2EpzqRV+pv7o3GgmU2dNYEMkvKwSaQO/vMZURakwSOn/EYJ6OIRFYOque1qorzIBvrytPIQB3YzQ==
+  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-1.10.0.tgz"
   dependencies:
     debug "^4.1.0"
     extract-zip "^1.6.6"
