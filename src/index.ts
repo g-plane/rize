@@ -25,11 +25,9 @@ class Rize
     ; (async () => {
       this.hooks.beforeLaunch()
 
-      if (process.env.TRAVIS && process.platform === 'linux') {
+      if (process.platform === 'linux') {
         options.args
-          ? options.args.includes('--no-sandbox')
-            ? undefined // tslint:disable-line no-unused-expression
-            : options.args.push('--no-sandbox')
+          ? (options.args.includes('--no-sandbox') || options.args.push('--no-sandbox'))
           : (options.args = ['--no-sandbox'])
       }
 

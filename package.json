@@ -31,8 +31,8 @@
     "build:docs": "yarn docs:guide && yarn docs:api",
     "docs:api": "typedoc --excludeExternals --excludePrivate --excludeProtected --name \"Rize API Documentation\" --theme minimal --out ./docs/dist/api ./src/index.ts",
     "docs:guide": "vuepress build docs",
-    "test": "jest",
-    "coverage": "jest --coverage",
+    "test": "jest --maxWorkers=1",
+    "coverage": "jest --coverage --maxWorkers=1",
     "lint": "tslint --formatters-dir ./node_modules/tslint-formatter-beauty -t beauty -p .",
     "prepublishOnly": "yarn build",
     "commit": "git-cz"
