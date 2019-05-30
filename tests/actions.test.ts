@@ -179,22 +179,20 @@ test('send character to an element', async () => {
   expect.assertions(1)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
-    <html></html>
+    <html><input></html>
   `)).listen(port)
   const instance = new Rize()
   await instance
     .goto(`http://localhost:${port}/`)
     .execute(async (browser, page) => {
       await page.evaluate(() => {
-        document.onkeypress = event => {
-          document.body.textContent = event.key
-        }
+        document.querySelector('input')!.focus()
       })
     })
     .sendChar('リ')
     .execute(async () => {
       const text: string = await instance.page.evaluate(
-        () => document.body.textContent
+        () => document.querySelector('input')!.value
       )
       expect(text).toBe('リ')
       server.close()
