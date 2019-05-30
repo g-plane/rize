@@ -76,6 +76,7 @@
     ]
   },
   "devDependencies": {
+    "@gplane/tsconfig": "^1.0.0",
     "@types/jest": "^22.2.0",
     "@types/puppeteer": "^1.10.1",
     "codecov": "^3.0.0",
@@ -90,7 +91,7 @@
     "tslint-config-gplane": "^3.1.0",
     "tslint-formatter-beauty": "^3.0.0",
     "typedoc": "^0.12.0",
-    "typescript": "^3.0.1",
+    "typescript": "^3.4.3",
     "vuepress": "^0.14.2"
   },
   "peerDependencies": {

@@ -1,7 +1,7 @@
 {
+  "extends": "@gplane/tsconfig",
   "compilerOptions": {
     "target": "es2015",
-    "module": "commonjs",
     "lib": [
       "es5",
       "es2015.collection",
@@ -12,17 +12,15 @@
       "es2016.array.include",
       "dom"
     ],
-    "declaration": true,
     "outDir": "./dist",
-    "strict": true,
-    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "rize": ["./src"],
       "rize/*": ["./src/*"]
     },
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "strictFunctionTypes": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   },
   "include": [
     "src/**/*.ts"
