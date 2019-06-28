@@ -3,8 +3,17 @@ import Infrastructure from './infrastructure'
 import { prepareStackTrace } from './utils/error'
 
 export default class Actions extends Infrastructure {
-  click(selector: string) {
-    this.push(async () => await this.page.click(selector), prepareStackTrace())
+  click(selector: string, options: { waitForNavigation?: boolean } = {}) {
+    this.push(async () => {
+      if (options.waitForNavigation) {
+        await Promise.all([
+          this.page.click(selector),
+          this.page.waitForNavigation()
+        ])
+      } else {
+        await this.page.click(selector)
+      }
+    }, prepareStackTrace())
 
     return this
   }

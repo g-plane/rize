@@ -1604,7 +1604,7 @@ class Rize
    * rize.click('button')
    * ```
    */
-  click(selector: string) {
+  click(selector: string, options: { waitForNavigation?: boolean } = {}) {
     return this
   }
 

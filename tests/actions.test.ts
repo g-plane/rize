@@ -3,11 +3,14 @@ import { getPortPromise as getPort } from 'portfinder'
 import Rize from 'rize'
 
 test('click on an element', async () => {
-  expect.assertions(1)
+  expect.assertions(2)
   const port = await getPort()
   const server = http.createServer((req, res) => res.end(`
     <html>
-      <body><button>not clicked</button></body>
+      <body>
+        <button>not clicked</button>
+        <a href="#abc">Link</a>
+      </body>
     </html>
   `)).listen(port)
   const instance = new Rize()
@@ -28,6 +31,10 @@ test('click on an element', async () => {
         element => element.textContent
       )
       expect(text).toBe('clicked')
+    })
+    .click('a', { waitForNavigation: true })
+    .execute((browser, page) => {
+      expect(page.url()).toContain('#abc')
       server.close()
     })
     .end()

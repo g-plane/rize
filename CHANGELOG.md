@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - New API: [`boxModel`](https://rize.js.org/api/classes/_index_.rize.html#boxmodel)
+- New option `waitForNavigation` for [`click`](https://rize.js.org/api/classes/_index_.rize.html#click) method, which allows to wait for a navigation after clicked.
 ### Changed
 - Enable type checking on methods `evaluate`, `evaluateWithReturn` and `waitForEvaluation`.
 
