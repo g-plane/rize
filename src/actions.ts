@@ -6,9 +6,10 @@ export default class Actions extends Infrastructure {
   click(selector: string, options: { waitForNavigation?: boolean } = {}) {
     this.push(async () => {
       if (options.waitForNavigation) {
+        // Keep "waitForNavigation" first to avoid unexpected race.
         await Promise.all([
+          this.page.waitForNavigation(),
           this.page.click(selector),
-          this.page.waitForNavigation()
         ])
       } else {
         await this.page.click(selector)
