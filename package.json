@@ -33,22 +33,14 @@
     "docs:guide": "vuepress build docs",
     "test": "jest --maxWorkers=1",
     "coverage": "jest --coverage --maxWorkers=1",
-    "prepublishOnly": "yarn build",
-    "commit": "git-cz"
+    "prepublishOnly": "yarn build"
   },
   "engines": {
     "node": ">=6.4.0"
   },
   "jest": {
     "verbose": true,
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": "./tests/tsconfig.json"
-      }
-    },
+    "preset": "ts-jest",
     "moduleNameMapper": {
       "^rize$": "<rootDir>/src/index.ts",
       "^rize/(.*)$": "<rootDir>/src/$1.ts"
@@ -79,14 +71,12 @@
     "@types/jest": "^22.2.0",
     "@types/node": "^12.0.4",
     "@types/puppeteer": "^1.10.1",
-    "codecov": "^3.0.0",
-    "commitizen": "^2.9.6",
-    "cz-conventional-changelog": "^2.1.0",
-    "jest": "^23.5.0",
-    "portfinder": "^1.0.13",
+    "codecov": "^3.5.0",
+    "jest": "^24.8.0",
+    "portfinder": "^1.0.20",
     "puppeteer": "^1.10.0",
-    "rimraf": "^2.6.2",
-    "ts-jest": "^23.1.4",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
     "typedoc": "^0.14.2",
     "typescript": "^3.4.3",
     "vuepress": "^0.14.2"
