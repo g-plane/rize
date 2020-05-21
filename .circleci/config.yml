@@ -7,7 +7,7 @@ jobs:
   install:
     <<: *defaults
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:12
     steps:
       - checkout
       - restore_cache:
@@ -24,10 +24,10 @@ jobs:
           paths:
             - .
 
-  test_on_node8:
+  test_on_node12:
     <<: *defaults
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:12-browsers
     steps:
       - attach_workspace:
           at: ~/repo
@@ -39,10 +39,10 @@ jobs:
           paths:
             - .
 
-  test_on_node10:
+  test_on_node14:
     <<: *defaults
     docker:
-      - image: circleci/node:10-browsers
+      - image: circleci/node:14-browsers
     steps:
       - attach_workspace:
           at: ~/repo
@@ -53,7 +53,7 @@ jobs:
   coverage:
     <<: *defaults
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -63,7 +63,7 @@ jobs:
   docs:
     <<: *defaults
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     working_directory: ~/repo
     steps:
       - add_ssh_keys:
@@ -109,10 +109,10 @@ workflows:
             branches:
               ignore:
                 - gh-pages
-      - test_on_node8:
+      - test_on_node12:
           requires:
             - install
-      - test_on_node10:
+      - test_on_node14:
           requires:
             - install
       - coverage:
