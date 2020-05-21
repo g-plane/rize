@@ -74,7 +74,7 @@
     "codecov": "^3.5.0",
     "jest": "^24.8.0",
     "portfinder": "^1.0.20",
-    "puppeteer": "^1.10.0",
+    "puppeteer": "^1.18.0",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "typedoc": "^0.14.2",
@@ -82,6 +82,6 @@
     "vuepress": "^1.0.2"
   },
   "peerDependencies": {
-    "puppeteer": "^1.10.0"
+    "puppeteer": "^1.18.0"
   }
 }
