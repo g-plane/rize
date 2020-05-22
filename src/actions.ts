@@ -236,13 +236,13 @@ export default class Actions extends Infrastructure {
     return this
   }
 
-  uploadFile(selector: string, path: string) {
+  uploadFile(selector: string, ...path: string[]) {
     this.push(
       async () => {
         const element = await this.page.$(selector)
         /* istanbul ignore else TODO */
         if (element) {
-          await element.uploadFile(path)
+          await element.uploadFile(...path)
         } else {
           throw new Error(
             `Error: failed to find element matching selector "${selector}".`

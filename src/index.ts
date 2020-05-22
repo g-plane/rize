@@ -2048,6 +2048,7 @@ class Rize
 
   /**
    * Send a file by the given path to an element.
+   * Multiple files can be passed with more than one argument.
    *
    * @param selector CSS selector.
    * @param path Path to file.
@@ -2062,7 +2063,7 @@ class Rize
    * rize.uploadFile('input[type="file"]', '/path/to/file')
    * ```
    */
-  uploadFile(selector: string, path: string) {
+  uploadFile(selector: string, ...path: string[]) {
     return this
   }
 
