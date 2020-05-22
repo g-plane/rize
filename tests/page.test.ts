@@ -3,25 +3,31 @@ import http from 'http'
 import { getPortPromise as getPort } from 'portfinder'
 import Rize from 'rize'
 
-test('go to a specified url', async () => {
-  expect.assertions(1)
-  const instance = new Rize({
-    afterLaunched() {
-      jest.spyOn(instance.page, 'goto').mockImplementation(() => true)
-    }
-  })
-  await instance
-    .goto('url')
-    .execute(() => {
-      expect(instance.page.goto).toBeCalledWith('url')
+test(
+  'go to a specified url',
+  async () => {
+    expect.assertions(1)
+    const instance = new Rize({
+      afterLaunched() {
+        jest
+          .spyOn(instance.page, 'goto')
+          .mockImplementation(() => Promise.resolve(null))
+      }
     })
-    .end()
-}, process.env.CI ? 8000 : 5000)
+    await instance
+      .goto('url')
+      .execute(() => {
+        expect(instance.page.goto).toBeCalledWith('url')
+      })
+      .end()
+  },
+  process.env.CI ? 8000 : 5000
+)
 
 test('open a new page', async () => {
   expect.assertions(7)
   const port = await getPort()
-  const server = http.createServer((req, res) => res.end('')).listen(port)
+  const server = http.createServer((_, res) => res.end('')).listen(port)
   const instance = new Rize()
   await instance
     .newPage()
@@ -30,8 +36,8 @@ test('open a new page', async () => {
     )
     .goto(`http://localhost:${port}/`)
     .newPage()
-    .execute(
-      (browser, page) => expect(page.url()).toBe(`http://localhost:${port}/`)
+    .execute((browser, page) =>
+      expect(page.url()).toBe(`http://localhost:${port}/`)
     )
     .execute(
       async browser => await expect(browser.pages()).resolves.toHaveLength(3)
@@ -60,9 +66,7 @@ test('switch page', async () => {
     .newPage('page1')
     .goto(`http://localhost:${port}/page1`)
     .switchPage(0)
-    .execute(
-      (browser, page) => expect(page.url()).toBe('about:blank')
-    )
+    .execute((browser, page) => expect(page.url()).toBe('about:blank'))
     .switchPage('page1')
     .execute((browser, page) => {
       expect(page.url()).toBe(`http://localhost:${port}/page1`)
@@ -80,7 +84,7 @@ test('close page', async () => {
       await expect(instance.browser.pages()).resolves.toHaveLength(1)
     })
     .newPage('page1')
-    .closePage('nope')  // Should not throw any errors
+    .closePage('nope') // Should not throw any errors
     .closePage('page1')
     .execute(async () => {
       await expect(instance.browser.pages()).resolves.toHaveLength(1)
@@ -102,7 +106,9 @@ test('go forward', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched() {
-      jest.spyOn(instance.page, 'goForward').mockImplementation(() => true)
+      jest
+        .spyOn(instance.page, 'goForward')
+        .mockImplementation(() => Promise.resolve(null))
     }
   })
   await instance
@@ -116,7 +122,7 @@ test('go forward', async () => {
         (instance.page.goForward as ((
           options?: puppeteer.NavigationOptions
         ) => Promise<puppeteer.Response>) &
-          jest.MockInstance<any>).mock.calls[1][0]
+          jest.MockInstance<any, any[]>).mock.calls[1][0]
       ).toEqual({ timeout: 1 })
     })
     .end()
@@ -126,7 +132,9 @@ test('go back', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched() {
-      jest.spyOn(instance.page, 'goBack').mockImplementation(() => true)
+      jest
+        .spyOn(instance.page, 'goBack')
+        .mockImplementation(() => Promise.resolve(null))
     }
   })
   await instance
@@ -140,7 +148,7 @@ test('go back', async () => {
         (instance.page.goBack as ((
           options?: puppeteer.NavigationOptions
         ) => Promise<puppeteer.Response>) &
-          jest.MockInstance<any>).mock.calls[1][0]
+          jest.MockInstance<any, any[]>).mock.calls[1][0]
       ).toEqual({ timeout: 1 })
     })
     .end()
@@ -150,7 +158,9 @@ test('refresh page', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched() {
-      jest.spyOn(instance.page, 'reload').mockImplementation(() => true)
+      jest
+        .spyOn(instance.page, 'reload')
+        .mockImplementation(() => Promise.resolve({} as puppeteer.Response))
     }
   })
   await instance
@@ -164,7 +174,7 @@ test('refresh page', async () => {
         (instance.page.reload as ((
           options?: puppeteer.NavigationOptions
         ) => Promise<puppeteer.Response>) &
-          jest.MockInstance<any>).mock.calls[1][0]
+          jest.MockInstance<any, any[]>).mock.calls[1][0]
       ).toEqual({ timeout: 1 })
     })
     .end()
@@ -176,10 +186,7 @@ test('evaluate a function', async () => {
   await instance
     .evaluate(text => document.write(`<div>${text}</div>`), 'rize')
     .execute(async (browser, page) => {
-      const text = await page.$eval(
-        'div',
-        element => element.textContent
-      )
+      const text = await page.$eval('div', element => element.textContent)
       expect(text).toBe('rize')
     })
     .evaluate(
@@ -190,21 +197,15 @@ test('evaluate a function', async () => {
         }
       },
       // @ts-ignore
-      undefined   // Don't remove it. It is for test coverage.
+      undefined // Don't remove it. It is for test coverage.
     )
     .execute(async (browser, page) => {
-      const text = await page.$eval(
-        'div',
-        element => element.textContent
-      )
+      const text = await page.$eval('div', element => element.textContent)
       expect(text).toBe('syaro')
     })
     .evaluate('document.querySelector("div").textContent = "maya"')
     .execute(async (browser, page) => {
-      const text = await page.$eval(
-        'div',
-        element => element.textContent
-      )
+      const text = await page.$eval('div', element => element.textContent)
       expect(text).toBe('maya')
     })
     .end()
@@ -212,18 +213,22 @@ test('evaluate a function', async () => {
 
 test('evaluate a funtion and retrieve return value', async () => {
   const port = await getPort()
-  const server = http.createServer((req, res) => res.end(`
+  const server = http
+    .createServer((req, res) =>
+      res.end(`
     <html><head><title>rize</title></head></html>
-  `)).listen(port)
+  `)
+    )
+    .listen(port)
   const instance = new Rize()
   instance.goto(`http://localhost:${port}/`)
-  await expect(instance.evaluateWithReturn(() => document.title))
-    .resolves.toBe('rize')
-  await expect(instance.evaluateWithReturn('document.title'))
-    .resolves.toBe('rize')
-  await instance
-    .execute(() => server.close())
-    .end()
+  await expect(instance.evaluateWithReturn(() => document.title)).resolves.toBe(
+    'rize'
+  )
+  await expect(instance.evaluateWithReturn('document.title')).resolves.toBe(
+    'rize'
+  )
+  await instance.execute(() => server.close()).end()
 })
 
 test('use user agent', async () => {
@@ -242,7 +247,9 @@ test('generate a screenshot', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched() {
-      jest.spyOn(instance.page, 'screenshot').mockImplementation(() => true)
+      jest
+        .spyOn(instance.page, 'screenshot')
+        .mockImplementation(() => Promise.resolve(''))
     }
   })
   await instance
@@ -252,8 +259,10 @@ test('generate a screenshot', async () => {
     })
     .saveScreenshot('file2', { type: 'jpeg' })
     .execute(() => {
-      expect(instance.page.screenshot as (typeof instance.page.screenshot) &
-        jest.MockInstance<any>).toBeCalledWith({ path: 'file2', type: 'jpeg' })
+      expect(
+        instance.page.screenshot as typeof instance.page.screenshot &
+          jest.MockInstance<any, any[]>
+      ).toBeCalledWith({ path: 'file2', type: 'jpeg' })
     })
     .end()
 })
@@ -262,7 +271,9 @@ test('generate a PDF', async () => {
   expect.assertions(2)
   const instance = new Rize({
     afterLaunched() {
-      jest.spyOn(instance.page, 'pdf').mockImplementation(() => true)
+      jest
+        .spyOn(instance.page, 'pdf')
+        .mockImplementation(() => Promise.resolve({} as Buffer))
     }
   })
   await instance
@@ -272,11 +283,13 @@ test('generate a PDF', async () => {
     })
     .savePDF('file2', { format: 'Letter' })
     .execute(() => {
-      expect(instance.page.pdf as (typeof instance.page.pdf) &
-        jest.MockInstance<any>).toBeCalledWith({
-          path: 'file2',
-          format: 'Letter'
-        })
+      expect(
+        instance.page.pdf as typeof instance.page.pdf &
+          jest.MockInstance<any, any[]>
+      ).toBeCalledWith({
+        path: 'file2',
+        format: 'Letter'
+      })
     })
     .end()
 })
@@ -285,9 +298,13 @@ test('wait for navigation', async () => {
   expect.assertions(1)
   const port1 = 2333
   const port2 = 23333
-  const server1 = http.createServer((req, res) => res.end(`
+  const server1 = http
+    .createServer((req, res) =>
+      res.end(`
     <a href="http://localhost:${port2}"></a>
-  `)).listen(port1)
+  `)
+    )
+    .listen(port1)
   const server2 = http.createServer((req, res) => res.end('')).listen(port2)
 
   const instance = new Rize()
@@ -308,9 +325,13 @@ test('wait for navigation', async () => {
 
 test('wait for an element', async () => {
   const port = await getPort()
-  const server = http.createServer((req, res) => res.end(`
+  const server = http
+    .createServer((req, res) =>
+      res.end(`
     <div></div>
-  `)).listen(port)
+  `)
+    )
+    .listen(port)
 
   const instance = new Rize()
   await instance
@@ -357,9 +378,9 @@ test('set headers', async () => {
     })
     .withHeaders({ 'X-Requested-With': 'XMLHttpRequest' })
     .execute(() => {
-      expect(instance.page.setExtraHTTPHeaders).toBeCalledWith(
-        { 'X-Requested-With': 'XMLHttpRequest' }
-      )
+      expect(instance.page.setExtraHTTPHeaders).toBeCalledWith({
+        'X-Requested-With': 'XMLHttpRequest'
+      })
     })
     .end()
 })
@@ -375,11 +396,8 @@ test('add script tag', async () => {
     })
     .addScriptTag('content', '', { esModule: true })
     .execute(async (browser, page) => {
-      const hasTag: boolean = await page.$$eval(
-        'script',
-        tags => Array
-          .from(tags)
-          .some(tag => tag.getAttribute('type') === 'module')
+      const hasTag: boolean = await page.$$eval('script', tags =>
+        Array.from(tags).some(tag => tag.getAttribute('type') === 'module')
       )
       expect(hasTag).toBe(true)
     })
