@@ -3,7 +3,9 @@ import puppeteer from 'puppeteer'
 import { beautifyStack } from './utils/error'
 
 export default class Infrastructure {
+  /** @internal */
   protected queue: symbol[] = []
+  /** @internal */
   protected eventBus = new EventEmitter()
 
   protected hooks = {
