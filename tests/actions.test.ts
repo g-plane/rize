@@ -641,7 +641,7 @@ test('upload file', async () => {
   const instance = new Rize()
   await instance
     .goto(`http://localhost:${port}/`)
-    .uploadFile('input', 'file')
+    .uploadFile('input', 'package.json')
     .execute(() => server.close())
     .end()
 })
