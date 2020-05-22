@@ -117,7 +117,7 @@ workflows:
             - install
       - coverage:
           requires:
-            - test_on_node8
+            - test_on_node12
       - docs:
           requires:
             - install
